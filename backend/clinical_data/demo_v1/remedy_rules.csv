@@ -1,0 +1,3 @@
+code,subjectType,subjectCode,targetType,targetValue,reasonFr,reasonAr,source
+RR1,REMEDY,REM_STEAM,AGE_BELOW_MONTHS,72,Risque de brûlure chez les jeunes enfants.,خطر الحروق عند الأطفال الصغار.,DEMO — not validated
+RR2,REMEDY,REM_SALT_GARGLE,AGE_BELOW_MONTHS,72,Les jeunes enfants ne savent pas se gargariser sans avaler.,الأطفال الصغار لا يستطيعون الغرغرة دون البلع.,DEMO — not validated

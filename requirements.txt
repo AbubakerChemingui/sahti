@@ -2,4 +2,5 @@
 fastapi==0.162.0
 uvicorn==0.54.0
 httpx==0.28.1        # used by FastAPI's TestClient
+cryptography==46.0.3  # AES-256-GCM for health data (SRS SEC-06)
 pytest==9.2.0

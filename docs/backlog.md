@@ -1,0 +1,22 @@
+# Product backlog and MVP status
+
+The user stories come from the [Requirements Elicitation document §9](reference/RE.md). Their acceptance criteria are written as Given/When/Then; the matching FR/NFR requirements are in the [SRS](reference/SRS.md). Priorities use MoSCoW. **MVP** is what the course demo (2026-11-04) runs; see [ADR 0004](decisions/0004-mvp-web-client-and-technical-choices.md) for what is simplified.
+
+| Story | Priority | MVP status | Where it is checked |
+|---|---|---|---|
+| **US-01 Account**: sign-up with 18+, consent and disclaimer; under 18 refused | Must | ✅ Done. Language choice at the bottom of the sign-up screen; login and logout; account deletion | `test_api.py::test_register_validation_and_login`, `test_profile_needs_consent` |
+| **US-02 My profile**: allergies, conditions, medicines; free text allowed | Must | ✅ Done. Coded lists plus free text "Other". An uncoded medicine or allergy blocks all medicines (I6-Q2) | `test_profile_validation`, `test_uncoded_medication_blocks_every_medicine_but_keeps_remedies` |
+| **US-03 Child profile**: weight required; under 2 → doctor | Must | ✅ Done. "Are you sure of this weight?" → lower dose band (I7-Q1); under 2 years → `REFERRAL_AGE` without questions | `test_uncertain_child_weight_uses_the_lower_band`, `test_baby_profile_is_referred_and_acknowledged` |
+| **US-04 Guided questions**: one at a time, adaptive, stop when confident, resume | Must | ✅ Done. Expected-information-gain question choice; stop at 85 %; back button (undo, RV-35); resume from history; expiry after 24 h with a one-time message (RV-32) | `test_each_demo_illness_is_reached…`, `test_expired_consultation_is_reported_once` |
+| **US-05 Danger signs**: dangerous → notice with 190 / 198, kept on every screen | Must | ✅ Done. URGENT = "see a doctor"; EMERGENCY = "dangerous" + 190 and 198; the consultation continues (I7-Q4); the notice is never removed, not even by undo | `test_emergency_notice_persists_and_consultation_continues`, `test_undo_keeps_the_danger_notice` |
+| **US-06 Likely illness** with confidence and reasons; below 60 % → uncertain | Must | ✅ Done. Leave-one-out reasons; UNCERTAIN path keeps only items common to all still-likely illnesses; out of scope → referral | `test_uncertain_result_only_gives_items_common…`, `test_no_symptom_matches_gives_out_of_scope…` |
+| **US-07 Safe medicine, dose and timing** | Must | ✅ Done (demo data). Contraindications (allergy group, condition, pregnancy incl. "not sure", anticoagulant, alcohol); same ingredient not doubled; exact band, schedule, meal moment, maximum days. The demo data has no rule for high blood pressure | `test_allergy_blocks…`, `test_pregnancy_yes_or_not_sure…`, `test_child_gets_the_exact_syrup_band` |
+| **US-08 Natural remedies**, shown first, with their own safety rules | Must | ✅ Done. Remedies come before medicines (FR-45); steam and gargle blocked under 6 years | `test_fr45_remedies_come_before_medicines…`, `test_steam_is_blocked_for_young_children` |
+| **US-09 History** with date and result | Should | ✅ Done. List per profile; re-open a past result read-only | `test_full_consultation_with_own_words_and_history` |
+| **US-10 Language**: FR and MSA, RTL, digits 0–9 | Must | ✅ Done (web). Switch on sign-up and in Settings; Arabic needs native review (DQ-03) | browser run-through, screenshots |
+| **US-11 My own words**: converted answers confirmed; danger words confirmed first | Must | ✅ Done with the keyword baseline (fine-tuned reader pending OQ-07). Names, emails and phones are removed before conversion | `test_own_words_are_only_used_after_confirmation`, `test_danger_words_are_confirmed_before_any_conversion` |
+| **US-12 Prescription needed** | Should | ✅ Done. Pattern → message at the top; no prescription medicine named | `test_prescription_pattern_sets_the_flag` |
+| Clinical data import and activation (UC-06, FR-39, FR-40) | Must (v1) | ⏳ Partly. The bundle is validated at start-up (§8.7) and DRAFT data is refused in a public deployment; the admin import/activate API is not built yet | `test_clinical_data.py` |
+| Flutter Android app (design ADR-10) | Must (v1) | ⏳ Not started. The web client stands in (ADR 0004) | — |
+| Trained classifier and fine-tuned text reader (§10) | Must (v1) | ⏳ Not started. Stand-ins with the same interfaces | — |
+| 20 illnesses with pharmacist-reviewed data | Must (v1) | ⏳ Blocked on a clinical source and reviewer (OQ-01 – OQ-05) | — |

@@ -1,0 +1,20 @@
+dangerSignCode,language,phrase
+DS_BREATHING,fr,du mal à respirer
+DS_BREATHING,fr,difficulté à respirer
+DS_BREATHING,fr,je n'arrive pas à respirer
+DS_BREATHING,fr,j'étouffe
+DS_BREATHING,fr,essoufflé
+DS_BREATHING,ar,صعوبة في التنفس
+DS_BREATHING,ar,ضيق في التنفس
+DS_BREATHING,ar,لا أستطيع التنفس
+DS_BREATHING,dialect,ma najjamch nitnaffes
+DS_BREATHING,dialect,ما نجمش نتنفس
+DS_CHEST_PAIN,fr,douleur dans la poitrine
+DS_CHEST_PAIN,fr,mal à la poitrine
+DS_CHEST_PAIN,ar,ألم في الصدر
+DS_STIFF_NECK,fr,nuque raide
+DS_STIFF_NECK,ar,تصلب الرقبة
+DS_SUDDEN_HEADACHE,fr,pire mal de tête de ma vie
+DS_SUDDEN_HEADACHE,ar,أسوأ صداع في حياتي
+DS_BLOOD_STOOL,fr,sang dans les selles
+DS_BLOOD_STOOL,ar,دم في البراز
