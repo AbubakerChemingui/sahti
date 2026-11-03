@@ -1,0 +1,102 @@
+# =============================================================================
+# .gitignore — starter for mixed stacks.
+# Keep the sections you use; delete the rest. See stack-appendices/ for more.
+# Golden rule: never commit secrets, build output, or dependency folders.
+# =============================================================================
+
+# --- Secrets & local environment (NEVER commit these) -----------------------
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets.*
+.DS_Store
+Thumbs.db
+
+# --- Editor / IDE ------------------------------------------------------------
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.sample.json
+.idea/
+*.swp
+*.swo
+*~
+
+# --- Logs & temp -------------------------------------------------------------
+*.log
+logs/
+tmp/
+.cache/
+coverage/
+.coverage
+htmlcov/
+
+# =============================================================================
+# Node / JavaScript / TypeScript  (web apps)
+# =============================================================================
+node_modules/
+dist/
+build/
+.next/
+out/
+.turbo/
+.parcel-cache/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# =============================================================================
+# Python  (backend / data / ML)
+# =============================================================================
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# Data & model artifacts — too big / not for git.
+# (CSV stays allowed: clinical data bundles and test fixtures are CSV.)
+# *.csv
+*.parquet
+*.h5
+*.pkl
+*.safetensors
+*.onnx
+models/
+data/raw/
+
+# Local SQLite database of the demo (contains health data — never commit)
+*.db
+*.sqlite3
+
+# =============================================================================
+# Java / Kotlin / Android
+# =============================================================================
+*.class
+target/
+.gradle/
+local.properties
+*.apk
+*.aab
+
+# =============================================================================
+# iOS / Swift / macOS
+# =============================================================================
+DerivedData/
+*.xcuserstate
+Pods/
+
+# =============================================================================
+# Flutter / Dart
+# =============================================================================
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies

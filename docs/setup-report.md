@@ -1,0 +1,75 @@
+# Lab 6 — Setup Report
+
+**Project:** Sahti (صحتك) · **Date:** 2026-11-03 · **Course:** CS 488 — AI-First Software Engineering
+
+## 1. Repository and members
+
+- **Repo URL:** https://github.com/AbubakerChemingui/sahti-- (private)
+- **Members:** Abubaker — GitHub [@AbubakerChemingui](https://github.com/AbubakerChemingui) — product owner and sole developer
+
+**One-person adaptation.** The lab is written for teams of 2–4. Sahti has one member, so:
+- **Collaborators:** none to add.
+- **Branch protection:** `main` requires a pull request and the **CI** status check, with **0 required approvals**, because GitHub does not let an author approve their own pull request. Review is a self-review against the PR checklist, done after a break (as Lab 4 §6.3 allows for one-person projects).
+- **"Every member merged a PR":** satisfied by the owner's own PR (§4).
+
+## 2. Stack
+
+Flutter (Android) app · **Python 3.12 + FastAPI** backend · SQLite (demo) / PostgreSQL (pilot) · pytest. Reason in one line: the AI models are trained and served in Python, so one server language keeps a solo, zero-budget project small. Full record: [ADR 0002](decisions/0002-backend-python-fastapi.md); design decisions: [ADR 0003](decisions/0003-design-phase-decisions.md).
+
+## 3. What was set up
+
+| Lab step | Done |
+|---|---|
+| 1. Repo from the starter template | ✅ template contents; `TODO: pushed to GitHub` |
+| 2. Setup script, `.env` local and not tracked | ✅ `./scripts/setup.sh`; `.env` ignored by `.gitignore` (checked with `git status`) |
+| 3. `AI_CONTEXT.md` | ✅ project summary, stack with versions, structure, conventions, **safety rules**, glossary |
+| 4. Stack appendix + design | ✅ Python appendix applied (`requirements.txt`, pytest, `pytest.ini`); data/model/database files added to `.gitignore`; `stack-appendices/` deleted; `docs/architecture.md` with 4 Mermaid diagrams from the Lab 5 design; ADRs 0002 and 0003; full RE/SRS/SDD in `docs/reference/` |
+| 5. Safe workflow | `TODO:` branch protection + first PR (§4) |
+| 6. Verify | ✅ clean-clone test passed (§5); `TODO:` screenshots |
+
+## 4. Merged PR and CI run
+
+- **PR:** `TODO: link` — "docs: add owner to README team list" (branch `docs/abubaker-intro`)
+- **Screenshot of the merged PR:** `TODO: docs/images/merged-pr.png`
+- **Screenshot of the green CI run:** `TODO: docs/images/ci-green.png`
+
+## 5. Verification (clean-clone test)
+
+A fresh copy of the repository was set up by following only the README's "Getting started" steps:
+- `pip install -r requirements.txt` → success;
+- `pytest` → **4 passed**;
+- `GET /api/v1/health` → `{"status": "ok", "activeDataVersion": null, "modelVersion": null}`.
+
+`TODO: repeat on GitHub after pushing (Actions tab).`
+
+## 6. AI assistants
+
+**How they are configured.** `AI_CONTEXT.md` is the single source of truth. `CLAUDE.md`, `.github/copilot-instructions.md`, `.cursor/rules/project.mdc` and `.cursorrules` all point to it, so every assistant gets the same project summary, stack, folder layout, conventions and, most importantly for a medical app, the **safety rules** (AI never chooses medicines or doses; no calculated doses; danger notices can't be removed; no external AI services). `CLAUDE.md` adds the real install, run and test commands.
+
+**Test of the context (Lab 6 Step 3).** Prompt given to Claude with this repository open:
+
+> *"Based on this project's context, suggest the folder and file where I'd add the login feature, and what conventions to follow."*
+
+Summary of the answer:
+- **Where:** a new `backend/app/auth/` package, with `router.py` for `POST /api/v1/auth/login` (SRS API-02) and `/auth/register`, `/auth/refresh` (API-01, API-03), `service.py` for password checking and token creation, `schemas.py` for the request and response models, and tests in `backend/tests/test_auth.py`, named after the requirements (`test_fr01_…`).
+- **Rules to follow:**
+  - email + password;
+  - 15-minute access token and 30-day rotating refresh token, stored hashed (SEC-01);
+  - after 5 failed logins in 15 minutes, a 15-minute wait (SEC-02);
+  - a login error must not reveal whether the email exists;
+  - secrets only from `.env` (`SAHTI_JWT_SECRET`);
+  - no email or password in logs (NFR-09);
+  - `snake_case` in Python and `camelCase` JSON fields;
+  - error codes from SRS §14 (`E-AUTH-003`);
+  - tests first;
+  - a `docs/CHANGELOG.md` line.
+
+**Why this shows the context works.** A generic assistant would suggest a generic `src/login.py`. This answer used our folder layout, our SRS IDs, our token lifetimes, our error codes and our logging rule, all of which exist only in `AI_CONTEXT.md` and the documents it links.
+
+## 7. Still TODO before implementation starts
+
+- Generate the Flutter project in `mobile/` and add a Flutter job to CI.
+- Add ruff (lint and format) to CI.
+- Clinical data: no source or reviewer yet (OQ-01 – OQ-05). Build with DRAFT fixture data only.
+- Text-reader bake-off (OQ-07) and training data.
+- Licence: the template's MIT licence is kept for now. Reconsider before making the repo public, given the plan to turn Sahti into a product.
