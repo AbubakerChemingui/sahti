@@ -2,7 +2,7 @@
 
 > An Android app that helps adults in Tunisia handle the 20 most common minor illnesses for themselves or their children. It shows natural remedies first, then safe over-the-counter medicines with exact doses, and refers to a doctor whenever something is serious or unclear.
 
-**Team:** Abubaker (solo project — product owner and developer)
+**Team:** Abubaker ([@AbubakerChemingui](https://github.com/AbubakerChemingui)) — solo project: product owner and developer
 **Course:** CS 488 — AI-First Software Engineering, MUST University
 **Status:** 🚧 In development — requirements and design done; implementation starting
 

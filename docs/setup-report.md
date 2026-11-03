@@ -20,7 +20,7 @@ Flutter (Android) app · **Python 3.12 + FastAPI** backend · SQLite (demo) / Po
 
 | Lab step | Done |
 |---|---|
-| 1. Repo from the starter template | ✅ template contents; `TODO: pushed to GitHub` |
+| 1. Repo from the starter template | ✅ pushed to https://github.com/AbubakerChemingui/sahti-- (`main`, first CI run green: [run 41714203765](https://github.com/AbubakerChemingui/sahti--/actions/runs/41714203765)) |
 | 2. Setup script, `.env` local and not tracked | ✅ `./scripts/setup.sh`; `.env` ignored by `.gitignore` (checked with `git status`) |
 | 3. `AI_CONTEXT.md` | ✅ project summary, stack with versions, structure, conventions, **safety rules**, glossary |
 | 4. Stack appendix + design | ✅ Python appendix applied (`requirements.txt`, pytest, `pytest.ini`); data/model/database files added to `.gitignore`; `stack-appendices/` deleted; `docs/architecture.md` with 4 Mermaid diagrams from the Lab 5 design; ADRs 0002 and 0003; full RE/SRS/SDD in `docs/reference/` |
