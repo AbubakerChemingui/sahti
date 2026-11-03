@@ -39,23 +39,26 @@ Flutter (Android) app (v1) · web client for the MVP · Python 3.12 + FastAPI ba
 
 You need **Python 3.10 or newer** and **git**. The `.env` file is optional: without it, the app uses safe local defaults.
 
-### Windows (PowerShell or Command Prompt)
+### Windows (PowerShell)
+
+Open a normal (not administrator) terminal. If it starts in `C:\WINDOWS\system32`, run `cd $HOME\Documents` first: Windows doesn't let you create folders there.
 
 ```powershell
-# 1. Clone and enter the repo
+# 1. Clone and enter the repo (the repo is private: Git may open a browser to sign in to GitHub)
+cd $HOME\Documents
 git clone https://github.com/AbubakerChemingui/sahti.git
 cd sahti
 
 # 2. Create a virtual environment and install the dependencies
 #    (if "python" opens the Microsoft Store, use "py" instead of "python")
 python -m venv .venv
-.venv\Scripts\python -m pip install -r requirements.txt
+.\.venv\Scripts\python -m pip install -r requirements.txt
 
 # 3. Run the app, then open http://127.0.0.1:8000/ in your browser
-.venv\Scripts\python -m uvicorn app.main:app --app-dir backend
+.\.venv\Scripts\python -m uvicorn app.main:app --app-dir backend
 
 # 4. Run the tests (in a second terminal, inside the sahti folder)
-.venv\Scripts\python -m pytest
+.\.venv\Scripts\python -m pytest
 ```
 
 These commands call the virtual environment's Python directly, so you don't need to activate it. This also avoids PowerShell's "running scripts is disabled" error.
