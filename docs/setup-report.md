@@ -4,12 +4,12 @@
 
 ## 1. Repository and members
 
-- **Repo URL:** https://github.com/AbubakerChemingui/sahti-- (private)
+- **Repo URL:** https://github.com/AbubakerChemingui/sahti (private; first created as `sahti--`, renamed — GitHub redirects the old links)
 - **Members:** Abubaker — GitHub [@AbubakerChemingui](https://github.com/AbubakerChemingui) — product owner and sole developer
 
 **One-person adaptation.** The lab is written for teams of 2–4. Sahti has one member, so:
 - **Collaborators:** none to add.
-- **Branch protection:** planned rule for `main`: require a pull request and the **CI** status check, with **0 required approvals**, because GitHub does not let an author approve their own pull request. **Status:** GitHub refuses branch protection on a *private* repository of a free personal account (API answer: "Upgrade to GitHub Pro or make this repository public to enable this feature"). `TODO: enable it after getting GitHub Pro (free through the GitHub Student Developer Pack) or making the repo public.` Until then, the rule is followed by convention: every change goes through a PR with a green CI check, as PR #1 shows. Review is a self-review against the PR checklist, done after a break (as Lab 4 §6.3 allows for one-person projects).
+- **Branch protection:** planned rule for `main`: require a pull request and the **CI** status check, with **0 required approvals**, because GitHub does not let an author approve their own pull request. **Status:** GitHub refuses branch protection on a *private* repository of a free personal account (API answer: "Upgrade to GitHub Pro or make this repository public to enable this feature"). `TODO: enable it after getting GitHub Pro (free through the GitHub Student Developer Pack) or making the repo public.` Until then, the rule is followed by convention: changes go through a PR with a green CI check, as PRs #1 and #2 show. One exception so far: the README title was edited directly on GitHub (commit `02d038a`, CI also green), which protection would have prevented. Review is a self-review against the PR checklist, done after a break (as Lab 4 §6.3 allows for one-person projects).
 - **"Every member merged a PR":** satisfied by the owner's own PR (§4).
 
 ## 2. Stack
@@ -20,18 +20,22 @@ Flutter (Android) app · **Python 3.12 + FastAPI** backend · SQLite (demo) / Po
 
 | Lab step | Done |
 |---|---|
-| 1. Repo from the starter template | ✅ pushed to https://github.com/AbubakerChemingui/sahti-- (`main`, first CI run green: [run 41714203765](https://github.com/AbubakerChemingui/sahti--/actions/runs/41714203765)) |
+| 1. Repo from the starter template | ✅ pushed to https://github.com/AbubakerChemingui/sahti (`main`, first CI run green: [run 41714203765](https://github.com/AbubakerChemingui/sahti/actions/runs/41714203765)) |
 | 2. Setup script, `.env` local and not tracked | ✅ `./scripts/setup.sh`; `.env` ignored by `.gitignore` (checked with `git status`) |
 | 3. `AI_CONTEXT.md` | ✅ project summary, stack with versions, structure, conventions, **safety rules**, glossary |
 | 4. Stack appendix + design | ✅ Python appendix applied (`requirements.txt`, pytest, `pytest.ini`); data/model/database files added to `.gitignore`; `stack-appendices/` deleted; `docs/architecture.md` with 4 Mermaid diagrams from the Lab 5 design; ADRs 0002 and 0003; full RE/SRS/SDD in `docs/reference/` |
-| 5. Safe workflow | ✅ first PR opened, CI green, merged ([#1](https://github.com/AbubakerChemingui/sahti--/pull/1)); ⚠️ branch protection blocked by the free plan for private repos (§1) |
-| 6. Verify | ✅ clean-clone test passed (§5); `TODO:` screenshots |
+| 5. Safe workflow | ✅ first PR opened, CI green, merged ([#1](https://github.com/AbubakerChemingui/sahti/pull/1)); ⚠️ branch protection blocked by the free plan for private repos (§1) |
+| 6. Verify | ✅ clean-clone test passed (§5); screenshots in §4 |
 
 ## 4. Merged PR and CI run
 
-- **PR:** [#1 — docs: add owner to README team list](https://github.com/AbubakerChemingui/sahti--/pull/1) (branch `docs/abubaker-intro`), CI [green](https://github.com/AbubakerChemingui/sahti--/actions/runs/41714396194), squash-merged into `main`
-- **Screenshot of the merged PR:** `TODO: docs/images/merged-pr.png`
-- **Screenshot of the green CI run:** `TODO: docs/images/ci-green.png`
+- **PR:** [#1 — docs: add owner to README team list](https://github.com/AbubakerChemingui/sahti/pull/1) (branch `docs/abubaker-intro`), CI [green](https://github.com/AbubakerChemingui/sahti/actions/runs/41714396194), squash-merged into `main`
+- **Screenshot of the merged PR:**
+
+  ![Merged pull request #1](images/merged-pr.png)
+- **Screenshot of the green CI runs** (all 6 runs green, on PR branches and on `main`):
+
+  ![Green CI runs in the Actions tab](images/ci-green.png)
 
 ## 5. Verification (clean-clone test)
 
@@ -40,7 +44,7 @@ A fresh copy of the repository was set up by following only the README's "Gettin
 - `pytest` → **4 passed**;
 - `GET /api/v1/health` → `{"status": "ok", "activeDataVersion": null, "modelVersion": null}`.
 
-On GitHub: the CI run on `main` passed ([run 41714203765](https://github.com/AbubakerChemingui/sahti--/actions/runs/41714203765)): Python 3.12, dependencies installed, 4 tests passed, docs reminder ran.
+On GitHub: the CI run on `main` passed ([run 41714203765](https://github.com/AbubakerChemingui/sahti/actions/runs/41714203765)): Python 3.12, dependencies installed, 4 tests passed, docs reminder ran.
 
 ## 6. AI assistants
 
