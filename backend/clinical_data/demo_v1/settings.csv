@@ -1,0 +1,7 @@
+key,value
+uncertainThreshold,60
+stopTarget,85
+epsilon,0.01
+stillLikelyMass,0.90
+uncertainWeightMarginKg,3
+outOfScopePrior,0.10

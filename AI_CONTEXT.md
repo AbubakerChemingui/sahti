@@ -38,6 +38,7 @@ Design documents (source of truth for behaviour):
 ## 3. Project structure
 
 - `backend/app/` — FastAPI application. Planned modules (SDD §2.3): `auth`, `profiles`, `consultation` (orchestrator), `danger_signs`, `triage` (AI), `rules_engine`, `clinical_data`, `history`, `audit`, `observability`.
+- `backend/clinical_data/<bundle>/` — clinical data as CSV (MVP: `demo_v1`, DRAFT). `backend/web/` — MVP web client (ADR 0004).
 - `backend/tests/` — pytest tests, incl. the safety suite `TC-SAFE-*` (SRS §16.2), which runs with the AI replaced by a stub.
 - `mobile/` — Flutter app (to be generated).
 - `docs/` — architecture, decisions (ADRs), setup, changelog; `reference/` holds the full requirements and design documents.

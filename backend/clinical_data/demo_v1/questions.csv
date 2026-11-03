@@ -1,0 +1,21 @@
+code,textFr,textAr,answerType,min,max,unit,labelFr,labelAr
+Q_FEVER,Avez-vous de la fièvre ?,هل لديك حمى؟,YES_NO_UNSURE,,,,Fièvre,حمى
+Q_RUNNY_NOSE,Avez-vous le nez qui coule ou bouché ?,هل لديك سيلان أو انسداد في الأنف؟,YES_NO_UNSURE,,,,Nez qui coule ou bouché,سيلان أو انسداد الأنف
+Q_SNEEZING,Éternuez-vous souvent ?,هل تعطس كثيرًا؟,YES_NO_UNSURE,,,,Éternuements,عطس
+Q_SORE_THROAT,Avez-vous mal à la gorge ?,هل تشعر بألم في الحلق؟,YES_NO_UNSURE,,,,Mal de gorge,ألم في الحلق
+Q_PAIN_SWALLOWING,Avez-vous mal en avalant ?,هل تشعر بألم عند البلع؟,YES_NO_UNSURE,,,,Douleur en avalant,ألم عند البلع
+Q_COUGH,Toussez-vous ?,هل تسعل؟,YES_NO_UNSURE,,,,Toux,سعال
+Q_HEADACHE,Avez-vous mal à la tête ?,هل لديك صداع؟,YES_NO_UNSURE,,,,Mal de tête,صداع
+Q_HEAD_BAND,La douleur serre-t-elle la tête comme un bandeau ?,هل يضغط الألم على الرأس مثل حزام؟,YES_NO_UNSURE,,,,Douleur en bandeau,ألم ضاغط حول الرأس
+Q_LOOSE_STOOLS,Avez-vous des selles liquides plusieurs fois par jour ?,هل لديك براز سائل عدة مرات في اليوم؟,YES_NO_UNSURE,,,,Selles liquides,براز سائل
+Q_STOMACH_CRAMPS,Avez-vous des crampes au ventre ?,هل لديك تقلصات في البطن؟,YES_NO_UNSURE,,,,Crampes au ventre,تقلصات في البطن
+Q_BURNING_AFTER_MEALS,Sentez-vous une brûlure derrière le sternum après les repas ?,هل تشعر بحرقة خلف عظمة الصدر بعد الأكل؟,YES_NO_UNSURE,,,,Brûlure après les repas,حرقة بعد الأكل
+Q_SOUR_TASTE,Avez-vous un goût acide qui remonte dans la bouche ?,هل يصعد طعم حامض إلى فمك؟,YES_NO_UNSURE,,,,Goût acide,طعم حامض
+Q_DURATION_DAYS,Depuis combien de jours avez-vous ces symptômes ?,منذ كم يومًا لديك هذه الأعراض؟,NUMBER,0,60,jours,Durée (jours),المدة (أيام)
+Q_BREATHING_DIFFICULTY,Avez-vous du mal à respirer en ce moment ?,هل تجد صعوبة في التنفس الآن؟,YES_NO_UNSURE,,,,Difficulté à respirer,صعوبة في التنفس
+Q_HIGH_FEVER,Votre fièvre dépasse-t-elle 39 °C ?,هل تتجاوز حرارتك 39 درجة؟,YES_NO_UNSURE,,,,Fièvre au-dessus de 39 °C,حرارة فوق 39 درجة
+Q_STIFF_NECK,Avez-vous la nuque raide (difficile de pencher la tête en avant) ?,هل رقبتك متصلبة (يصعب إنزال الرأس إلى الأمام)؟,YES_NO_UNSURE,,,,Nuque raide,تصلب الرقبة
+Q_SUDDEN_SEVERE_HEADACHE,Le mal de tête est-il apparu brutalement et très fort ?,هل ظهر الصداع فجأة وبشدة كبيرة؟,YES_NO_UNSURE,,,,Mal de tête brutal et très fort,صداع مفاجئ وشديد جدًا
+Q_BLOOD_IN_STOOL,Y a-t-il du sang dans les selles ?,هل يوجد دم في البراز؟,YES_NO_UNSURE,,,,Sang dans les selles,دم في البراز
+Q_DEHYDRATION,Avez-vous très soif et urinez-vous très peu ?,هل تشعر بعطش شديد وتتبول قليلًا جدًا؟,YES_NO_UNSURE,,,,Signes de déshydratation,علامات الجفاف
+Q_CHEST_PAIN_EFFORT,Avez-vous une douleur dans la poitrine pendant un effort ?,هل تشعر بألم في الصدر أثناء المجهود؟,YES_NO_UNSURE,,,,Douleur thoracique à l'effort,ألم في الصدر عند المجهود

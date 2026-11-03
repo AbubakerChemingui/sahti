@@ -4,7 +4,7 @@
 
 **Team:** Abubaker ([@AbubakerChemingui](https://github.com/AbubakerChemingui)) — solo project: product owner and developer
 **Course:** CS 488 — AI-First Software Engineering, MUST University
-**Status:** 🚧 In development — requirements and design done; implementation starting
+**Status:** 🚧 MVP ready for the course demo. It runs as a web app with **DRAFT demo data for 5 illnesses — not for real use**. The Flutter app, the trained models and the full set of 20 illnesses come next ([backlog](docs/backlog.md)).
 
 ---
 
@@ -18,9 +18,22 @@ The AI-assisted part works like this:
 
 The AI never chooses a medicine or a dose.
 
+## What the MVP covers
+
+The MVP is a web app served by the FastAPI backend. The v1 target is the Flutter Android app; see [ADR 0004](docs/decisions/0004-mvp-web-client-and-technical-choices.md) for why. It covers the core user stories ([backlog](docs/backlog.md)):
+
+- **Sign-up and login.** The sign-up screen has the 18+ check, consent and the disclaimer, and the language choice (Français / العربية, right-to-left) at the bottom.
+- **Profiles.** You can create a profile for yourself and for children: allergies, conditions and current medicines. For a child, the app asks "Are you sure of this weight?".
+- **Consultations.** "Before we start" checks come first. Then you describe how you feel in your own words, and confirm what the app understood, or you answer the button questions. You can go back one question at any time.
+- **Danger notices.** URGENT says "see a doctor"; EMERGENCY says "dangerous" and gives 190 (SAMU) and 198 (civil protection). The notice stays on every screen, and the consultation continues.
+- **Result.** It shows the likely illness, the confidence level and the reasons. Natural remedies come first, then over-the-counter medicines with the exact dose, schedule and maximum days. Medicines that are unsafe for the profile are listed as excluded, with the reason, and the result ends with follow-up advice. The app gives a referral when the child is under 2, the case is out of scope or the result is uncertain.
+- **History.** You can re-open past consultations. A consultation left unfinished for 24 hours expires with a one-time message.
+
+**Demo data:** cold, sore throat, tension headache, diarrhoea and heartburn. These values are made up for the demo and were **not** reviewed by a pharmacist. Every screen says so.
+
 ## Tech stack
 
-Flutter (Android) app · Python 3.12 + FastAPI backend · SQLite (demo) / PostgreSQL (pilot) · pytest · a fine-tuned multilingual encoder and a trained classifier on our own server. See [`AI_CONTEXT.md`](AI_CONTEXT.md) and [ADR 0002](docs/decisions/0002-backend-python-fastapi.md).
+Flutter (Android) app (v1) · web client for the MVP · Python 3.12 + FastAPI backend · SQLite (demo) / PostgreSQL (pilot) · pytest · a fine-tuned multilingual encoder and a trained classifier on our own server. See [`AI_CONTEXT.md`](AI_CONTEXT.md) and [ADR 0002](docs/decisions/0002-backend-python-fastapi.md).
 
 ## Getting started
 
@@ -33,19 +46,32 @@ cd sahti
 ./scripts/setup.sh
 
 # 3. Copy the environment template (your .env is never committed)
-cp .env.example .env
+cp .env.example .env               # Windows (cmd): copy .env.example .env
 
 # 4. Install dependencies (Python 3.10+)
 python -m venv .venv
 source .venv/bin/activate          # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 
-# 5. Run the API, then open http://127.0.0.1:8000/api/v1/health
+# 5. Run the app, then open http://127.0.0.1:8000/ in your browser
+#    (API health check: http://127.0.0.1:8000/api/v1/health)
 uvicorn app.main:app --reload --app-dir backend
 
-# 6. Run the tests
+# 6. Run the tests (in a second terminal, with the virtual environment active)
 pytest
 ```
+
+Step 2 is optional: it only turns on the git hooks for contributors.
+
+### Try it (2 minutes)
+
+1. Open http://127.0.0.1:8000/ and create an account. Any email works, because nothing is sent.
+2. Create your profile, then click **I feel sick**.
+3. Type, for example, *« J'ai mal à la gorge et de la fièvre depuis 2 jours, je ne tousse pas »*. Confirm what the app understood, then answer the questions. The result is a sore throat with a "may need a prescription" message.
+4. To see a danger notice, answer **Yes** to "Do you have difficulty breathing right now?".
+5. Switch to العربية at the bottom of the sign-up screen, or in Settings, to use the app in Arabic.
+
+Data is stored in `sahti.db` in the repo folder. Delete that file to start again.
 
 ## Project structure
 
@@ -75,11 +101,16 @@ LICENSE
 README.md
 backend
 backend/app
+backend/clinical_data
 backend/tests
+backend/web
 docs
 docs/CHANGELOG.md
 docs/README.md
+docs/ai-usage-log.md
 docs/architecture.md
+docs/assignments
+docs/backlog.md
 docs/decisions
 docs/diagrams
 docs/images
@@ -107,6 +138,7 @@ scripts/update-structure.sh
 - [Contributing / workflow](CONTRIBUTING.md) — branches, commits, PRs
 - [AI assistant context](AI_CONTEXT.md) — how our AI tools are configured
 - [Setup report (Lab 6)](docs/setup-report.md)
+- [Backlog and MVP status](docs/backlog.md) · [AI usage log](docs/ai-usage-log.md) · [All course assignments](docs/assignments/)
 
 ## Workflow (short version)
 

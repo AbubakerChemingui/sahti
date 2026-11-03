@@ -1,0 +1,10 @@
+code,subjectType,subjectCode,targetType,targetValue,reasonFr,reasonAr,source
+CR1,MEDICINE_CLASS,NSAID,ALLERGY_GROUP,NSAID,Allergie aux anti-inflammatoires.,حساسية من مضادات الالتهاب.,DEMO — not validated
+CR2,MEDICINE_CLASS,NSAID,PREGNANT,,Déconseillé pendant la grossesse.,لا يُنصح به أثناء الحمل.,DEMO — not validated
+CR3,MEDICINE_CLASS,NSAID,CONDITION,CND_GASTRIC_ULCER,Déconseillé en cas d'ulcère de l'estomac.,لا يُنصح به في حالة قرحة المعدة.,DEMO — not validated
+CR4,MEDICINE_CLASS,NSAID,CONDITION,CND_ASTHMA,Peut aggraver l'asthme.,قد يزيد الربو سوءًا.,DEMO — not validated
+CR5,MEDICINE_CLASS,NSAID,MEDICINE_CLASS,ANTICOAGULANT,Risque de saignement avec un anticoagulant.,خطر نزيف مع مضاد التخثر.,DEMO — not validated
+CR6,MEDICINE_CLASS,NSAID,CONDITION,CND_KIDNEY_DISEASE,Déconseillé en cas de maladie des reins.,لا يُنصح به في حالة مرض الكلى.,DEMO — not validated
+CR7,MEDICINE_CLASS,ANALGESIC,CONDITION,CND_LIVER_DISEASE,Déconseillé en cas de maladie du foie.,لا يُنصح به في حالة مرض الكبد.,DEMO — not validated
+CR8,MEDICINE_CLASS,ANALGESIC,ALCOHOL_REGULAR,,Déconseillé avec une consommation régulière d'alcool.,لا يُنصح به مع شرب الكحول بانتظام.,DEMO — not validated
+CR9,MEDICINE_CLASS,ANTACID,CONDITION,CND_KIDNEY_DISEASE,Déconseillé en cas de maladie des reins.,لا يُنصح به في حالة مرض الكلى.,DEMO — not validated

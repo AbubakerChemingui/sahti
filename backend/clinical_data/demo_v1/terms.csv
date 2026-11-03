@@ -1,0 +1,11 @@
+code,kind,labelFr,labelAr,allergyGroup,activeIngredients,medicineClass,synonyms
+ALG_NSAID,ALLERGY,Allergie aux anti-inflammatoires (aspirine ibuprofène),حساسية من مضادات الالتهاب (الأسبرين الإيبوبروفين),NSAID,,,
+ALG_PENICILLIN,ALLERGY,Allergie à la pénicilline,حساسية من البنسلين,PENICILLIN,,,
+CND_ASTHMA,CONDITION,Asthme,ربو,,,,
+CND_GASTRIC_ULCER,CONDITION,Ulcère de l'estomac,قرحة المعدة,,,,
+CND_LIVER_DISEASE,CONDITION,Maladie du foie,مرض الكبد,,,,
+CND_KIDNEY_DISEASE,CONDITION,Maladie des reins,مرض الكلى,,,,
+CND_HYPERTENSION,CONDITION,Hypertension,ارتفاع ضغط الدم,,,,
+MDT_PARACETAMOL,MEDICATION,Paracétamol,باراسيتامول,,paracetamol,ANALGESIC,doliprane|efferalgan|panadol|dafalgan
+MDT_IBUPROFEN,MEDICATION,Ibuprofène,إيبوبروفين,,ibuprofen,NSAID,advil|brufen|nurofen
+MDT_WARFARIN,MEDICATION,Warfarine (anticoagulant),وارفارين (مضاد للتخثر),,warfarin,ANTICOAGULANT,coumadine

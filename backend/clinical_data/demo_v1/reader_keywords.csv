@@ -1,0 +1,58 @@
+questionCode,language,keyword
+Q_FEVER,fr,fièvre
+Q_FEVER,fr,fievre
+Q_FEVER,fr,température
+Q_FEVER,ar,حمى
+Q_FEVER,ar,حرارة
+Q_FEVER,ar,سخانة
+Q_RUNNY_NOSE,fr,nez qui coule
+Q_RUNNY_NOSE,fr,nez bouché
+Q_RUNNY_NOSE,fr,nez bouche
+Q_RUNNY_NOSE,ar,سيلان الأنف
+Q_RUNNY_NOSE,ar,انسداد الأنف
+Q_RUNNY_NOSE,ar,زكام
+Q_SNEEZING,fr,éternue
+Q_SNEEZING,fr,eternue
+Q_SNEEZING,ar,عطس
+Q_SNEEZING,ar,أعطس
+Q_SORE_THROAT,fr,mal à la gorge
+Q_SORE_THROAT,fr,mal a la gorge
+Q_SORE_THROAT,fr,gorge
+Q_SORE_THROAT,ar,الحلق
+Q_SORE_THROAT,ar,حلقي
+Q_PAIN_SWALLOWING,fr,avaler
+Q_PAIN_SWALLOWING,ar,البلع
+Q_PAIN_SWALLOWING,ar,أبلع
+Q_COUGH,fr,tousse
+Q_COUGH,fr,toux
+Q_COUGH,ar,سعال
+Q_COUGH,ar,كحة
+Q_HEADACHE,fr,mal à la tête
+Q_HEADACHE,fr,mal a la tete
+Q_HEADACHE,fr,mal de tête
+Q_HEADACHE,fr,céphalée
+Q_HEADACHE,ar,صداع
+Q_HEADACHE,ar,رأسي يوجعني
+Q_HEAD_BAND,fr,bandeau
+Q_HEAD_BAND,fr,serre la tête
+Q_HEAD_BAND,ar,حزام
+Q_LOOSE_STOOLS,fr,diarrhée
+Q_LOOSE_STOOLS,fr,diarrhee
+Q_LOOSE_STOOLS,fr,selles liquides
+Q_LOOSE_STOOLS,ar,إسهال
+Q_LOOSE_STOOLS,ar,اسهال
+Q_STOMACH_CRAMPS,fr,crampes
+Q_STOMACH_CRAMPS,fr,mal au ventre
+Q_STOMACH_CRAMPS,ar,تقلصات
+Q_STOMACH_CRAMPS,ar,ألم في البطن
+Q_STOMACH_CRAMPS,ar,بطني يوجعني
+Q_BURNING_AFTER_MEALS,fr,brûlure
+Q_BURNING_AFTER_MEALS,fr,brulure
+Q_BURNING_AFTER_MEALS,fr,brûlures d'estomac
+Q_BURNING_AFTER_MEALS,ar,حرقة
+Q_SOUR_TASTE,fr,goût acide
+Q_SOUR_TASTE,fr,remontées acides
+Q_SOUR_TASTE,ar,طعم حامض
+Q_SOUR_TASTE,ar,حموضة
+Q_PAIN_SWALLOWING,fr,avalant
+Q_PAIN_SWALLOWING,fr,avale

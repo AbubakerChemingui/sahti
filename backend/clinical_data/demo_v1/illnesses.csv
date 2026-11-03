@@ -1,0 +1,6 @@
+code,labelFr,labelAr,minAgeMonths,maxAgeMonths,sexRestriction,followUpDays
+COLD,Rhume,زكام,24,1440,ANY,7
+SORE_THROAT,Mal de gorge (angine),التهاب الحلق,24,1440,ANY,3
+TENSION_HEADACHE,Céphalée de tension,صداع التوتر,72,1440,ANY,3
+DIARRHOEA,Diarrhée,إسهال,24,1440,ANY,2
+HEARTBURN,Brûlures d'estomac,حرقة المعدة,144,1440,ANY,7

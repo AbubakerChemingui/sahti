@@ -1,0 +1,9 @@
+code,level,questionCode,operator,value,messageFr,messageAr
+DS_BREATHING,EMERGENCY,Q_BREATHING_DIFFICULTY,IN,YES|UNSURE,Difficulté à respirer.,صعوبة في التنفس.
+DS_CHEST_PAIN,EMERGENCY,Q_CHEST_PAIN_EFFORT,IN,YES|UNSURE,Douleur dans la poitrine à l'effort.,ألم في الصدر عند المجهود.
+DS_STIFF_NECK,EMERGENCY,Q_STIFF_NECK,IN,YES|UNSURE,Nuque raide.,تصلب الرقبة.
+DS_SUDDEN_HEADACHE,EMERGENCY,Q_SUDDEN_SEVERE_HEADACHE,IN,YES|UNSURE,Mal de tête brutal et très fort.,صداع مفاجئ وشديد جدًا.
+DS_BLOOD_STOOL,URGENT,Q_BLOOD_IN_STOOL,IN,YES|UNSURE,Sang dans les selles.,دم في البراز.
+DS_DEHYDRATION,URGENT,Q_DEHYDRATION,IN,YES|UNSURE,Signes de déshydratation.,علامات الجفاف.
+DS_HIGH_FEVER,URGENT,Q_HIGH_FEVER,IN,YES,Fièvre au-dessus de 39 °C.,حرارة فوق 39 درجة.
+DS_LONG_DURATION,URGENT,Q_DURATION_DAYS,GT,7,Symptômes depuis plus de 7 jours.,أعراض منذ أكثر من 7 أيام.

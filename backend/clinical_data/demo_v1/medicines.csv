@@ -1,0 +1,7 @@
+code,labelFr,labelAr,activeIngredients,medicineClass,form,otc,active,source
+MED_PARA_500,Paracétamol 500 mg (comprimé),باراسيتامول 500 ملغ (قرص),paracetamol,ANALGESIC,TABLET,true,true,DEMO — not validated
+MED_PARA_SYRUP,Paracétamol sirop 120 mg/5 ml,شراب باراسيتامول 120 ملغ/5 مل,paracetamol,ANALGESIC,SYRUP,true,true,DEMO — not validated
+MED_IBU_200,Ibuprofène 200 mg (comprimé),إيبوبروفين 200 ملغ (قرص),ibuprofen,NSAID,TABLET,true,true,DEMO — not validated
+MED_ORS,Sels de réhydratation orale (sachet),أملاح الإماهة الفموية (كيس),oral rehydration salts,REHYDRATION,SACHET,true,true,DEMO — not validated
+MED_ANTACID,Antiacide (hydroxydes d'aluminium et de magnésium),مضاد للحموضة (هيدروكسيد الألومنيوم والمغنيسيوم),aluminium hydroxide|magnesium hydroxide,ANTACID,TABLET,true,true,DEMO — not validated
+MED_SALINE,Spray nasal d'eau salée,بخاخ أنفي بالماء المالح,sodium chloride,SALINE,SPRAY,true,true,DEMO — not validated

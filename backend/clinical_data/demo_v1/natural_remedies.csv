@@ -1,0 +1,10 @@
+code,labelFr,labelAr,instructionsFr,instructionsAr,source
+REM_FLUIDS,Boire beaucoup,الإكثار من الشرب,Buvez de l'eau souvent par petites quantités.,اشرب الماء كثيرًا وبكميات صغيرة.,DEMO — not validated
+REM_REST,Repos,الراحة,Reposez-vous et dormez suffisamment.,استرح ونم بما يكفي.,DEMO — not validated
+REM_HONEY_LEMON,Miel et citron,عسل وليمون,Une cuillère de miel dans de l'eau tiède avec du citron 2 à 3 fois par jour.,ملعقة عسل في ماء دافئ مع ليمون مرتين إلى ثلاث مرات في اليوم.,DEMO — not validated
+REM_SALT_GARGLE,Gargarisme à l'eau salée,الغرغرة بالماء المالح,Une demi-cuillère de sel dans un verre d'eau tiède; gargarisez puis recrachez.,نصف ملعقة ملح في كوب ماء دافئ؛ تغرغر ثم ابصق.,DEMO — not validated
+REM_STEAM,Inhalation de vapeur,استنشاق البخار,Respirez la vapeur d'un bol d'eau chaude 10 minutes; attention aux brûlures.,استنشق بخار وعاء ماء ساخن لمدة 10 دقائق؛ احذر من الحروق.,DEMO — not validated
+REM_DARK_ROOM,Calme et obscurité,الهدوء والظلام,Reposez-vous dans une pièce calme et sombre; massez doucement les tempes.,استرح في غرفة هادئة ومظلمة؛ دلّك الصدغين بلطف.,DEMO — not validated
+REM_LIGHT_DIET,Alimentation légère,طعام خفيف,Mangez riz banane et pain grillé; évitez le lait et les aliments gras.,تناول الأرز والموز والخبز المحمص؛ تجنب الحليب والأطعمة الدسمة.,DEMO — not validated
+REM_SMALL_MEALS,Petits repas,وجبات صغيرة,Mangez de petites portions et ne vous couchez pas juste après le repas.,تناول كميات صغيرة ولا تستلقِ مباشرة بعد الأكل.,DEMO — not validated
+REM_RAISE_HEAD,Surélever la tête du lit,رفع رأس السرير,Dormez avec la tête légèrement surélevée.,نم ورأسك مرفوع قليلًا.,DEMO — not validated
