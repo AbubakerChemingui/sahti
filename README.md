@@ -1,4 +1,4 @@
-# Sahti (صحتك)
+# Sahti-صحتي
 
 > An Android app that helps adults in Tunisia handle the 20 most common minor illnesses for themselves or their children. It shows natural remedies first, then safe over-the-counter medicines with exact doses, and refers to a doctor whenever something is serious or unclear.
 
