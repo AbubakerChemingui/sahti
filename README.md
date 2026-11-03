@@ -26,8 +26,8 @@ Flutter (Android) app · Python 3.12 + FastAPI backend · SQLite (demo) / Postgr
 
 ```bash
 # 1. Clone and enter the repo
-git clone https://github.com/AbubakerChemingui/sahti--.git
-cd sahti--
+git clone https://github.com/AbubakerChemingui/sahti.git
+cd sahti
 
 # 2. One-time setup (enables the git hooks) — on Windows use Git Bash
 ./scripts/setup.sh
@@ -82,6 +82,7 @@ docs/README.md
 docs/architecture.md
 docs/decisions
 docs/diagrams
+docs/images
 docs/reference
 docs/setup-report.md
 docs/setup.md

@@ -14,8 +14,8 @@ Everything needed to run Sahti's backend from scratch. Tested on Linux (Python 3
 
 ```bash
 # 1. Clone
-git clone https://github.com/AbubakerChemingui/sahti--.git
-cd sahti--
+git clone https://github.com/AbubakerChemingui/sahti.git
+cd sahti
 
 # 2. One-time project setup (enables the docs-reminder git hook)
 ./scripts/setup.sh
