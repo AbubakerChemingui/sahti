@@ -201,11 +201,13 @@ async function api(method, path, body) {
 /* Every screen change goes through render(): content swap, focus to main (screen readers),
    and one short cross-fade so the change is visible but never blocks input. */
 function render(html, opts = {}) {
+  teardownLanding();
   $app.classList.toggle("wide", !!opts.wide);
+  $app.classList.toggle("landing", !!opts.landing);
   $app.innerHTML = html;
   $app.focus({ preventScroll: true });
   window.scrollTo(0, 0);
-  if (anim()) gsap.fromTo($app, { autoAlpha: 0, y: 8 }, { autoAlpha: 1, y: 0, duration: 0.28, ease: "power2.out", clearProps: "transform,opacity,visibility" });
+  if (anim() && !opts.landing) gsap.fromTo($app, { autoAlpha: 0, y: 8 }, { autoAlpha: 1, y: 0, duration: 0.28, ease: "power2.out", clearProps: "transform,opacity,visibility" });
 }
 
 function showError(el, err) {
@@ -282,18 +284,208 @@ function bindLang(redraw) {
   }));
 }
 
-// ------------------------------------------------------------------ SCR-02 sign-up / SCR-03 login
-function welcomeCopy() {
-  return `<div class="welcome-copy"><h1>${esc(t("welcomeTitle"))}</h1><p class="lead">${esc(t("welcomeLead"))}</p>
-    <ul class="promise"><li>${icon("check")}<span>${esc(t("promise1"))}</span></li><li>${icon("alert")}<span>${esc(t("promise2"))}</span></li>
-    <li>${icon("check")}<span>${esc(t("promise3"))}</span></li></ul></div>`;
+// ------------------------------------------------------------------ SCR-02 sign-up / SCR-03 login — the landing
+/* Logged-out visitors get the landing: a 3D hero (three.js), a pinned three-step story (GSAP ScrollTrigger),
+   the dose label coming alive, the danger promise, then the form. Lenis smooths the scroll on this page only.
+   Everything degrades: no WebGL → gradient; reduced motion → still frame, no scroll effects. */
+Object.assign(T.fr, {
+  heroTitle: "Vous êtes malade. Sahti vous dit quoi faire, sans risque.",
+  heroLead: "Décrivez ce que vous ressentez en français ou en arabe. Sahti pose les bonnes questions, puis propose des remèdes naturels et des médicaments sans ordonnance à la dose exacte, vérifiés pour votre profil.",
+  heroCta: "Créer mon compte", heroLogin: "J'ai déjà un compte", scrollHint: "Découvrir",
+  howTitle: "Trois étapes, deux minutes",
+  step1T: "Dites-le avec vos mots", step1D: "« Mal à la gorge et fièvre depuis hier. » Sahti comprend, puis vous demande de confirmer avant d'utiliser quoi que ce soit.",
+  step2T: "Répondez à quelques questions", step2D: "Une question à la fois, choisie pour être utile. Les questions de sécurité passent toujours en premier.",
+  step3T: "Recevez des conseils sûrs", step3D: "Remèdes naturels d'abord, puis la dose exacte, le moment de la journée et la durée maximale.",
+  mockText: "Mal à la gorge et fièvre depuis hier, je ne tousse pas",
+  labelTitle: "La dose exacte, au bon moment de la journée.",
+  labelLead: "Pas de calcul, pas d'à-peu-près : chaque dose vient d'une bande de poids et d'âge validée. Pour un enfant dont le poids est incertain, Sahti prend la bande plus faible.",
+  safetyTitle: "Si c'est grave, Sahti vous le dit tout de suite.",
+  safetyLead: "Difficulté à respirer, nuque raide, sang dans les selles : le moindre signe de danger affiche un avertissement qui reste à l'écran jusqu'à la fin, avec les numéros d'urgence.",
+  joinTitle: "Commencez maintenant", joinLead: "Votre compte protège les informations de santé de votre famille.",
+});
+Object.assign(T.ar, {
+  heroTitle: "أنت مريض. صحتي يخبرك بما تفعل، بأمان.",
+  heroLead: "صف ما تشعر به بالفرنسية أو بالعربية. يطرح صحتي الأسئلة الصحيحة، ثم يقترح علاجات طبيعية وأدوية بدون وصفة بالجرعة الدقيقة، مفحوصة حسب ملفك.",
+  heroCta: "إنشاء حسابي", heroLogin: "لدي حساب بالفعل", scrollHint: "اكتشف",
+  howTitle: "ثلاث خطوات، دقيقتان",
+  step1T: "قلها بكلماتك", step1D: "«وجيعة في القرجومة وسخانة من البارح.» يفهم صحتي، ثم يطلب منك التأكيد قبل استعمال أي شيء.",
+  step2T: "أجب عن بعض الأسئلة", step2D: "سؤال واحد في كل مرة، مختار ليكون مفيدًا. أسئلة السلامة تأتي دائمًا أولًا.",
+  step3T: "احصل على نصائح آمنة", step3D: "العلاجات الطبيعية أولًا، ثم الجرعة الدقيقة ووقتها في اليوم والمدة القصوى.",
+  mockText: "عندي وجيعة في القرجومة وسخانة من البارح",
+  labelTitle: "الجرعة الدقيقة، في الوقت المناسب من اليوم.",
+  labelLead: "لا حسابات ولا تقريب: كل جرعة تأتي من فئة وزن وعمر مُعتمدة. للطفل الذي لا يُعرف وزنه بدقة، يأخذ صحتي الفئة الأقل.",
+  safetyTitle: "إذا كان الأمر خطيرًا، يخبرك صحتي فورًا.",
+  safetyLead: "صعوبة في التنفس، تصلب الرقبة، دم في البراز: أي علامة خطر تُظهر تنبيهًا يبقى على الشاشة حتى النهاية، مع أرقام الطوارئ.",
+  joinTitle: "ابدأ الآن", joinLead: "حسابك يحمي المعلومات الصحية لعائلتك.",
+});
+
+const L = { lenis: null, hero: null, mm: null, tick: null };
+
+function teardownLanding() {
+  if (L.mm) { L.mm.revert(); L.mm = null; }
+  if (L.tick && window.gsap) { gsap.ticker.remove(L.tick); L.tick = null; }
+  if (L.lenis) { L.lenis.destroy(); L.lenis = null; }
+  if (L.hero) { L.hero.destroy(); L.hero = null; }
+  document.body.classList.remove("is-landing");
 }
 
-function signup() {
-  S.route = "signup"; nav([]);
-  render(`<div class="welcome">${welcomeCopy()}
-  <form id="f" class="panel" novalidate>
-    <h2 style="margin-top:0">${esc(t("signupTitle"))}</h2>
+function mockDose() {
+  const slots = MOMENTS.map(([code, key, ic], i) => `<div class="slot ${i < 3 ? "on" : ""}" data-slot="${i}">${icon(ic)}<span>${esc(t(key))}</span><span class="pill" aria-hidden="true"></span></div>`).join("");
+  return `<article class="dose-label showcase" aria-hidden="true"><header><h3>Paracétamol 500 mg</h3><div><span class="amount">2 ${S.lang === "ar" ? "أقراص" : "comprimés"}</span> <span class="per">· ${esc(t("perDay", { n: 3 }))} · ${esc(t("afterMeal"))}</span></div></header>
+    <div class="day-strip">${slots}</div><footer><span>${S.lang === "ar" ? "6 ساعات على الأقل بين جرعتين · 3 أيام كحد أقصى" : "au moins 6 h entre deux prises · 3 jours maximum"}</span></footer></article>`;
+}
+
+function landing(formHtml, bindForm, isLogin) {
+  S.route = isLogin ? "login" : "signup"; nav([]);
+  const steps = [["step1T", "step1D"], ["step2T", "step2D"], ["step3T", "step3D"]];
+  const screens = [
+    `<div class="mock-screen" data-screen="0"><span class="tag">${esc(t("describeShort"))}</span><div class="mock-text"><span class="typed" data-text="${esc(t("mockText"))}">${esc(t("mockText"))}</span><span class="caret" aria-hidden="true"></span></div>
+      <ul class="converted mock-conv"><li>${icon("check")} ${esc(S.lang === "ar" ? "ألم في الحلق: نعم" : "Mal de gorge : oui")}</li><li>${icon("check")} ${esc(S.lang === "ar" ? "حمى: نعم" : "Fièvre : oui")}</li><li>${icon("check")} ${esc(S.lang === "ar" ? "المدة (أيام): 1" : "Durée (jours) : 1")}</li></ul></div>`,
+    `<div class="mock-screen" data-screen="1"><div class="progress"><span>${esc(t("questionOf", { n: 3 }))}</span><div class="track"><div class="fill" style="--p:40%"></div></div></div>
+      <p class="question small-q">${esc(S.lang === "ar" ? "هل تشعر بألم عند البلع؟" : "Avez-vous mal en avalant ?")}</p>
+      <div class="answers"><span class="answer picked"><span class="dot"></span>${esc(t("yes"))}</span><span class="answer"><span class="dot"></span>${esc(t("no"))}</span><span class="answer"><span class="dot"></span>${esc(t("unsure"))}</span></div></div>`,
+    `<div class="mock-screen" data-screen="2"><p class="kicker">${esc(t("probable"))}</p><p class="illness">${esc(S.lang === "ar" ? "التهاب الحلق" : "Mal de gorge")}</p>
+      <div class="meter"><div class="track"><div class="fill" style="width:87%"></div></div><span class="value num">87%</span></div>
+      <div class="remedy mini"><h3>${esc(S.lang === "ar" ? "عسل وليمون" : "Miel et citron")}</h3></div>${mockDose()}</div>`,
+  ];
+  render(`
+  <section class="hero" aria-labelledby="hero-title">
+    <canvas class="hero-canvas" aria-hidden="true"></canvas>
+    <div class="hero-glow" aria-hidden="true"></div>
+    <div class="hero-copy">
+      <h1 id="hero-title" class="hero-title">${esc(t("heroTitle"))}</h1>
+      <p class="hero-lead">${esc(t("heroLead"))}</p>
+      <div class="hero-cta"><button type="button" class="btn lg light" id="go-join">${esc(t(isLogin ? "login" : "heroCta"))}</button>
+      <button type="button" class="btn lg ghost-light" id="go-other">${esc(t(isLogin ? "noAccount" : "heroLogin"))}</button></div>
+    </div>
+    <div class="scroll-hint" aria-hidden="true"><span>${esc(t("scrollHint"))}</span><i></i></div>
+  </section>
+
+  <section class="how" aria-labelledby="how-title">
+    <div class="how-inner">
+      <div class="how-copy"><h2 id="how-title" class="display">${esc(t("howTitle"))}</h2>
+        <ol class="steps">${steps.map(([h, d], i) => `<li class="step ${i === 0 ? "active" : ""}" data-step="${i}"><span class="step-n num">${i + 1}</span><div><h3>${esc(t(h))}</h3><p>${esc(t(d))}</p></div></li>`).join("")}</ol></div>
+      <div class="device" aria-hidden="true"><div class="device-bar"><span></span></div><div class="device-body">${screens.join("")}</div></div>
+    </div>
+  </section>
+
+  <section class="label-show" aria-labelledby="label-title">
+    <div class="split"><div><h2 id="label-title" class="display">${esc(t("labelTitle"))}</h2><p class="section-lead">${esc(t("labelLead"))}</p></div>
+    <div class="label-stage">${mockDose()}</div></div>
+  </section>
+
+  <section class="safety" aria-labelledby="safety-title">
+    <div class="split"><div><h2 id="safety-title" class="display">${esc(t("safetyTitle"))}</h2><p class="section-lead">${esc(t("safetyLead"))}</p></div>
+    <div class="safety-card"><div class="pulse" aria-hidden="true"></div>${dangerHtml({ level: "EMERGENCY", message: T[S.lang].emergencyTitle ? (S.lang === "ar" ? "هذا الوضع خطير. اتصل بـ 190 أو 198." : "Cette situation est dangereuse. Appelez le 190 ou le 198.") : "" })}</div></div>
+  </section>
+
+  <section class="join" id="join" aria-labelledby="join-title">
+    <div class="join-inner"><div><h2 id="join-title" class="display">${esc(t("joinTitle"))}</h2><p class="section-lead">${esc(t("joinLead"))}</p>
+      <ul class="promise"><li>${icon("check")}<span>${esc(t("promise1"))}</span></li><li>${icon("alert")}<span>${esc(t("promise2"))}</span></li><li>${icon("check")}<span>${esc(t("promise3"))}</span></li></ul></div>
+      ${formHtml}</div>
+    <p class="landing-foot">${esc(t("disclaimerText"))}</p>
+  </section>`, { landing: true });
+
+  document.body.classList.add("is-landing");
+  document.getElementById("nav").innerHTML = `<div class="nav-lang" role="group" aria-label="Langue / اللغة">
+    <button type="button" data-lang="fr" lang="fr" aria-pressed="${S.lang === "fr"}">FR</button><button type="button" data-lang="ar" lang="ar" aria-pressed="${S.lang === "ar"}">عربي</button></div>`;
+  bindLang(isLogin ? login : signup);
+  const goJoin = () => {
+    const target = document.getElementById("join");
+    if (L.lenis) L.lenis.scrollTo(target, { offset: -20, duration: 1.4 }); else target.scrollIntoView({ behavior: reduceMotion() ? "auto" : "smooth" });
+    setTimeout(() => document.getElementById("email") && document.getElementById("email").focus({ preventScroll: true }), reduceMotion() ? 0 : 1400);
+  };
+  document.getElementById("go-join").onclick = goJoin;
+  document.getElementById("go-other").onclick = isLogin ? signup : login;
+  bindForm();
+  startLandingMotion();
+}
+
+function mount3d() {
+  const canvas = $app.querySelector(".hero-canvas");
+  if (!canvas) return;
+  const go = () => {
+    if (!canvas.isConnected) return;
+    try { L.hero = window.Sahti3D.mount(canvas, { reducedMotion: reduceMotion() }); canvas.classList.add("ready"); } catch (e) { canvas.remove(); }
+  };
+  if (window.Sahti3D) go(); else window.addEventListener("sahti3d-ready", go, { once: true });
+}
+
+function startLandingMotion() {
+  mount3d();
+  const g = window.gsap;
+  if (!g || reduceMotion()) return;
+  g.registerPlugin(window.ScrollTrigger, window.SplitText);
+  if (window.Lenis) {
+    L.lenis = new Lenis({ autoRaf: false, anchors: true });
+    L.lenis.on("scroll", ScrollTrigger.update);
+    L.tick = (time) => L.lenis && L.lenis.raf(time * 1000);
+    g.ticker.add(L.tick);
+    g.ticker.lagSmoothing(0);
+  }
+  L.mm = g.matchMedia();
+  L.mm.add({ desktop: "(min-width: 900px)", mobile: "(max-width: 899px)" }, (ctx) => {
+    const { desktop } = ctx.conditions;
+    // 1. Hero: the headline arrives line by line, then the lead and the buttons.
+    const split = window.SplitText ? new SplitText(".hero-title", { type: "lines", mask: "lines", linesClass: "line" }) : null;
+    const tl = g.timeline({ defaults: { ease: "expo.out" } });
+    if (split) tl.from(split.lines, { yPercent: 110, duration: 1.1, stagger: 0.09 });
+    tl.from(".hero-lead", { y: 24, autoAlpha: 0, duration: 0.9 }, "-=0.7")
+      .from(".hero-cta .btn", { y: 18, autoAlpha: 0, duration: 0.7, stagger: 0.08 }, "-=0.6")
+      .from(".hero-canvas", { autoAlpha: 0, scale: 1.08, duration: 1.6, ease: "power2.out" }, 0);
+    // The 3D cloud opens up as the hero scrolls away.
+    ScrollTrigger.create({ trigger: ".hero", start: "top top", end: "bottom top", scrub: true,
+      onUpdate: (st) => L.hero && L.hero.setProgress(st.progress) });
+    g.to(".hero-copy", { yPercent: -18, autoAlpha: 0.2, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+
+    // 2. How it works: on desktop the section pins and the phone shows each step in turn.
+    const showStep = (i) => {
+      document.querySelectorAll(".step").forEach((s, k) => s.classList.toggle("active", k === i));
+      document.querySelectorAll(".mock-screen").forEach((s, k) => {
+        g.to(s, { autoAlpha: k === i ? 1 : 0, y: k === i ? 0 : (k < i ? -24 : 24), duration: 0.5, ease: "power3.out", overwrite: true });
+      });
+      if (i === 0) typeText();
+      if (i === 2) g.fromTo(".mock-screen[data-screen='2'] .meter .fill", { scaleX: 0 }, { scaleX: 1, duration: 0.9, ease: "power3.out" });
+    };
+    g.set(".mock-screen", { autoAlpha: 0 });
+    showStep(0);
+    if (desktop) {
+      ScrollTrigger.create({ trigger: ".how", start: "top top", end: "+=1800", pin: true, scrub: false,
+        onUpdate: (st) => { const i = Math.min(2, Math.floor(st.progress * 3)); if (i !== S.step) { S.step = i; showStep(i); } } });
+    } else {
+      document.querySelectorAll(".step").forEach((el, i) => ScrollTrigger.create({ trigger: el, start: "top 60%", onEnter: () => showStep(i), onEnterBack: () => showStep(i) }));
+    }
+
+    // 3. The dose label: the day strip lights up slot by slot.
+    g.from(".label-stage .dose-label", { y: 60, rotateX: 18, opacity: 0, duration: 1.1, ease: "expo.out", transformPerspective: 900,
+      scrollTrigger: { trigger: ".label-show", start: "top 70%" } });
+    g.from(".label-stage .slot.on", { backgroundColor: "rgba(255,255,255,0)", color: "#8592A6", duration: 0.4, stagger: 0.25,
+      scrollTrigger: { trigger: ".label-show", start: "top 55%" } });
+    g.from(".label-stage .slot.on .pill", { scale: 0, duration: 0.5, ease: "back.out(3)", stagger: 0.25,
+      scrollTrigger: { trigger: ".label-show", start: "top 55%" } });
+
+    // 4. Safety: the alert card rises, the pulse ring breathes.
+    g.from(".safety-card", { y: 50, opacity: 0, duration: 1, ease: "expo.out", scrollTrigger: { trigger: ".safety", start: "top 70%" } });
+    g.to(".pulse", { scale: 1.25, autoAlpha: 0, duration: 1.8, repeat: -1, ease: "power1.out" });
+    g.utils.toArray(".display").forEach((h) => g.from(h, { y: 40, opacity: 0, duration: 1, ease: "expo.out", scrollTrigger: { trigger: h, start: "top 85%" } }));
+    g.from(".join .panel", { y: 40, opacity: 0, duration: 1, ease: "expo.out", scrollTrigger: { trigger: ".join", start: "top 75%" } });
+    return () => { if (split) split.revert(); };
+  });
+}
+
+function typeText() {
+  const el = $app.querySelector(".typed");
+  if (!el || !window.gsap) return;
+  const full = el.dataset.text;
+  const o = { n: 0 };
+  gsap.killTweensOf(o);
+  gsap.to(o, { n: full.length, duration: 1.6, ease: "none", onUpdate: () => { el.textContent = full.slice(0, Math.round(o.n)); } });
+  gsap.fromTo(".mock-conv li", { autoAlpha: 0, y: 10 }, { autoAlpha: 1, y: 0, stagger: 0.15, delay: 1.6, duration: 0.4, overwrite: true });
+}
+
+function signupForm() {
+  return `<form id="f" class="panel join-form" novalidate>
+    <h3 class="form-title">${esc(t("signupTitle"))}</h3>
     <div class="field"><label for="email">${esc(t("email"))}</label><input id="email" type="email" autocomplete="email" required></div>
     <div class="field"><label for="pw">${esc(t("password"))}</label><input id="pw" type="password" autocomplete="new-password" minlength="8" required></div>
     <label class="check"><input type="checkbox" id="adult"> <span>${esc(t("adult"))}</span></label>
@@ -303,53 +495,55 @@ function signup() {
     <button class="btn block lg" type="submit" id="submit">${esc(t("create"))}</button>
     <p style="text-align:center"><button class="btn quiet" type="button" id="to-login">${esc(t("haveAccount"))}</button></p>
     ${langSwitch()}
-  </form></div>`, { wide: true });
-  bindLang(signup);
-  document.getElementById("to-login").onclick = login;
-  document.getElementById("f").onsubmit = (e) => {
-    e.preventDefault();
-    const err = document.getElementById("err");
-    if (!document.getElementById("disc").checked) { err.textContent = T[S.lang].disclaimerText; return; }
-    busy(document.getElementById("submit"), async () => {
-      try {
-        const out = await api("POST", "/auth/register", {
-          email: document.getElementById("email").value, password: document.getElementById("pw").value, language: S.lang,
-          isAdultConfirmed: document.getElementById("adult").checked,
-          consent: { granted: document.getElementById("consent").checked, textVersion: "c-1" }, disclaimerVersion: "d-1",
-        });
-        S.token = out.accessToken; store.set("sahti.token", S.token);
-        await loadMe();
-        profileEditor(null, "SELF");
-      } catch (ex) { showError(err, ex); }
-    });
-  };
+  </form>`;
+}
+
+function signup() {
+  landing(signupForm(), () => {
+    document.getElementById("to-login").onclick = login;
+    document.getElementById("f").onsubmit = (e) => {
+      e.preventDefault();
+      const err = document.getElementById("err");
+      if (!document.getElementById("disc").checked) { err.textContent = T[S.lang].disclaimerText; return; }
+      busy(document.getElementById("submit"), async () => {
+        try {
+          const out = await api("POST", "/auth/register", {
+            email: document.getElementById("email").value, password: document.getElementById("pw").value, language: S.lang,
+            isAdultConfirmed: document.getElementById("adult").checked,
+            consent: { granted: document.getElementById("consent").checked, textVersion: "c-1" }, disclaimerVersion: "d-1",
+          });
+          S.token = out.accessToken; store.set("sahti.token", S.token);
+          await loadMe();
+          profileEditor(null, "SELF");
+        } catch (ex) { showError(err, ex); }
+      });
+    };
+  }, false);
 }
 
 function login() {
-  S.route = "login"; nav([]);
-  render(`<div class="welcome">${welcomeCopy()}
-  <form id="f" class="panel">
-    <h2 style="margin-top:0">${esc(t("loginTitle"))}</h2>
+  landing(`<form id="f" class="panel join-form">
+    <h3 class="form-title">${esc(t("loginTitle"))}</h3>
     <div class="field"><label for="email">${esc(t("email"))}</label><input id="email" type="email" autocomplete="email" required></div>
     <div class="field"><label for="pw">${esc(t("password"))}</label><input id="pw" type="password" autocomplete="current-password" required></div>
     <p class="error" id="err" role="alert"></p>
     <button class="btn block lg" type="submit" id="submit">${esc(t("login"))}</button>
     <p style="text-align:center"><button class="btn quiet" type="button" id="to-signup">${esc(t("noAccount"))}</button></p>
     ${langSwitch()}
-  </form></div>`, { wide: true });
-  bindLang(login);
-  document.getElementById("to-signup").onclick = signup;
-  document.getElementById("f").onsubmit = (e) => {
-    e.preventDefault();
-    busy(document.getElementById("submit"), async () => {
-      try {
-        const out = await api("POST", "/auth/login", { email: document.getElementById("email").value, password: document.getElementById("pw").value });
-        S.token = out.accessToken; store.set("sahti.token", S.token);
-        await loadMe();
-        home();
-      } catch (ex) { showError("#err", ex); }
-    });
-  };
+  </form>`, () => {
+    document.getElementById("to-signup").onclick = signup;
+    document.getElementById("f").onsubmit = (e) => {
+      e.preventDefault();
+      busy(document.getElementById("submit"), async () => {
+        try {
+          const out = await api("POST", "/auth/login", { email: document.getElementById("email").value, password: document.getElementById("pw").value });
+          S.token = out.accessToken; store.set("sahti.token", S.token);
+          await loadMe();
+          home();
+        } catch (ex) { showError("#err", ex); }
+      });
+    };
+  }, true);
 }
 
 async function loadMe() {
