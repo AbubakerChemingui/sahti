@@ -5,6 +5,7 @@ Run locally:  uvicorn app.main:app --reload --app-dir backend   →  http://127.
 from __future__ import annotations
 
 import hashlib
+import os
 import logging
 import re
 import time
@@ -28,7 +29,22 @@ from app.security import FieldCipher, hash_password, new_token, token_hash, veri
 
 CONSENT_VERSION, DISCLAIMER_VERSION = "c-1", "d-1"
 SESSION_HOURS, EXPIRY_HOURS = 12, 24
-WEB_DIR = Path(__file__).resolve().parent.parent / "web"
+WEB_SRC = Path(__file__).resolve().parent.parent / "web"
+
+
+def _web_dir() -> Path:
+    """The un-built client is the default. SAHTI_WEB_DIST=1 serves the optional build, unless it is stale."""
+    dist = WEB_SRC / "dist"
+    if os.getenv("SAHTI_WEB_DIST", "").lower() not in {"1", "true", "yes"}:
+        return WEB_SRC
+    if not (dist / "index.html").exists():
+        log.warning("SAHTI_WEB_DIST is set but backend/web/dist is missing; serving the source")
+        return WEB_SRC
+    newest_src = max(f.stat().st_mtime for f in WEB_SRC.rglob("*") if f.is_file() and dist not in f.parents)
+    if newest_src > (dist / "build.json").stat().st_mtime:
+        log.warning("backend/web/dist is older than the source; serving the source (run scripts/build_web.py)")
+        return WEB_SRC
+    return dist
 _EMAIL = re.compile(r"^[^@\s]{1,64}@[^@\s]+\.[^@\s]+$")
 MESSAGES = {  # SRS §14.2 (drafts; Arabic needs native review, DQ-03)
     "E-VAL-001": ("Vérifiez ce champ.", "يرجى التحقق من هذا الحقل."),
@@ -48,6 +64,7 @@ MESSAGES = {  # SRS §14.2 (drafts; Arabic needs native review, DQ-03)
     "E-SYS-001": ("Erreur technique. Réessayez.", "خطأ تقني. حاول مرة أخرى."),
 }
 log = logging.getLogger("sahti")
+_HASHED = re.compile(r"\.[0-9a-f]{8}\.(?:js|css)$")
 
 
 def _now() -> datetime:
@@ -117,7 +134,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         start = time.perf_counter()
         response = await call_next(request)
         path = request.url.path
-        if path.startswith(("/static/vendor/", "/static/fonts/")):   # file names carry the version
+        if path.startswith(("/static/vendor/", "/static/fonts/")) or _HASHED.search(path):   # names carry the version
             response.headers["Cache-Control"] = "public, max-age=31536000, immutable"
         elif path.startswith("/static/") or path == "/":
             response.headers["Cache-Control"] = "no-cache"   # revalidate app code on every load
@@ -470,12 +487,13 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         return {"items": items[(page - 1) * size: page * size], "page": page, "pageSize": size, "total": len(items)}
 
     # ------------------------------------------------------------------ web client
-    if WEB_DIR.exists():
-        app.mount("/static", StaticFiles(directory=WEB_DIR), name="static")
+    web_dir = _web_dir()
+    if web_dir.exists():
+        app.mount("/static", StaticFiles(directory=web_dir), name="static")
 
         @app.get("/", include_in_schema=False)
         def index():
-            return FileResponse(WEB_DIR / "index.html")
+            return FileResponse(web_dir / "index.html")
 
     return app
 

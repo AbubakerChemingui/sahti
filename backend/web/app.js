@@ -242,7 +242,11 @@ function render(html, opts = {}) {
   $app.focus({ preventScroll: true });
   const y = kind === "pop" ? NAV.popScroll : 0;
   if (window.scrollY !== y) window.scrollTo(0, y);
-  if (!canAnimate) { layer.replaceChildren(); NAV.flip = null; return; }
+  if (!canAnimate) {
+    layer.replaceChildren(); NAV.flip = null;
+    if (kind === "instant" && anim()) gsap.fromTo($app, { opacity: 0.4 }, { opacity: 1, duration: 0.15, ease: "power2.out", clearProps: "opacity" });
+    return;
+  }
 
   const flip = NAV.flip;
   NAV.flip = null;
@@ -295,7 +299,15 @@ async function applyPath(path) {
   } finally { NAV.applying = false; }
 }
 
+/* Keep the current entry's scroll position up to date, so back/forward can restore it (debounced, no layout reads). */
+let scrollSave = 0;
+window.addEventListener("scroll", () => {
+  clearTimeout(scrollSave);
+  scrollSave = setTimeout(() => history.replaceState(Object.assign({}, history.state, { scroll: window.scrollY }), ""), 150);
+}, { passive: true });
+
 window.addEventListener("popstate", (e) => {
+  clearTimeout(scrollSave);
   NAV.kind = "pop";
   NAV.popScroll = (e.state && e.state.scroll) || 0;
   applyPath(currentPath()).catch(() => home());
@@ -370,6 +382,8 @@ function langSwitch() {
 function bindLang(redraw) {
   document.querySelectorAll("[data-lang]").forEach((b) => b.addEventListener("click", async () => {
     setLang(b.dataset.lang);
+    document.documentElement.classList.add("intro-done");   // the page entrance never replays on a language switch
+    NAV.kind = "instant";
     if (S.token) { try { await api("PATCH", "/me", { language: S.lang }); } catch (e) { /* shown on next call */ } }
     redraw();
   }));
@@ -475,10 +489,8 @@ function doseShowcase() {
     <footer><span>${esc(ar() ? "6 ساعات على الأقل بين جرعتين · 3 أيام كحد أقصى" : "au moins 6 h entre deux prises · 3 jours maximum")}</span></footer></article>`;
 }
 
-function landing(formHtml, bindForm, isLogin) {
-  S.route = isLogin ? "login" : "signup";
-  setPath(isLogin ? "/login" : "/signup", { replace: true });
-  render(`
+function heroHtml(isLogin) {
+  return `
   <section class="chapter hero2" aria-labelledby="hero-title">
     <div class="wrap hero2-grid">
       <div>
@@ -490,8 +502,11 @@ function landing(formHtml, bindForm, isLogin) {
       <div class="stage">${stampHtml()}${boxHtml("hero-box")}<div class="shadow3d"></div></div>
     </div>
     <div class="wrap"><div class="hero2-foot"><span class="mono">${esc(t("readNotice"))}</span><span class="mono scroll-cue"><i aria-hidden="true"></i>${esc(t("openNotice"))}</span></div></div>
-  </section>
+  </section>`;
+}
 
+function restHtml(formHtml) {
+  return `
   <section class="chapter notice-ch" id="notice" aria-labelledby="notice-title">
     <div class="notice-pin">
       <div class="notice-head"><span class="mono">${esc(ar() ? "نشرة · Notice" : "Notice · نشرة")}</span><h2 id="notice-title">${esc(t("noticeTitle"))}</h2></div>
@@ -522,7 +537,26 @@ function landing(formHtml, bindForm, isLogin) {
     </div>
     <div class="wrap wordmark"><div class="big" aria-hidden="true"><span>Sahti</span><span>صحتي</span></div>
       <div class="foot"><span>${esc(t("disclaimerText"))}</span><span class="mono">${esc(t("draft"))}</span></div></div>
-  </section>`, { landing: true });
+  </section>`;
+}
+
+function landing(formHtml, bindForm, isLogin) {
+  S.route = isLogin ? "login" : "signup";
+  setPath(isLogin ? "/login" : "/signup", { replace: true });
+  /* First load in French: index.html already painted the hero (no JS needed for LCP). Keep that node, only update
+     the button labels, and append the other chapters after it, so the browser does not repaint the LCP element. */
+  const ssr = $app.querySelector(".hero2[data-ssr]");
+  if (ssr && NAV.kind === "initial" && S.lang === "fr") {
+    NAV.kind = "nav";
+    teardownLanding();
+    $app.classList.add("landing");
+    [...$app.children].forEach((el) => { if (el !== ssr) el.remove(); });
+    ssr.removeAttribute("data-ssr");
+    ssr.querySelector("#go-join").textContent = t(isLogin ? "login" : "heroCta");
+    ssr.insertAdjacentHTML("afterend", restHtml(formHtml));
+  } else {
+    render(heroHtml(isLogin) + restHtml(formHtml), { landing: true });
+  }
 
   document.body.classList.add("is-landing");
   document.getElementById("nav").innerHTML = `<div class="nav-lang" role="group" aria-label="Langue / اللغة">
@@ -550,17 +584,13 @@ function startLandingMotion() {
 }
 
 function runLandingMotion() {
-  document.documentElement.classList.remove("motion-pending");
   const g = window.gsap;
   if (!g || !$app.classList.contains("landing")) return;
-  g.registerPlugin(window.ScrollTrigger, window.SplitText);
+  g.registerPlugin(window.ScrollTrigger);
   L.mm = g.matchMedia();
   L.mm.add({ reduce: "(prefers-reduced-motion: reduce)", desktop: "(min-width: 768px) and (prefers-reduced-motion: no-preference)", mobile: "(max-width: 767px) and (prefers-reduced-motion: no-preference)" }, (ctx) => {
     const { reduce, desktop } = ctx.conditions;
-    if (reduce) {   // opacity-only, no pin, no rotation, no smooth scroll
-      g.from(".hero2 h1, .hero2 .lede, .hero2 .cta", { opacity: 0, duration: 0.6, stagger: 0.1 });
-      return undefined;
-    }
+    if (reduce) return undefined;   // no pin, no rotation, no smooth scroll; the hero is static
     if (window.Lenis) {
       L.lenis = new Lenis({ autoRaf: false, lerp: 0.1 });
       L.lenis.on("scroll", ScrollTrigger.update);
@@ -569,20 +599,23 @@ function runLandingMotion() {
       g.ticker.lagSmoothing(0);
     }
 
-    // Chapter 1 — the box arrives, the headline is printed line by line.
-    const intro = g.timeline({ defaults: { ease: "expo.out" } });
-    intro.from(".hero-box", { y: 80, rotateY: -80, rotateX: 10, opacity: 0, duration: 1.4 }, 0)
-      .from(".hero2 h1 .ln", { yPercent: 18, duration: 0.9, stagger: 0.08 }, 0.1)
-      .from(".hero2 .lede, .hero2 .cta", { y: 20, duration: 0.7, stagger: 0.07 }, 0.3)
-      .from(".stamp", { scale: 0.6, rotate: -90, opacity: 0, duration: 1 }, 0.4);
-    // Idle: the box turns a little and follows the pointer; the stamp turns with scroll.
+    // Chapter 1 — the entrance is pure CSS (index.html critical styles), so the hero paints without JS.
+    // GSAP takes over the box only after its CSS entrance has finished, from the same end values.
     const box = $app.querySelector(".hero-box");
-    L.idle = g.to(box, { rotateY: "-=14", duration: 4, ease: "sine.inOut", yoyo: true, repeat: -1, delay: 1.4 });
-    const tiltX = g.quickTo(box, "rotateX", { duration: 0.8, ease: "power3.out" });
-    L.onMove = (e) => { tiltX(-14 + (e.clientY / innerHeight - 0.5) * -10); };
-    window.addEventListener("pointermove", L.onMove, { passive: true });
+    const takeOver = () => {
+      if (!box.isConnected || !L.mm) return;
+      L.mm.add("(prefers-reduced-motion: no-preference)", () => {
+        box.style.animation = "none";
+        g.set(box, { rotateX: -14, rotateY: -32 });
+        L.idle = g.to(box, { rotateY: -46, duration: 4, ease: "sine.inOut", yoyo: true, repeat: -1 });
+        const tiltX = g.quickTo(box, "rotateX", { duration: 0.8, ease: "power3.out" });
+        L.onMove = (e) => { tiltX(-14 + (e.clientY / innerHeight - 0.5) * -10); };
+        window.addEventListener("pointermove", L.onMove, { passive: true });
+        g.to(box, { y: 120, rotateY: -70, opacity: 0, ease: "none", scrollTrigger: { trigger: ".hero2", start: "top top", end: "bottom top", scrub: 1 } });
+      });
+    };
+    if (box && box.getAnimations().length) box.addEventListener("animationend", takeOver, { once: true }); else if (box) takeOver();
     g.to(".stamp .ring", { rotate: 360, ease: "none", scrollTrigger: { trigger: ".hero2", start: "top top", end: "bottom top", scrub: 1 } });
-    g.to(".hero-box", { y: 120, rotateY: -70, opacity: 0, ease: "none", scrollTrigger: { trigger: ".hero2", start: "top top", end: "bottom top", scrub: 1 } });
 
     // Chapter 2 — the signature moment: the box opens and its notice unfolds, one panel per beat.
     const leaves = g.utils.toArray(".leaf");
@@ -1104,21 +1137,42 @@ function initPointerCraft() {
   document.addEventListener("pointerdown", () => { if (active) gsap.to(active, { x: 0, y: 0, duration: 0.15 }); });
 }
 
-/* Dev-only frame meter: open /?fps=1 to see the frame rate, the longest frame and frames over 20 ms while you scroll. */
+/* Dev-only frame meter: open /?fps=1, then scroll the hero and the notice section once each.
+   It shows, per section, the LONGEST frame and the number of DROPPED frames (longer than 1.5 x the screen's
+   normal frame time, measured on load). Press R to reset. Average fps is deliberately not shown: it hides jank. */
 function initFrameMeter() {
   if (!new URLSearchParams(location.search).has("fps")) return;
   const box = document.createElement("div");
   box.className = "fps-meter";
   box.setAttribute("aria-hidden", "true");
   document.body.appendChild(box);
-  let last = performance.now(), frames = 0, worst = 0, slow = 0, t0 = last;
+  const stats = {};
+  const samples = [];
+  let budget = 0, last = performance.now();
+  let current = "other";   // which section fills the screen, from an IntersectionObserver (no layout reads per frame)
+  const io = new IntersectionObserver((entries) => entries.forEach((e) => {
+    const name = e.target.classList.contains("hero2") ? "hero" : "notice";
+    if (e.isIntersecting) current = name; else if (current === name) current = "other";
+  }), { rootMargin: "-45% 0px -45% 0px" });
+  const watch = () => document.querySelectorAll(".hero2, .notice-ch").forEach((el) => io.observe(el));
+  watch();
+  new MutationObserver(watch).observe(document.getElementById("app"), { childList: true });
+  const section = () => current;
+  const reset = () => { for (const k of Object.keys(stats)) delete stats[k]; };
+  window.addEventListener("keydown", (e) => { if (e.key === "r" || e.key === "R") reset(); });
   const tick = (now) => {
-    const dt = now - last; last = now; frames++;
-    if (dt > worst) worst = dt;
-    if (dt > 20) slow++;
-    if (now - t0 >= 1000) {
-      box.textContent = `${Math.round(frames * 1000 / (now - t0))} fps · max ${worst.toFixed(1)} ms · >20 ms: ${slow}`;
-      frames = 0; t0 = now; worst = 0;
+    const dt = now - last; last = now;
+    if (!budget) {   // learn the screen's frame time from the first 60 frames (60 Hz → 16.7 ms, 120 Hz → 8.3 ms)
+      samples.push(dt);
+      if (samples.length === 60) budget = samples.sort((x, y) => x - y)[30];
+    } else {
+      const k = section();
+      const s = stats[k] || (stats[k] = { longest: 0, dropped: 0, frames: 0 });
+      s.frames++;
+      if (dt > s.longest) s.longest = dt;
+      if (dt > budget * 1.5) s.dropped++;
+      box.textContent = `frame ${budget.toFixed(1)} ms · ` + ["hero", "notice"].map((n) => stats[n]
+        ? `${n}: longest ${stats[n].longest.toFixed(0)} ms, dropped ${stats[n].dropped}/${stats[n].frames}` : `${n}: —`).join(" · ");
     }
     requestAnimationFrame(tick);
   };
@@ -1133,7 +1187,7 @@ const ROUTES = { home, settings, logout, login, signup };
   history.scrollRestoration = "manual";
   initFrameMeter();
   whenMotionReady(() => {
-    if (window.gsap) gsap.registerPlugin(...[window.Flip, window.ScrollTrigger, window.SplitText].filter(Boolean));
+    if (window.gsap) gsap.registerPlugin(...[window.Flip, window.ScrollTrigger].filter(Boolean));
     initPointerCraft();
   });
   document.getElementById("draft-banner").hidden = false; // until /health confirms VALIDATED data

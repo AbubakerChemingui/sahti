@@ -7,10 +7,152 @@
   <title>Sahti — صحتي</title>
   <meta name="description" content="Sahti : décrivez vos symptômes en français ou en arabe et recevez des remèdes naturels puis des médicaments sans ordonnance à la dose exacte, vérifiés pour votre profil. Démo de cours, données non validées.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2300A651'/%3E%3Cpath d='M13 6h6v7h7v6h-7v7h-6v-7H6v-6h7z' fill='%23fff'/%3E%3C/svg%3E">
-  <link rel="preload" href="/static/fonts/archivo-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/static/fonts/archivo-display-var.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/static/fonts/ibm-plex-sans-arabic-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/static/styles.css">
-  <script>if (!matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("motion-pending");</script>
+  <style id="critical">
+html.lenis,
+html.lenis body{height: auto;}
+@font-face{font-family: "Archivo"; font-style: normal; font-weight: 700 900; font-stretch: 62% 75%; font-display: swap; src: url("/static/fonts/archivo-display-var.woff2") format("woff2-variations"); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+@font-face{font-family: "Sahti Mark"; font-weight: 400 900; font-display: swap; src: url("/static/fonts/sahti-arabic-mark.woff2") format("woff2"); unicode-range: U+0600-06FF, U+FB50-FDFF, U+FE70-FEFF;}
+@font-face{font-family: "IBM Plex Mono"; font-weight: 500; font-display: swap; src: url("/static/fonts/ibm-plex-mono-latin-500-normal.woff2") format("woff2");}
+@font-face{font-family: "IBM Plex Sans Arabic"; font-style: normal; font-weight: 400; font-display: swap; src: url("/static/fonts/ibm-plex-sans-arabic-latin-400-normal.woff2") format("woff2"); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+@font-face{font-family: "IBM Plex Sans Arabic"; font-style: normal; font-weight: 600; font-display: swap; src: url("/static/fonts/ibm-plex-sans-arabic-latin-600-normal.woff2") format("woff2"); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+@font-face{font-family: "IBM Plex Sans Arabic"; font-style: normal; font-weight: 700; font-display: swap; src: url("/static/fonts/ibm-plex-sans-arabic-latin-700-normal.woff2") format("woff2"); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+:root{--paper: #F3F5F2; --box: #FFFFFF; --ink: #0F1F1A; --muted: #56655F; --cross: #00A651; --cross-ink: #007A3C; --night: #0B3328; --night-muted: #9FB5AC; --signal: #C8221A; --hair: rgba(15, 31, 26, .16); --page: var(--paper); --surface: var(--box); --surface-2: #EAEFEB; --ink-2: var(--muted); --line: var(--hair); --blue: var(--ink); --blue-ink: #FFFFFF; --blue-soft: #E4EBE6; --green: var(--cross-ink); --green-soft: #E2F3E8; --red: var(--signal); --red-soft: #FBE9E7; --amber-bg: #FFF3D1; --amber-ink: #6E4A00; --radius-s: 2px; --radius-m: 0px; --radius-l: 0px; --shadow: none; --font: "IBM Plex Sans Arabic", system-ui, -apple-system, "Segoe UI", Tahoma, sans-serif; --display: "Archivo", "IBM Plex Sans Arabic", system-ui, sans-serif; --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace; --e-out: cubic-bezier(.16, 1, .3, 1); --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px;}
+*{box-sizing: border-box;}
+html{-webkit-text-size-adjust: 100%;}
+body{margin: 0; background: var(--page); color: var(--ink); font-family: var(--font); font-size: 17px; line-height: 1.55; min-height: 100dvh;}
+:focus-visible{outline: 3px solid #5B9BD5; outline-offset: 2px; border-radius: 6px;}
+.skip{position: absolute; inset-inline-start: 8px; top: -60px; background: var(--ink); color: #fff; padding: 8px 12px; border-radius: 8px; z-index: 50;}
+.skip:focus{top: 8px;}
+.num{direction: ltr; unicode-bidi: isolate; font-variant-numeric: tabular-nums;}
+[hidden]{display: none !important;}
+svg.i{width: 22px; height: 22px; flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;}
+.topbar{background: var(--blue); color: var(--blue-ink); position: sticky; top: 0; z-index: 20;}
+.topbar-inner{max-width: 1040px; margin: 0 auto; padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px;}
+.brand{display: flex; align-items: center; gap: 10px; color: inherit; text-decoration: none;}
+.brand-mark{width: 32px; height: 32px;}
+.brand-mark rect{fill: #fff;}
+.brand-mark path{fill: var(--green);}
+.brand-name{font-weight: 700; font-size: 1.2rem; letter-spacing: .01em;}
+.brand-ar{font-weight: 600; font-size: 1.1rem; opacity: .85;}
+#nav{display: flex; gap: 4px;}
+#nav button{background: transparent; border: 0; color: #fff; min-height: 44px; padding: 0 12px; border-radius: 10px; cursor: pointer; font-weight: 500; font-size: .95rem; display: inline-flex; align-items: center; gap: 6px;}
+#nav button:hover{background: rgba(255,255,255,.12);}
+#nav button[aria-current=page]{background: rgba(255,255,255,.18);}
+#nav button.logout{opacity: .85;}
+.draft-banner{background: var(--amber-bg); color: var(--amber-ink); font-size: .88rem; font-weight: 600; text-align: center; padding: 7px 16px; border-bottom: 1px solid #F0D58A;}
+main:focus, main:focus-visible{outline: none;}
+main{max-width: 600px; margin: 0 auto; padding: var(--s6) 16px 96px; outline: none;}
+main.wide{max-width: 1040px;}
+h1{font-size: clamp(1.6rem, 4vw, 2.1rem); line-height: 1.2; margin: 0 0 var(--s3); font-weight: 700; text-wrap: balance;}
+.btn{display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 50px; padding: 0 20px; border-radius: 12px; border: 1.5px solid var(--blue); background: var(--blue); color: #fff; font-weight: 600; cursor: pointer; text-decoration: none; touch-action: manipulation; transition: background-color .15s, transform .1s;}
+.btn:hover{background: #093F6F;}
+.btn:active{transform: scale(.98);}
+.btn.secondary{background: #fff; color: var(--blue);}
+.btn.secondary:hover{background: var(--blue-soft);}
+.btn.quiet{background: transparent; border-color: transparent; color: var(--blue); padding: 0 8px;}
+.btn.quiet:hover{background: var(--blue-soft);}
+.btn.danger{background: var(--red); border-color: var(--red);}
+.btn.block{width: 100%;}
+.btn.lg{min-height: 58px; font-size: 1.08rem;}
+.btn[aria-busy=true]{opacity: .7; pointer-events: none;}
+.number-entry{display: flex; gap: var(--s3); align-items: center;}
+.number-entry input{font-size: 1.4rem; font-weight: 600; max-width: 160px; text-align: center;}
+@media (prefers-reduced-motion: reduce){*, *::before, *::after{transition-duration: 0s !important; animation-duration: 0s !important;}}
+@media (max-width: 420px){body{font-size: 16px;}.brand-ar{display: none;}#nav button .lbl{position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0);}}
+body::before{content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 100; opacity: .045; mix-blend-mode: multiply; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+:focus-visible{outline: 3px solid var(--cross); outline-offset: 2px; border-radius: 0;}
+.mono{font-family: var(--mono); font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; font-weight: 500;}
+[dir=rtl] .mono{letter-spacing: 0; text-transform: none; font-family: var(--font);}
+h1, h2, .question, .result-head .illness{font-family: var(--display); font-stretch: 72%; font-weight: 800; letter-spacing: -.005em;}
+[dir=rtl] h1, [dir=rtl] h2, [dir=rtl] .question, [dir=rtl] .result-head .illness{font-family: var(--font); font-weight: 700; letter-spacing: 0;}
+h1{font-size: clamp(2.2rem, 5vw, 3.4rem); line-height: .95;}
+.topbar{background: var(--paper); color: var(--ink); border-bottom: 1px solid var(--hair);}
+.brand-mark rect{fill: var(--cross);}
+.brand-mark path{fill: #fff;}
+.brand-name{font-family: var(--display); font-stretch: 72%; font-weight: 800; font-size: 1.5rem; letter-spacing: .01em; text-transform: uppercase;}
+#nav button{color: var(--ink); border-radius: 0;}
+#nav button:hover{background: var(--surface-2);}
+#nav button[aria-current=page]{background: transparent; box-shadow: inset 0 -2px 0 var(--ink);}
+.btn{border-radius: 0; min-height: 52px; border-width: 1.5px; font-weight: 600; transition: background-color .15s var(--e-out), color .15s var(--e-out), transform .1s;}
+.btn:hover{background: var(--cross-ink); border-color: var(--cross-ink);}
+.btn.secondary{background: transparent; color: var(--ink); border-color: var(--ink);}
+.btn.secondary:hover{background: var(--ink); color: var(--paper);}
+.btn.quiet:hover{background: var(--surface-2);}
+.btn:active{transform: translateY(1px);}
+.btn:disabled, .btn[aria-busy=true]{opacity: .45; cursor: not-allowed;}
+.btn.danger:hover{background: #A11A13; border-color: #A11A13;}
+.draft-banner{background: var(--ink); color: var(--paper); border: 0; font-family: var(--mono); font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; font-weight: 500;}
+main.landing{max-width: none; padding: 0;}
+body.is-landing .topbar{background: var(--paper); border-bottom-color: transparent; position: relative;}
+.nav-lang{display: flex; gap: 0; border: 1.5px solid var(--ink);}
+#nav .nav-lang button{min-height: 40px; min-width: 52px; border: 0; background: transparent; color: var(--ink); font-weight: 600; cursor: pointer; border-radius: 0;}
+#nav .nav-lang button[aria-pressed=true]{background: var(--ink); color: var(--paper);}
+#nav .nav-login{min-height: 44px; font-weight: 600;}
+.chapter{position: relative;}
+.wrap{max-width: 1320px; margin: 0 auto; padding-inline: clamp(16px, 4vw, 48px);}
+.hero2{min-height: calc(100svh - 100px); display: grid; grid-template-rows: 1fr auto; padding-top: 24px; overflow: hidden;}
+.hero2-grid{display: grid; gap: 24px; align-items: center;}
+@media (min-width: 900px){.hero2-grid{grid-template-columns: 1.4fr .6fr;}}
+.hero2 h1{font-size: clamp(3.2rem, 7.8vw, 9.5rem); line-height: .94; letter-spacing: -.01em; margin: 0; font-stretch: 68%; text-transform: uppercase;}
+[dir=rtl] .hero2 h1{font-size: clamp(2.8rem, 7.5vw, 7.5rem); line-height: 1.1; text-transform: none;}
+.hero2 h1 .g{color: var(--cross-ink);}
+.hero2 .lede{max-width: 44ch; font-size: 1.12rem; color: var(--muted); margin: 28px 0 0;}
+.hero2 .cta{display: flex; gap: 12px; flex-wrap: wrap; margin-top: 32px;}
+.hero2-foot{display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; border-top: 1px solid var(--hair); padding: 14px 0 22px; color: var(--muted);}
+.scroll-cue{display: inline-flex; align-items: center; gap: 10px;}
+.scroll-cue i{display: inline-block; width: 1px; height: 22px; background: var(--ink); transform-origin: top; animation: cue 1.6s var(--e-out) infinite;}
+@keyframes cue{0% { transform: scaleY(0); } 60% { transform: scaleY(1); } 100% { transform: scaleY(1); opacity: 0; }}
+.stage{position: relative; height: min(70vh, 620px); display: grid; place-items: center; perspective: 1400px;}
+.box3d{--w: clamp(190px, 20vw, 280px); --h: calc(var(--w) * 1.32); --d: calc(var(--w) * .42); position: relative; width: var(--w); height: var(--h); transform-style: preserve-3d; transform: rotateX(-14deg) rotateY(-32deg); will-change: transform;}
+.box3d .face{position: absolute; backface-visibility: hidden; border: 1px solid rgba(15,31,26,.18);}
+.box3d .front, .box3d .back{width: var(--w); height: var(--h);}
+.box3d .front{transform: translateZ(calc(var(--d) / 2)); background: var(--box); padding: 18px; display: grid; grid-template-rows: auto 1fr auto;}
+.box3d .back{transform: rotateY(180deg) translateZ(calc(var(--d) / 2)); background: #E9EEEA;}
+.box3d .side{width: var(--d); height: var(--h); left: calc((var(--w) - var(--d)) / 2);}
+.box3d .right{transform: rotateY(90deg) translateZ(calc(var(--w) / 2)); background: var(--cross-ink); color: #fff; display: grid; place-items: center;}
+.box3d .left{transform: rotateY(-90deg) translateZ(calc(var(--w) / 2)); background: #DDE4DF;}
+.box3d .cap{width: var(--w); height: var(--d); top: calc((var(--h) - var(--d)) / 2);}
+.box3d .bottom{transform: rotateX(-90deg) translateZ(calc(var(--h) / 2)); background: #CBD4CE;}
+.box3d .inside{transform: rotateX(90deg) translateZ(calc(var(--h) / 2 - 2px)); background: #1F2E29;}
+.box3d .lid{width: var(--w); height: var(--d); top: 0; left: 0; transform-origin: 50% 0; transform: translateZ(calc(var(--d) / -2)) rotateX(90deg); background: #F7F9F7; backface-visibility: visible;}
+.box3d .side-label{writing-mode: vertical-rl; transform: rotate(180deg); font-family: var(--mono); font-size: .75rem; letter-spacing: .14em; text-transform: uppercase;}
+.box-cross{width: 44px; height: 44px; background: var(--cross); clip-path: polygon(35% 0, 65% 0, 65% 35%, 100% 35%, 100% 65%, 65% 65%, 65% 100%, 35% 100%, 35% 65%, 0 65%, 0 35%, 35% 35%);}
+.box-name{font-family: var(--display); font-stretch: 66%; font-weight: 800; font-size: calc(var(--w) * .3); line-height: .85; text-transform: uppercase; align-self: end;}
+.box-name small{display: block; font-family: var(--font); font-weight: 700; font-size: .3em; line-height: 1.3; margin: 8px 0 10px; letter-spacing: 0; text-transform: none;}
+.box-meta{display: flex; justify-content: space-between; border-top: 1px solid var(--ink); padding-top: 8px; margin-top: 12px; font-family: var(--mono); font-size: .75rem; letter-spacing: .06em;}
+.shadow3d{position: absolute; bottom: 4%; width: 60%; height: 40px; background: radial-gradient(closest-side, rgba(15,31,26,.35), transparent); filter: blur(6px);}
+.stamp{position: absolute; width: 132px; height: 132px; inset-inline-end: 0; bottom: 2%; z-index: 3;}
+.stamp svg{width: 100%; height: 100%; overflow: visible;}
+.stamp text{font-family: var(--mono); font-size: 12px; letter-spacing: .6px; fill: var(--ink); text-transform: uppercase;}
+.stamp .ring{transform-origin: 70px 70px;}
+.hero2 h1 .ln{display: block;}
+.numbers{display: grid; grid-template-columns: 1fr 1fr; border-top: 1.5px solid rgba(255,255,255,.7);}
+.numbers a{color: #fff; text-decoration: none; padding: 18px 0 0; display: grid; gap: 4px;}
+.numbers a + a{border-inline-start: 1.5px solid rgba(255,255,255,.7); padding-inline-start: 20px;}
+.numbers b{font-family: var(--display); font-stretch: 70%; font-weight: 800; font-size: clamp(5rem, 13vw, 12rem); line-height: .8;}
+.numbers a:hover b, .numbers a:focus-visible b{text-decoration: underline; text-decoration-thickness: 4px; text-underline-offset: 8px;}
+@media (max-width: 767px){.stage{height: 52vh;}.stamp{width: 104px; height: 104px; top: 0;}}
+@media (prefers-reduced-motion: reduce){.scroll-cue i, .leaf .said .caret{animation: none;}}
+html.has-cursor body, html.has-cursor button, html.has-cursor a, html.has-cursor label{cursor: none;}
+html.has-cursor input, html.has-cursor textarea, html.has-cursor select{cursor: auto;}
+html.has-cursor input[type=checkbox], html.has-cursor input[type=radio]{cursor: none;}
+.btn:disabled, .btn[aria-busy=true]{cursor: not-allowed;}
+html.has-cursor .btn:disabled{cursor: not-allowed;}
+.numbers a:focus-visible{outline-color: #fff;}
+#nav button:focus-visible{outline-offset: -3px;}
+@keyframes hero-rise{from { transform: translateY(18%); } to { transform: none; }}
+@keyframes hero-nudge{from { transform: translateY(20px); } to { transform: none; }}
+@keyframes box-in{from { transform: translateY(80px) rotateX(-4deg) rotateY(-112deg); } to { transform: rotateX(-14deg) rotateY(-32deg); }}
+@keyframes stamp-in{from { transform: scale(.6) rotate(-90deg); } to { transform: none; }}
+@media (prefers-reduced-motion: no-preference){html:not(.intro-done) .hero2 h1 .ln{animation: hero-rise .9s cubic-bezier(.16, 1, .3, 1) both;}html:not(.intro-done) .hero2 h1 .ln:nth-child(2){animation-delay: .08s;}html:not(.intro-done) .hero2 h1 .ln:nth-child(3){animation-delay: .16s;}html:not(.intro-done) .hero2 .lede{animation: hero-nudge .7s .3s cubic-bezier(.16, 1, .3, 1) both;}html:not(.intro-done) .hero2 .cta{animation: hero-nudge .7s .37s cubic-bezier(.16, 1, .3, 1) both;}html:not(.intro-done) .hero-box{animation: box-in 1.4s cubic-bezier(.16, 1, .3, 1) both;}html:not(.intro-done) .stamp{animation: stamp-in 1s .4s cubic-bezier(.16, 1, .3, 1) both;}}
+.authed .hero2[data-ssr]{visibility: hidden;}
+html[lang=fr] .brand-ar, html[lang=fr] .box-name small, html[lang=fr] .stamp text, html[lang=fr] #nav .nav-lang button[lang=ar], html[lang=fr] .skip{font-family: "Sahti Mark", var(--font);}
+html[lang=fr] .stamp text{font-family: var(--mono), "Sahti Mark";}
+</style>
+  <link rel="preload" href="/static/styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="/static/styles.css"></noscript>
 </head>
 <body>
   <a class="skip" href="#app">Aller au contenu / تخطَّ إلى المحتوى</a>
@@ -23,15 +165,41 @@
       <nav id="nav" aria-label="Menu"></nav>
     </div>
   </header>
-  <div id="draft-banner" class="draft-banner" role="note" hidden></div>
+  <div id="draft-banner" class="draft-banner" role="note">DONNÉES DE DÉMONSTRATION (BROUILLON) — NE PAS UTILISER POUR DE VRAIS SOINS</div>
   <div id="danger-banner" class="danger-banner" role="alert" hidden></div>
-  <main id="app" tabindex="-1"></main>
+  <script>try { if (sessionStorage.getItem("sahti.token")) document.documentElement.classList.add("authed"); } catch (e) {}</script>
+  <main id="app" class="landing" tabindex="-1">
+  <section class="chapter hero2" data-ssr aria-labelledby="hero-title">
+    <div class="wrap hero2-grid">
+      <div>
+        <h1 id="hero-title"><span class="ln">Le bon remède.</span> <span class="ln">La bonne dose.</span> <span class="ln g">Pour vous.</span></h1>
+        <p class="lede">Décrivez ce que vous ressentez, en français ou en arabe. Sahti pose les bonnes questions, puis vous donne la notice qui correspond à votre profil : remèdes naturels d'abord, médicaments sans ordonnance à la dose exacte ensuite.</p>
+        <div class="cta"><button type="button" class="btn lg" id="go-join">Créer mon compte</button>
+          <button type="button" class="btn lg secondary" id="go-notice">Ouvrir la notice</button></div>
+      </div>
+      <div class="stage"><div class="stamp" aria-hidden="true"><svg viewBox="0 0 140 140">
+    <defs><path id="ring" d="M70,70 m-56,0 a56,56 0 1,1 112,0 a56,56 0 1,1 -112,0"></path></defs>
+    <g class="ring"><text><textPath href="#ring">PHARMACIE DE POCHE · صيدلية في جيبك · SAHTI · </textPath></text></g>
+    <rect x="58" y="44" width="24" height="52" fill="#00A651"></rect><rect x="44" y="58" width="52" height="24" fill="#00A651"></rect></svg></div><div class="box3d hero-box" aria-hidden="true">
+    <div class="face front"><div class="box-cross"></div><div class="box-name">Sahti<small>صحتي</small></div>
+      <div><div class="mono">Notice personnelle · FR / AR</div>
+      <div class="box-meta"><span>LOT 2026·11</span><span>DÉMO</span></div></div></div>
+    <div class="face back"></div>
+    <div class="face side right"><span class="side-label">Données de démonstration</span></div>
+    <div class="face side left"></div>
+    <div class="face cap bottom"></div>
+    <div class="face cap inside"></div>
+    <div class="face lid"></div>
+  </div><div class="shadow3d"></div></div>
+    </div>
+    <div class="wrap"><div class="hero2-foot"><span class="mono">Lisez attentivement cette notice</span><span class="mono scroll-cue"><i aria-hidden="true"></i>Ouvrir la notice</span></div></div>
+  </section>
+  </main>
   <div id="transition-layer" aria-hidden="true"></div>
   <div id="modal" class="modal" hidden><div class="modal-card" role="alertdialog" aria-modal="true" aria-labelledby="modal-title"></div></div>
   <script src="/static/app.js" defer></script>
   <script src="/static/vendor/gsap-3.15.0.min.js" defer></script>
   <script src="/static/vendor/ScrollTrigger-3.15.0.min.js" defer></script>
-  <script src="/static/vendor/SplitText-3.15.0.min.js" defer></script>
   <script src="/static/vendor/Flip-3.15.0.min.js" defer></script>
   <script src="/static/vendor/lenis-1.3.27.min.js" defer></script>
 </body>
