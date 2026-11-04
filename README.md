@@ -37,31 +37,49 @@ Flutter (Android) app (v1) · web client for the MVP · Python 3.12 + FastAPI ba
 
 ## Getting started
 
-```bash
-# 1. Clone and enter the repo
+You need **Python 3.10 or newer** and **git**. The `.env` file is optional: without it, the app uses safe local defaults.
+
+### Windows (PowerShell)
+
+Open a normal (not administrator) terminal. If it starts in `C:\WINDOWS\system32`, run `cd $HOME\Documents` first: Windows doesn't let you create folders there.
+
+```powershell
+# 1. Clone and enter the repo (the repo is private: Git may open a browser to sign in to GitHub)
+cd $HOME\Documents
 git clone https://github.com/AbubakerChemingui/sahti.git
 cd sahti
 
-# 2. One-time setup (enables the git hooks) — on Windows use Git Bash
-./scripts/setup.sh
-
-# 3. Copy the environment template (your .env is never committed)
-cp .env.example .env               # Windows (cmd): copy .env.example .env
-
-# 4. Install dependencies (Python 3.10+)
+# 2. Create a virtual environment and install the dependencies
+#    (if "python" opens the Microsoft Store, use "py" instead of "python")
 python -m venv .venv
-source .venv/bin/activate          # Windows: .venv\Scripts\activate
-pip install -r requirements.txt
+.\.venv\Scripts\python -m pip install -r requirements.txt
 
-# 5. Run the app, then open http://127.0.0.1:8000/ in your browser
-#    (API health check: http://127.0.0.1:8000/api/v1/health)
-uvicorn app.main:app --reload --app-dir backend
+# 3. Run the app, then open http://127.0.0.1:8000/ in your browser
+.\.venv\Scripts\python -m uvicorn app.main:app --app-dir backend
 
-# 6. Run the tests (in a second terminal, with the virtual environment active)
-pytest
+# 4. Run the tests (in a second terminal, inside the sahti folder)
+.\.venv\Scripts\python -m pytest
 ```
 
-Step 2 is optional: it only turns on the git hooks for contributors.
+These commands call the virtual environment's Python directly, so you don't need to activate it. This also avoids PowerShell's "running scripts is disabled" error.
+
+### macOS / Linux
+
+```bash
+git clone https://github.com/AbubakerChemingui/sahti.git
+cd sahti
+python3 -m venv .venv
+.venv/bin/python -m pip install -r requirements.txt
+.venv/bin/python -m uvicorn app.main:app --app-dir backend     # then open http://127.0.0.1:8000/
+.venv/bin/python -m pytest                                     # in a second terminal
+```
+
+### Optional
+
+- **Settings:** copy `.env.example` to `.env` and change the values (`copy .env.example .env` on Windows). Your `.env` is never committed.
+- **Live reload while coding:** add `--reload` to the uvicorn command.
+- **Git hooks for contributors:** run `./scripts/setup.sh` from Git Bash.
+- **API health check:** http://127.0.0.1:8000/api/v1/health
 
 ### Try it (2 minutes)
 

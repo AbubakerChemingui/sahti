@@ -6,6 +6,9 @@ Categories: **Added**, **Changed**, **Fixed**, **Removed**.
 
 ## [Unreleased]
 
+### Changed
+- README run steps: a separate Windows block that calls `.venv\Scripts\python` directly, so the steps work in PowerShell and in cmd without activating the virtual environment; `.env` and the git-hook setup moved to an optional section.
+
 ## [0.1.0] — 2026-11-03 — MVP for the course demo
 
 ### Added
