@@ -80,6 +80,8 @@ python3 -m venv .venv
 - **Live reload while coding:** add `--reload` to the uvicorn command.
 - **Git hooks for contributors:** run `./scripts/setup.sh` from Git Bash.
 - **API health check:** http://127.0.0.1:8000/api/v1/health
+- **Optional production build** (needs Node.js): `python scripts/build_web.py`, then start the server with `SAHTI_WEB_DIST=1`. Without that variable, the un-built client is served as usual.
+- **Frame meter for performance checks:** open http://127.0.0.1:8000/?fps=1
 
 ### Try it (2 minutes)
 
