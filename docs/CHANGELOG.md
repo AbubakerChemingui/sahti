@@ -7,6 +7,18 @@ Categories: **Added**, **Changed**, **Fixed**, **Removed**.
 ## [Unreleased]
 
 ### Changed
+- **Web client redesign.** New visual system: Sidi Bou Said blue on whitewash; green only for remedies and safe medicines; red only for danger. One typeface for French and Arabic (IBM Plex Sans Arabic).
+  - Welcome screen with sign-up side by side.
+  - People cards on the home screen.
+  - Large answer buttons with a progress bar.
+  - A result headline with a confidence bar.
+  - Each medicine is shown as a **dose label** with a morning/midday/evening/night strip.
+  - Inline SVG icons instead of emoji.
+  - Buttons show progress while a request runs.
+  - One short animation on the result (GSAP), skipped when the user asks for reduced motion.
+- Fonts and GSAP are served from `backend/web/` (no internet needed for the demo): IBM Plex Sans Arabic under the SIL Open Font License (`fonts/OFL-LICENSE.txt`), GSAP 3.15.0 under GreenSock's standard no-charge license.
+
+### Changed
 - README run steps: a separate Windows block that calls `.venv\Scripts\python` directly, so the steps work in PowerShell and in cmd without activating the virtual environment; `.env` and the git-hook setup moved to an optional section.
 
 ## [0.1.0] — 2026-11-03 — MVP for the course demo

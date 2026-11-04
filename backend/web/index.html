@@ -3,18 +3,26 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0B4F8A">
   <title>Sahti — صحتي</title>
   <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
+  <a class="skip" href="#app">Aller au contenu / تخطَّ إلى المحتوى</a>
   <header class="topbar">
-    <div class="brand"><span class="logo" aria-hidden="true">+</span> Sahti <span class="brand-ar">صحتي</span></div>
-    <nav id="nav"></nav>
+    <div class="topbar-inner">
+      <a class="brand" href="/" aria-label="Sahti — accueil">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9"/><path d="M13 7h6v6h6v6h-6v6h-6v-6H7v-6h6z"/></svg>
+        <span class="brand-name">Sahti</span><span class="brand-ar" lang="ar">صحتي</span>
+      </a>
+      <nav id="nav" aria-label="Menu"></nav>
+    </div>
   </header>
   <div id="draft-banner" class="draft-banner" role="note" hidden></div>
   <div id="danger-banner" class="danger-banner" role="alert" hidden></div>
   <main id="app" tabindex="-1"></main>
-  <div id="modal" class="modal" hidden><div class="modal-card" role="alertdialog" aria-modal="true"></div></div>
-  <script src="/static/app.js"></script>
+  <div id="modal" class="modal" hidden><div class="modal-card" role="alertdialog" aria-modal="true" aria-labelledby="modal-title"></div></div>
+  <script src="/static/vendor/gsap-3.15.0.min.js" defer></script>
+  <script src="/static/app.js" defer></script>
 </body>
 </html>
