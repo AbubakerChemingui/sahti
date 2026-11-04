@@ -6,6 +6,17 @@ Categories: **Added**, **Changed**, **Fixed**, **Removed**.
 
 ## [Unreleased]
 
+### Changed
+- **New art direction, "La boîte et la notice"** (`design-system/MASTER.md`):
+  - cool leaflet paper; the pharmacy-cross green as the only meaningful accent; a night-green chapter and a signal-red chapter;
+  - Archivo (condensed variable) for display, IBM Plex Sans Arabic for text, IBM Plex Mono for metadata;
+  - sharp edges, hairline rules, 4 % paper grain.
+- **Landing rebuilt around the signature moment:** a CSS-3D medicine box opens and its notice unfolds panel by panel, pinned and scrubbed with GSAP and Lenis. It unpins below 768 px and is static with reduced motion.
+- **App screens restyled** onto the same tokens. Behaviour and API are unchanged.
+
+### Removed
+- three.js and the floating-pill hero. The 3D is now DOM/CSS 3D with no WebGL, per the effects budget.
+
 ### Added
 - **Landing page** for logged-out visitors, before sign-up or login:
   - **3D hero:** floating capsules and tablets that follow the pointer and spread out on scroll (three.js r180).

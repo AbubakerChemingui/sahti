@@ -285,191 +285,236 @@ function bindLang(redraw) {
 }
 
 // ------------------------------------------------------------------ SCR-02 sign-up / SCR-03 login — the landing
-/* Logged-out visitors get the landing: a 3D hero (three.js), a pinned three-step story (GSAP ScrollTrigger),
-   the dose label coming alive, the danger promise, then the form. Lenis smooths the scroll on this page only.
-   Everything degrades: no WebGL → gradient; reduced motion → still frame, no scroll effects. */
+/* "La boîte et la notice" (design-system/MASTER.md). Logged-out visitors see five chapters:
+   1 the box on stage · 2 the box opens and its notice unfolds (pinned, scrubbed: the signature moment)
+   3 night statement + the dose label · 4 the danger promise · 5 the form, then the wordmark.
+   Lenis smooths scrolling on this page only. Reduced motion: no pin, no rotation, plain fades. */
 Object.assign(T.fr, {
-  heroTitle: "Vous êtes malade. Sahti vous dit quoi faire, sans risque.",
-  heroLead: "Décrivez ce que vous ressentez en français ou en arabe. Sahti pose les bonnes questions, puis propose des remèdes naturels et des médicaments sans ordonnance à la dose exacte, vérifiés pour votre profil.",
-  heroCta: "Créer mon compte", heroLogin: "J'ai déjà un compte", scrollHint: "Découvrir",
-  howTitle: "Trois étapes, deux minutes",
-  step1T: "Dites-le avec vos mots", step1D: "« Mal à la gorge et fièvre depuis hier. » Sahti comprend, puis vous demande de confirmer avant d'utiliser quoi que ce soit.",
-  step2T: "Répondez à quelques questions", step2D: "Une question à la fois, choisie pour être utile. Les questions de sécurité passent toujours en premier.",
-  step3T: "Recevez des conseils sûrs", step3D: "Remèdes naturels d'abord, puis la dose exacte, le moment de la journée et la durée maximale.",
-  mockText: "Mal à la gorge et fièvre depuis hier, je ne tousse pas",
-  labelTitle: "La dose exacte, au bon moment de la journée.",
-  labelLead: "Pas de calcul, pas d'à-peu-près : chaque dose vient d'une bande de poids et d'âge validée. Pour un enfant dont le poids est incertain, Sahti prend la bande plus faible.",
-  safetyTitle: "Si c'est grave, Sahti vous le dit tout de suite.",
-  safetyLead: "Difficulté à respirer, nuque raide, sang dans les selles : le moindre signe de danger affiche un avertissement qui reste à l'écran jusqu'à la fin, avec les numéros d'urgence.",
-  joinTitle: "Commencez maintenant", joinLead: "Votre compte protège les informations de santé de votre famille.",
+  heroL1: "Le bon remède.", heroL2: "La bonne dose.", heroL3: "Pour vous.",
+  heroLead: "Décrivez ce que vous ressentez, en français ou en arabe. Sahti pose les bonnes questions, puis vous donne la notice qui correspond à votre profil : remèdes naturels d'abord, médicaments sans ordonnance à la dose exacte ensuite.",
+  heroCta: "Créer mon compte", heroLogin: "Se connecter", openNotice: "Ouvrir la notice",
+  readNotice: "Lisez attentivement cette notice", stamp: "PHARMACIE DE POCHE · صيدلية في جيبك · ",
+  noticeTitle: "Une notice écrite pour vous",
+  leaf1T: "Dites-le avec vos mots", leaf1D: "Sahti comprend, puis vous demande de confirmer. Rien n'est utilisé sans votre accord.",
+  leaf2T: "Quelques questions", leaf2D: "Une à la fois. Les questions de sécurité passent toujours en premier.",
+  leaf3T: "La dose exacte", leaf3D: "Le bon médicament pour votre profil, à quel moment de la journée, et pendant combien de jours.",
+  saidText: "Mal à la gorge et fièvre depuis hier, je ne tousse pas",
+  st1: "Remèdes d'abord.", st2: "Médicaments ensuite.", st3: "Jamais au hasard.",
+  nightLead: "Chaque médicament est vérifié contre vos allergies, vos maladies et vos traitements. Chaque dose vient d'une bande d'âge et de poids — jamais d'un calcul. Pour un enfant au poids incertain, Sahti prend la bande la plus basse.",
+  signalTitle: "Si c'est grave, Sahti vous le dit tout de suite.",
+  signalLead: "Difficulté à respirer, nuque raide, sang dans les selles : au moindre signe de danger, un avertissement reste à l'écran jusqu'à la fin de la consultation, avec les numéros d'urgence.",
+  joinTitle: "Commencez votre première consultation", joinLead: "Le compte garde, chiffrés, les profils de santé de votre famille.",
+  f1k: "Langues", f1v: "Français et arabe, de droite à gauche", f2k: "Profils", f2v: "Vous et vos enfants, chacun avec son poids et ses traitements",
+  f3k: "Données", f3v: "Chiffrées, supprimables à tout moment", f4k: "Démo", f4v: "5 maladies courantes, données non validées",
 });
 Object.assign(T.ar, {
-  heroTitle: "أنت مريض. صحتي يخبرك بما تفعل، بأمان.",
-  heroLead: "صف ما تشعر به بالفرنسية أو بالعربية. يطرح صحتي الأسئلة الصحيحة، ثم يقترح علاجات طبيعية وأدوية بدون وصفة بالجرعة الدقيقة، مفحوصة حسب ملفك.",
-  heroCta: "إنشاء حسابي", heroLogin: "لدي حساب بالفعل", scrollHint: "اكتشف",
-  howTitle: "ثلاث خطوات، دقيقتان",
-  step1T: "قلها بكلماتك", step1D: "«وجيعة في القرجومة وسخانة من البارح.» يفهم صحتي، ثم يطلب منك التأكيد قبل استعمال أي شيء.",
-  step2T: "أجب عن بعض الأسئلة", step2D: "سؤال واحد في كل مرة، مختار ليكون مفيدًا. أسئلة السلامة تأتي دائمًا أولًا.",
-  step3T: "احصل على نصائح آمنة", step3D: "العلاجات الطبيعية أولًا، ثم الجرعة الدقيقة ووقتها في اليوم والمدة القصوى.",
-  mockText: "عندي وجيعة في القرجومة وسخانة من البارح",
-  labelTitle: "الجرعة الدقيقة، في الوقت المناسب من اليوم.",
-  labelLead: "لا حسابات ولا تقريب: كل جرعة تأتي من فئة وزن وعمر مُعتمدة. للطفل الذي لا يُعرف وزنه بدقة، يأخذ صحتي الفئة الأقل.",
-  safetyTitle: "إذا كان الأمر خطيرًا، يخبرك صحتي فورًا.",
-  safetyLead: "صعوبة في التنفس، تصلب الرقبة، دم في البراز: أي علامة خطر تُظهر تنبيهًا يبقى على الشاشة حتى النهاية، مع أرقام الطوارئ.",
-  joinTitle: "ابدأ الآن", joinLead: "حسابك يحمي المعلومات الصحية لعائلتك.",
+  heroL1: "العلاج المناسب.", heroL2: "الجرعة الصحيحة.", heroL3: "لك أنت.",
+  heroLead: "صف ما تشعر به بالفرنسية أو بالعربية. يطرح صحتي الأسئلة الصحيحة، ثم يعطيك النشرة المناسبة لملفك: العلاجات الطبيعية أولًا، ثم أدوية بدون وصفة بالجرعة الدقيقة.",
+  heroCta: "إنشاء حسابي", heroLogin: "تسجيل الدخول", openNotice: "افتح النشرة",
+  readNotice: "اقرأ هذه النشرة بعناية", stamp: "PHARMACIE DE POCHE · صيدلية في جيبك · ",
+  noticeTitle: "نشرة مكتوبة لك",
+  leaf1T: "قلها بكلماتك", leaf1D: "يفهم صحتي، ثم يطلب منك التأكيد. لا يُستعمل شيء دون موافقتك.",
+  leaf2T: "بعض الأسئلة", leaf2D: "سؤال واحد في كل مرة. أسئلة السلامة تأتي دائمًا أولًا.",
+  leaf3T: "الجرعة الدقيقة", leaf3D: "الدواء المناسب لملفك، وفي أي وقت من اليوم، ولكم يومًا.",
+  saidText: "عندي وجيعة في القرجومة وسخانة من البارح",
+  st1: "العلاجات أولًا.", st2: "ثم الأدوية.", st3: "لا شيء بالصدفة.",
+  nightLead: "يُفحص كل دواء مقابل حساسيتك وأمراضك وأدويتك. كل جرعة تأتي من فئة عمر ووزن — لا من حساب. للطفل الذي لا يُعرف وزنه بدقة، يأخذ صحتي الفئة الأدنى.",
+  signalTitle: "إذا كان الأمر خطيرًا، يخبرك صحتي فورًا.",
+  signalLead: "صعوبة في التنفس، تصلب الرقبة، دم في البراز: عند أي علامة خطر، يبقى تنبيه على الشاشة حتى نهاية الاستشارة، مع أرقام الطوارئ.",
+  joinTitle: "ابدأ استشارتك الأولى", joinLead: "يحفظ الحساب الملفات الصحية لعائلتك مشفّرة.",
+  f1k: "اللغات", f1v: "الفرنسية والعربية، من اليمين إلى اليسار", f2k: "الملفات", f2v: "أنت وأطفالك، لكل واحد وزنه وأدويته",
+  f3k: "البيانات", f3v: "مشفّرة، ويمكن حذفها في أي وقت", f4k: "تجريبي", f4v: "5 أمراض شائعة، بيانات غير معتمدة",
 });
 
-const L = { lenis: null, hero: null, mm: null, tick: null };
+const L = { lenis: null, mm: null, tick: null, idle: null, onMove: null };
 
 function teardownLanding() {
   if (L.mm) { L.mm.revert(); L.mm = null; }
+  if (L.idle) { L.idle.kill(); L.idle = null; }
+  if (L.onMove) { window.removeEventListener("pointermove", L.onMove); L.onMove = null; }
   if (L.tick && window.gsap) { gsap.ticker.remove(L.tick); L.tick = null; }
   if (L.lenis) { L.lenis.destroy(); L.lenis = null; }
-  if (L.hero) { L.hero.destroy(); L.hero = null; }
   document.body.classList.remove("is-landing");
 }
 
-function mockDose() {
-  const slots = MOMENTS.map(([code, key, ic], i) => `<div class="slot ${i < 3 ? "on" : ""}" data-slot="${i}">${icon(ic)}<span>${esc(t(key))}</span><span class="pill" aria-hidden="true"></span></div>`).join("");
-  return `<article class="dose-label showcase" aria-hidden="true"><header><h3>Paracétamol 500 mg</h3><div><span class="amount">2 ${S.lang === "ar" ? "أقراص" : "comprimés"}</span> <span class="per">· ${esc(t("perDay", { n: 3 }))} · ${esc(t("afterMeal"))}</span></div></header>
-    <div class="day-strip">${slots}</div><footer><span>${S.lang === "ar" ? "6 ساعات على الأقل بين جرعتين · 3 أيام كحد أقصى" : "au moins 6 h entre deux prises · 3 jours maximum"}</span></footer></article>`;
+const ar = () => S.lang === "ar";
+
+function boxHtml(cls = "") {
+  return `<div class="box3d ${cls}" aria-hidden="true">
+    <div class="face front"><div class="box-cross"></div><div class="box-name">Sahti<small>صحتي</small></div>
+      <div><div class="mono" style="font-size:.66rem">${esc(ar() ? "نشرة شخصية · FR / AR" : "Notice personnelle · FR / AR")}</div>
+      <div class="box-meta"><span>LOT 2026·11</span><span>${esc(ar() ? "تجريبي" : "DÉMO")}</span></div></div></div>
+    <div class="face back"></div>
+    <div class="face side right"><span class="side-label">${esc(ar() ? "بيانات تجريبية" : "Données de démonstration")}</span></div>
+    <div class="face side left"></div>
+    <div class="face cap bottom"></div>
+    <div class="face cap inside"></div>
+    <div class="face lid"></div>
+  </div>`;
+}
+
+function stampHtml() {
+  return `<div class="stamp" aria-hidden="true"><svg viewBox="0 0 140 140">
+    <defs><path id="ring" d="M70,70 m-56,0 a56,56 0 1,1 112,0 a56,56 0 1,1 -112,0"/></defs>
+    <g class="ring"><text><textPath href="#ring">${esc(t("stamp") + t("stamp"))}</textPath></text></g>
+    <rect x="58" y="44" width="24" height="52" fill="#00A651"/><rect x="44" y="58" width="52" height="24" fill="#00A651"/></svg></div>`;
+}
+
+function leafletHtml() {
+  const strip = MOMENTS.map(([, key], i) => `<span class="${i < 3 ? "on" : ""}">${esc(t(key))}</span>`).join("");
+  const ok = ar() ? ["ألم في الحلق: نعم", "حمى: نعم", "المدة: يوم واحد"] : ["Mal de gorge : oui", "Fièvre : oui", "Durée : 1 jour"];
+  return `<div class="leaflet">
+    <article class="leaf" data-leaf="0"><span class="mono">${esc(ar() ? "الخطوة 1 / 3" : "Étape 1 / 3")}</span><h3>${esc(t("leaf1T"))}</h3><p>${esc(t("leaf1D"))}</p>
+      <div class="ui"><div class="said"><span class="typed" data-text="${esc(t("saidText"))}">${esc(t("saidText"))}</span><span class="caret" aria-hidden="true"></span></div>
+      <ul class="ok">${ok.map((x) => `<li>${icon("check")}${esc(x)}</li>`).join("")}</ul></div></article>
+    <article class="leaf" data-leaf="1"><span class="mono">${esc(ar() ? "الخطوة 2 / 3" : "Étape 2 / 3")}</span><h3>${esc(t("leaf2T"))}</h3><p>${esc(t("leaf2D"))}</p>
+      <div class="ui"><p class="q">${esc(ar() ? "هل تشعر بألم عند البلع؟" : "Avez-vous mal en avalant ?")}</p>
+      <div class="opts"><span class="on">${esc(t("yes"))}</span><span>${esc(t("no"))}</span><span>${esc(t("unsure"))}</span></div></div></article>
+    <article class="leaf" data-leaf="2"><span class="mono">${esc(ar() ? "الخطوة 3 / 3" : "Étape 3 / 3")}</span><h3>${esc(t("leaf3T"))}</h3><p>${esc(t("leaf3D"))}</p>
+      <div class="ui mini-dose"><span class="mono">${esc(ar() ? "باراسيتامول 500 ملغ" : "Paracétamol 500 mg")}</span>
+      <div class="amount">${esc(ar() ? "قرصان" : "2 comprimés")}</div><span class="mono">${esc(ar() ? "3 مرات / يوم · بعد الأكل · 3 أيام كحد أقصى" : "3× / jour · après le repas · max 3 j")}</span>
+      <div class="strip">${strip}</div></div></article>
+  </div>`;
+}
+
+function doseShowcase() {
+  return `<article class="dose-label" aria-label="${esc(ar() ? "مثال على بطاقة الجرعة" : "Exemple d'étiquette de dose")}"><header><h3>Paracétamol 500 mg</h3>
+    <div><span class="amount">${esc(ar() ? "قرصان" : "2 comprimés")}</span> <span class="per">· ${esc(t("perDay", { n: 3 }))} · ${esc(t("afterMeal"))}</span></div></header>
+    <div class="day-strip">${MOMENTS.map(([, key, ic], i) => `<div class="slot ${i < 3 ? "on" : ""}">${icon(ic)}<span>${esc(t(key))}</span><span class="pill" aria-hidden="true"></span></div>`).join("")}</div>
+    <footer><span>${esc(ar() ? "6 ساعات على الأقل بين جرعتين · 3 أيام كحد أقصى" : "au moins 6 h entre deux prises · 3 jours maximum")}</span></footer></article>`;
 }
 
 function landing(formHtml, bindForm, isLogin) {
-  S.route = isLogin ? "login" : "signup"; nav([]);
-  const steps = [["step1T", "step1D"], ["step2T", "step2D"], ["step3T", "step3D"]];
-  const screens = [
-    `<div class="mock-screen" data-screen="0"><span class="tag">${esc(t("describeShort"))}</span><div class="mock-text"><span class="typed" data-text="${esc(t("mockText"))}">${esc(t("mockText"))}</span><span class="caret" aria-hidden="true"></span></div>
-      <ul class="converted mock-conv"><li>${icon("check")} ${esc(S.lang === "ar" ? "ألم في الحلق: نعم" : "Mal de gorge : oui")}</li><li>${icon("check")} ${esc(S.lang === "ar" ? "حمى: نعم" : "Fièvre : oui")}</li><li>${icon("check")} ${esc(S.lang === "ar" ? "المدة (أيام): 1" : "Durée (jours) : 1")}</li></ul></div>`,
-    `<div class="mock-screen" data-screen="1"><div class="progress"><span>${esc(t("questionOf", { n: 3 }))}</span><div class="track"><div class="fill" style="--p:40%"></div></div></div>
-      <p class="question small-q">${esc(S.lang === "ar" ? "هل تشعر بألم عند البلع؟" : "Avez-vous mal en avalant ?")}</p>
-      <div class="answers"><span class="answer picked"><span class="dot"></span>${esc(t("yes"))}</span><span class="answer"><span class="dot"></span>${esc(t("no"))}</span><span class="answer"><span class="dot"></span>${esc(t("unsure"))}</span></div></div>`,
-    `<div class="mock-screen" data-screen="2"><p class="kicker">${esc(t("probable"))}</p><p class="illness">${esc(S.lang === "ar" ? "التهاب الحلق" : "Mal de gorge")}</p>
-      <div class="meter"><div class="track"><div class="fill" style="width:87%"></div></div><span class="value num">87%</span></div>
-      <div class="remedy mini"><h3>${esc(S.lang === "ar" ? "عسل وليمون" : "Miel et citron")}</h3></div>${mockDose()}</div>`,
-  ];
+  S.route = isLogin ? "login" : "signup";
   render(`
-  <section class="hero" aria-labelledby="hero-title">
-    <canvas class="hero-canvas" aria-hidden="true"></canvas>
-    <div class="hero-glow" aria-hidden="true"></div>
-    <div class="hero-copy">
-      <h1 id="hero-title" class="hero-title">${esc(t("heroTitle"))}</h1>
-      <p class="hero-lead">${esc(t("heroLead"))}</p>
-      <div class="hero-cta"><button type="button" class="btn lg light" id="go-join">${esc(t(isLogin ? "login" : "heroCta"))}</button>
-      <button type="button" class="btn lg ghost-light" id="go-other">${esc(t(isLogin ? "noAccount" : "heroLogin"))}</button></div>
+  <section class="chapter hero2" aria-labelledby="hero-title">
+    <div class="wrap hero2-grid">
+      <div>
+        <h1 id="hero-title"><span class="ln">${esc(t("heroL1"))}</span> <span class="ln">${esc(t("heroL2"))}</span> <span class="ln g">${esc(t("heroL3"))}</span></h1>
+        <p class="lede">${esc(t("heroLead"))}</p>
+        <div class="cta"><button type="button" class="btn lg" id="go-join">${esc(t(isLogin ? "login" : "heroCta"))}</button>
+          <button type="button" class="btn lg secondary" id="go-notice">${esc(t("openNotice"))}</button></div>
+      </div>
+      <div class="stage">${stampHtml()}${boxHtml("hero-box")}<div class="shadow3d"></div></div>
     </div>
-    <div class="scroll-hint" aria-hidden="true"><span>${esc(t("scrollHint"))}</span><i></i></div>
+    <div class="wrap"><div class="hero2-foot"><span class="mono">${esc(t("readNotice"))}</span><span class="mono scroll-cue"><i aria-hidden="true"></i>${esc(t("openNotice"))}</span></div></div>
   </section>
 
-  <section class="how" aria-labelledby="how-title">
-    <div class="how-inner">
-      <div class="how-copy"><h2 id="how-title" class="display">${esc(t("howTitle"))}</h2>
-        <ol class="steps">${steps.map(([h, d], i) => `<li class="step ${i === 0 ? "active" : ""}" data-step="${i}"><span class="step-n num">${i + 1}</span><div><h3>${esc(t(h))}</h3><p>${esc(t(d))}</p></div></li>`).join("")}</ol></div>
-      <div class="device" aria-hidden="true"><div class="device-bar"><span></span></div><div class="device-body">${screens.join("")}</div></div>
+  <section class="chapter notice-ch" id="notice" aria-labelledby="notice-title">
+    <div class="notice-pin">
+      <div class="notice-head"><span class="mono">${esc(ar() ? "نشرة · Notice" : "Notice · نشرة")}</span><h2 id="notice-title">${esc(t("noticeTitle"))}</h2></div>
+      <div class="notice-stage">${boxHtml("notice-box")}${leafletHtml()}</div>
     </div>
   </section>
 
-  <section class="label-show" aria-labelledby="label-title">
-    <div class="split"><div><h2 id="label-title" class="display">${esc(t("labelTitle"))}</h2><p class="section-lead">${esc(t("labelLead"))}</p></div>
-    <div class="label-stage">${mockDose()}</div></div>
+  <section class="chapter night" aria-labelledby="st-title">
+    <div class="wrap">
+      <div><h2 id="st-title" class="statement"><span>${esc(t("st1"))}</span><span>${esc(t("st2"))}</span><span class="c">${esc(t("st3"))}</span></h2>
+        <p class="lede">${esc(t("nightLead"))}</p></div>
+      <div class="dose-stage">${doseShowcase()}<p class="mono mono-meta">${esc(ar() ? "مثال · بيانات تجريبية" : "Exemple · données de démonstration")}</p></div>
+    </div>
   </section>
 
-  <section class="safety" aria-labelledby="safety-title">
-    <div class="split"><div><h2 id="safety-title" class="display">${esc(t("safetyTitle"))}</h2><p class="section-lead">${esc(t("safetyLead"))}</p></div>
-    <div class="safety-card"><div class="pulse" aria-hidden="true"></div>${dangerHtml({ level: "EMERGENCY", message: T[S.lang].emergencyTitle ? (S.lang === "ar" ? "هذا الوضع خطير. اتصل بـ 190 أو 198." : "Cette situation est dangereuse. Appelez le 190 ou le 198.") : "" })}</div></div>
+  <section class="chapter signal" aria-labelledby="sig-title">
+    <div class="wrap">
+      <div><h2 id="sig-title">${esc(t("signalTitle"))}</h2><p class="lede">${esc(t("signalLead"))}</p></div>
+      <div class="numbers"><a href="tel:190"><b class="num">190</b><span class="mono">SAMU</span></a><a href="tel:198"><b class="num">198</b><span class="mono">${esc(t("civil"))}</span></a></div>
+    </div>
   </section>
 
-  <section class="join" id="join" aria-labelledby="join-title">
-    <div class="join-inner"><div><h2 id="join-title" class="display">${esc(t("joinTitle"))}</h2><p class="section-lead">${esc(t("joinLead"))}</p>
-      <ul class="promise"><li>${icon("check")}<span>${esc(t("promise1"))}</span></li><li>${icon("alert")}<span>${esc(t("promise2"))}</span></li><li>${icon("check")}<span>${esc(t("promise3"))}</span></li></ul></div>
-      ${formHtml}</div>
-    <p class="landing-foot">${esc(t("disclaimerText"))}</p>
+  <section class="chapter join2" id="join" aria-labelledby="join-title">
+    <div class="wrap">
+      <div><h2 id="join-title">${esc(t("joinTitle"))}</h2><p class="lede">${esc(t("joinLead"))}</p>
+        <ul class="facts">${[1, 2, 3, 4].map((n) => `<li><span class="mono">${esc(t("f" + n + "k"))}</span><span>${esc(t("f" + n + "v"))}</span></li>`).join("")}</ul></div>
+      ${formHtml}
+    </div>
+    <div class="wrap wordmark"><div class="big" aria-hidden="true"><span>Sahti</span><span>صحتي</span></div>
+      <div class="foot"><span>${esc(t("disclaimerText"))}</span><span class="mono">${esc(t("draft"))}</span></div></div>
   </section>`, { landing: true });
 
   document.body.classList.add("is-landing");
   document.getElementById("nav").innerHTML = `<div class="nav-lang" role="group" aria-label="Langue / اللغة">
-    <button type="button" data-lang="fr" lang="fr" aria-pressed="${S.lang === "fr"}">FR</button><button type="button" data-lang="ar" lang="ar" aria-pressed="${S.lang === "ar"}">عربي</button></div>`;
+    <button type="button" data-lang="fr" lang="fr" aria-pressed="${S.lang === "fr"}">FR</button><button type="button" data-lang="ar" lang="ar" aria-pressed="${S.lang === "ar"}">عربي</button></div>
+    <button type="button" class="nav-login" id="nav-other">${esc(t(isLogin ? "noAccount" : "heroLogin"))}</button>`;
   bindLang(isLogin ? login : signup);
-  const goJoin = () => {
-    const target = document.getElementById("join");
-    if (L.lenis) L.lenis.scrollTo(target, { offset: -20, duration: 1.4 }); else target.scrollIntoView({ behavior: reduceMotion() ? "auto" : "smooth" });
-    setTimeout(() => document.getElementById("email") && document.getElementById("email").focus({ preventScroll: true }), reduceMotion() ? 0 : 1400);
+  const scrollToEl = (el, then) => {
+    if (L.lenis) L.lenis.scrollTo(el, { duration: 1.4, onComplete: then }); else { el.scrollIntoView({ behavior: reduceMotion() ? "auto" : "smooth" }); if (then) setTimeout(then, reduceMotion() ? 0 : 900); }
   };
-  document.getElementById("go-join").onclick = goJoin;
-  document.getElementById("go-other").onclick = isLogin ? signup : login;
+  document.getElementById("go-join").onclick = () => scrollToEl(document.getElementById("join"), () => document.getElementById("email").focus({ preventScroll: true }));
+  document.getElementById("go-notice").onclick = () => scrollToEl(document.getElementById("notice"));
+  document.getElementById("nav-other").onclick = isLogin ? signup : login;
   bindForm();
   startLandingMotion();
 }
 
-function mount3d() {
-  const canvas = $app.querySelector(".hero-canvas");
-  if (!canvas) return;
-  const go = () => {
-    if (!canvas.isConnected) return;
-    try { L.hero = window.Sahti3D.mount(canvas, { reducedMotion: reduceMotion() }); canvas.classList.add("ready"); } catch (e) { canvas.remove(); }
-  };
-  if (window.Sahti3D) go(); else window.addEventListener("sahti3d-ready", go, { once: true });
-}
-
 function startLandingMotion() {
-  mount3d();
   const g = window.gsap;
-  if (!g || reduceMotion()) return;
+  if (!g) return;
   g.registerPlugin(window.ScrollTrigger, window.SplitText);
-  if (window.Lenis) {
-    L.lenis = new Lenis({ autoRaf: false, anchors: true });
-    L.lenis.on("scroll", ScrollTrigger.update);
-    L.tick = (time) => L.lenis && L.lenis.raf(time * 1000);
-    g.ticker.add(L.tick);
-    g.ticker.lagSmoothing(0);
-  }
   L.mm = g.matchMedia();
-  L.mm.add({ desktop: "(min-width: 900px)", mobile: "(max-width: 899px)" }, (ctx) => {
-    const { desktop } = ctx.conditions;
-    // 1. Hero: the headline arrives line by line, then the lead and the buttons.
-    const split = window.SplitText ? new SplitText(".hero-title", { type: "lines", mask: "lines", linesClass: "line" }) : null;
-    const tl = g.timeline({ defaults: { ease: "expo.out" } });
-    if (split) tl.from(split.lines, { yPercent: 110, duration: 1.1, stagger: 0.09 });
-    tl.from(".hero-lead", { y: 24, autoAlpha: 0, duration: 0.9 }, "-=0.7")
-      .from(".hero-cta .btn", { y: 18, autoAlpha: 0, duration: 0.7, stagger: 0.08 }, "-=0.6")
-      .from(".hero-canvas", { autoAlpha: 0, scale: 1.08, duration: 1.6, ease: "power2.out" }, 0);
-    // The 3D cloud opens up as the hero scrolls away.
-    ScrollTrigger.create({ trigger: ".hero", start: "top top", end: "bottom top", scrub: true,
-      onUpdate: (st) => L.hero && L.hero.setProgress(st.progress) });
-    g.to(".hero-copy", { yPercent: -18, autoAlpha: 0.2, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
-
-    // 2. How it works: on desktop the section pins and the phone shows each step in turn.
-    const showStep = (i) => {
-      document.querySelectorAll(".step").forEach((s, k) => s.classList.toggle("active", k === i));
-      document.querySelectorAll(".mock-screen").forEach((s, k) => {
-        g.to(s, { autoAlpha: k === i ? 1 : 0, y: k === i ? 0 : (k < i ? -24 : 24), duration: 0.5, ease: "power3.out", overwrite: true });
-      });
-      if (i === 0) typeText();
-      if (i === 2) g.fromTo(".mock-screen[data-screen='2'] .meter .fill", { scaleX: 0 }, { scaleX: 1, duration: 0.9, ease: "power3.out" });
-    };
-    g.set(".mock-screen", { autoAlpha: 0 });
-    showStep(0);
-    if (desktop) {
-      ScrollTrigger.create({ trigger: ".how", start: "top top", end: "+=1800", pin: true, scrub: false,
-        onUpdate: (st) => { const i = Math.min(2, Math.floor(st.progress * 3)); if (i !== S.step) { S.step = i; showStep(i); } } });
-    } else {
-      document.querySelectorAll(".step").forEach((el, i) => ScrollTrigger.create({ trigger: el, start: "top 60%", onEnter: () => showStep(i), onEnterBack: () => showStep(i) }));
+  L.mm.add({ reduce: "(prefers-reduced-motion: reduce)", desktop: "(min-width: 768px) and (prefers-reduced-motion: no-preference)", mobile: "(max-width: 767px) and (prefers-reduced-motion: no-preference)" }, (ctx) => {
+    const { reduce, desktop } = ctx.conditions;
+    if (reduce) {   // opacity-only, no pin, no rotation, no smooth scroll
+      g.from(".hero2 h1, .hero2 .lede, .hero2 .cta", { opacity: 0, duration: 0.6, stagger: 0.1 });
+      return undefined;
+    }
+    if (window.Lenis) {
+      L.lenis = new Lenis({ autoRaf: false, lerp: 0.1 });
+      L.lenis.on("scroll", ScrollTrigger.update);
+      L.tick = (time) => L.lenis && L.lenis.raf(time * 1000);
+      g.ticker.add(L.tick);
+      g.ticker.lagSmoothing(0);
     }
 
-    // 3. The dose label: the day strip lights up slot by slot.
-    g.from(".label-stage .dose-label", { y: 60, rotateX: 18, opacity: 0, duration: 1.1, ease: "expo.out", transformPerspective: 900,
-      scrollTrigger: { trigger: ".label-show", start: "top 70%" } });
-    g.from(".label-stage .slot.on", { backgroundColor: "rgba(255,255,255,0)", color: "#8592A6", duration: 0.4, stagger: 0.25,
-      scrollTrigger: { trigger: ".label-show", start: "top 55%" } });
-    g.from(".label-stage .slot.on .pill", { scale: 0, duration: 0.5, ease: "back.out(3)", stagger: 0.25,
-      scrollTrigger: { trigger: ".label-show", start: "top 55%" } });
+    // Chapter 1 — the box arrives, the headline is printed line by line.
+    const intro = g.timeline({ defaults: { ease: "expo.out" } });
+    intro.from(".hero-box", { y: 80, rotateY: -80, rotateX: 10, opacity: 0, duration: 1.4 }, 0)
+      .from(".hero2 h1 .ln", { yPercent: 105, opacity: 0, duration: 0.9, stagger: 0.08, clipPath: "inset(0 0 100% 0)" }, 0.15)
+      .from(".hero2 .lede, .hero2 .cta", { y: 20, opacity: 0, duration: 0.7, stagger: 0.07 }, 0.55)
+      .from(".stamp", { scale: 0.6, rotate: -90, opacity: 0, duration: 1 }, 0.4);
+    // Idle: the box turns a little and follows the pointer; the stamp turns with scroll.
+    const box = $app.querySelector(".hero-box");
+    L.idle = g.to(box, { rotateY: "-=14", duration: 4, ease: "sine.inOut", yoyo: true, repeat: -1, delay: 1.4 });
+    const tiltX = g.quickTo(box, "rotateX", { duration: 0.8, ease: "power3.out" });
+    L.onMove = (e) => { tiltX(-14 + (e.clientY / innerHeight - 0.5) * -10); };
+    window.addEventListener("pointermove", L.onMove, { passive: true });
+    g.to(".stamp .ring", { rotate: 360, ease: "none", scrollTrigger: { trigger: ".hero2", start: "top top", end: "bottom top", scrub: 1 } });
+    g.to(".hero-box", { y: 120, rotateY: -70, opacity: 0, ease: "none", scrollTrigger: { trigger: ".hero2", start: "top top", end: "bottom top", scrub: 1 } });
 
-    // 4. Safety: the alert card rises, the pulse ring breathes.
-    g.from(".safety-card", { y: 50, opacity: 0, duration: 1, ease: "expo.out", scrollTrigger: { trigger: ".safety", start: "top 70%" } });
-    g.to(".pulse", { scale: 1.25, autoAlpha: 0, duration: 1.8, repeat: -1, ease: "power1.out" });
-    g.utils.toArray(".display").forEach((h) => g.from(h, { y: 40, opacity: 0, duration: 1, ease: "expo.out", scrollTrigger: { trigger: h, start: "top 85%" } }));
-    g.from(".join .panel", { y: 40, opacity: 0, duration: 1, ease: "expo.out", scrollTrigger: { trigger: ".join", start: "top 75%" } });
-    return () => { if (split) split.revert(); };
+    // Chapter 2 — the signature moment: the box opens and its notice unfolds, one panel per beat.
+    const leaves = g.utils.toArray(".leaf");
+    if (desktop) {
+      const dir = ar() ? -1 : 1;
+      g.set(".notice-box", { rotateX: -16, rotateY: -24 * dir, scale: 0.9 });
+      g.set(leaves[1], { transformOrigin: ar() ? "right center" : "left center", rotateY: -178 * dir });
+      g.set(leaves[2], { transformOrigin: ar() ? "right center" : "left center", rotateY: 178 * dir });
+      g.set(".leaflet", { y: 40, scale: 0.55, opacity: 0, xPercent: 33 * dir });
+      const tl = g.timeline({ defaults: { ease: "none" }, scrollTrigger: { trigger: ".notice-pin", start: "top top", end: "+=360%", pin: true, scrub: 1, anticipatePin: 1 } });
+      tl.to(".notice-box", { rotateY: 0, rotateX: -22, scale: 1, duration: 1 })
+        .to(".notice-box .lid", { rotateX: 230, duration: 0.8 }, ">-0.2")
+        .to(".leaflet", { opacity: 1, y: -60, scale: 0.62, duration: 0.8 }, ">-0.1")
+        .to(".notice-box", { y: 260, scale: 0.8, opacity: 0, duration: 1 }, ">")
+        .to(".leaflet", { y: 30, scale: 1, duration: 1 }, "<")
+        .add(() => typeText(), "<")
+        .to(leaves[1], { rotateY: 0, duration: 1.2 }, ">")
+        .to(".leaflet", { xPercent: 0, duration: 1.2 }, "<")
+        .to(leaves[2], { rotateY: 0, duration: 1.2 }, ">")
+        .to({}, { duration: 0.6 });
+    } else {
+      leaves.forEach((leaf) => g.from(leaf, { y: 50, opacity: 0, duration: 0.9, ease: "power3.out", scrollTrigger: { trigger: leaf, start: "top 85%", onEnter: () => leaf.dataset.leaf === "0" && typeText() } }));
+    }
+
+    // Chapter 3 — the statement is printed line by line; the dose label's day strip lights up.
+    g.from(".statement span", { yPercent: 100, opacity: 0, duration: 1, ease: "expo.out", stagger: 0.12, scrollTrigger: { trigger: ".night", start: "top 70%" } });
+    const slots = $app.querySelectorAll(".dose-stage .slot.on");
+    g.from(".dose-stage .dose-label", { rotateX: 24, y: 60, opacity: 0, transformPerspective: 900, duration: 1.1, ease: "expo.out", scrollTrigger: { trigger: ".dose-stage", start: "top 80%" } });
+    g.from(slots, { backgroundColor: "rgba(226,243,232,0)", duration: 0.5, stagger: 0.28, ease: "power2.out", scrollTrigger: { trigger: ".dose-stage", start: "top 65%" } });
+    g.from(".dose-stage .slot.on .pill", { scale: 0, duration: 0.45, stagger: 0.28, ease: "power3.out", scrollTrigger: { trigger: ".dose-stage", start: "top 65%" } });
+
+    // Chapter 4 — the numbers rise; Chapter 5 — the wordmark slides in.
+    g.from(".numbers b", { yPercent: 60, opacity: 0, duration: 1, ease: "expo.out", stagger: 0.12, scrollTrigger: { trigger: ".signal", start: "top 70%" } });
+    g.from(".wordmark .big span", { yPercent: 40, opacity: 0, duration: 1.2, ease: "expo.out", stagger: 0.1, scrollTrigger: { trigger: ".wordmark", start: "top 90%" } });
+    return () => { g.set(".box3d, .leaf, .leaflet", { clearProps: "all" }); };
   });
 }
 
@@ -478,9 +523,8 @@ function typeText() {
   if (!el || !window.gsap) return;
   const full = el.dataset.text;
   const o = { n: 0 };
-  gsap.killTweensOf(o);
-  gsap.to(o, { n: full.length, duration: 1.6, ease: "none", onUpdate: () => { el.textContent = full.slice(0, Math.round(o.n)); } });
-  gsap.fromTo(".mock-conv li", { autoAlpha: 0, y: 10 }, { autoAlpha: 1, y: 0, stagger: 0.15, delay: 1.6, duration: 0.4, overwrite: true });
+  gsap.to(o, { n: full.length, duration: 1.4, ease: "none", onUpdate: () => { el.textContent = full.slice(0, Math.round(o.n)); } });
+  gsap.fromTo(".leaf .ok li", { opacity: 0, x: ar() ? 10 : -10 }, { opacity: 1, x: 0, stagger: 0.12, delay: 1.4, duration: 0.4, overwrite: true });
 }
 
 function signupForm() {
