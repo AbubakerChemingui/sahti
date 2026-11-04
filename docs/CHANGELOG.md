@@ -6,6 +6,17 @@ Categories: **Added**, **Changed**, **Fixed**, **Removed**.
 
 ## [Unreleased]
 
+### Added
+- **Landing page** for logged-out visitors, before sign-up or login:
+  - **3D hero:** floating capsules and tablets that follow the pointer and spread out on scroll (three.js r180).
+  - **Pinned "three steps" story:** a phone mock-up types a Tunisian sentence, answers a question, then shows a result (GSAP ScrollTrigger).
+  - **Dose-label showcase:** the day strip lights up slot by slot.
+  - **Safety section:** an example of the danger notice with the 190 and 198 numbers.
+  - **Join section:** the sign-up or login form.
+  - **Behaviour:** smooth scrolling (Lenis) on this page only, and language buttons in the top bar.
+  - **Fallbacks:** reduced motion gives a still 3D frame and no scroll effects; without WebGL the hero is a plain gradient.
+- Vendored (served locally, so the demo works offline): three.js 0.180.0 (MIT), Lenis 1.3.27 (MIT), and GSAP ScrollTrigger and SplitText 3.15.0 (GreenSock standard no-charge license).
+
 ### Changed
 - **Web client redesign.** New visual system: Sidi Bou Said blue on whitewash; green only for remedies and safe medicines; red only for danger. One typeface for French and Arabic (IBM Plex Sans Arabic).
   - Welcome screen with sign-up side by side.
