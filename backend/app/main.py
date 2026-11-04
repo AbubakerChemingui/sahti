@@ -14,6 +14,7 @@ from pathlib import Path
 
 from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
+from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.responses import FileResponse, JSONResponse, Response
 from fastapi.staticfiles import StaticFiles
 
@@ -85,6 +86,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     api = Api(settings or Settings.from_env())
     app = FastAPI(title="Sahti API", version=__version__)
     app.state.api = api
+    app.add_middleware(GZipMiddleware, minimum_size=1024)   # text assets and JSON are sent compressed
 
     # ------------------------------------------------------------------ errors and logging
     def error(code: str, status: int, lang: str = "fr", detail: str | None = None, details=None) -> JSONResponse:
@@ -114,6 +116,11 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     async def _log_requests(request: Request, call_next):
         start = time.perf_counter()
         response = await call_next(request)
+        path = request.url.path
+        if path.startswith(("/static/vendor/", "/static/fonts/")):   # file names carry the version
+            response.headers["Cache-Control"] = "public, max-age=31536000, immutable"
+        elif path.startswith("/static/") or path == "/":
+            response.headers["Cache-Control"] = "no-cache"   # revalidate app code on every load
         if request.url.path.startswith("/api/"):
             # Path with ids hashed, status and latency only — never a body (NFR-09).
             path = re.sub(r"[0-9a-f]{32}", lambda m: "#" + _short_hash(m.group(0)), request.url.path)
