@@ -6,6 +6,28 @@ Categories: **Added**, **Changed**, **Fixed**, **Removed**.
 
 ## [Unreleased]
 
+### Added
+- **Screen transitions** (`render()`):
+  - **Ghost copy:** a copy of the old screen is drawn in a `#transition-layer` portal above `<main>`.
+  - **GSAP Flip shared elements:** the profile card name becomes the history heading, and the history row becomes the result headline.
+  - **Other screens:** a desktop wipe of 520 ms, a short mobile fade of 220 ms, and a forward slide between consultation steps.
+  - **No transition** on the first load, on browser back/forward (the scroll position is restored), or with reduced motion (instant swap).
+- **Hash routes** (`#/`, `#/history/<id>`, `#/result/<id>`, `#/consult/<id>`, `#/profile/…`, `#/settings`): deep links and hard refresh now work.
+- **Custom cursor** (fine pointers only; the native cursor stays over text fields).
+- **Magnetic primary buttons** (16 px maximum), off on touch and with reduced motion.
+- **Consistent states:** every control has hover, focus-visible, active and disabled states.
+- **Dev-only frame meter** at `/?fps=1`.
+
+### Changed
+- **Server:** gzip for text responses; long-lived cache headers for the versioned `vendor/` and `fonts/` files, and revalidation for app code.
+- **Page head:** a meta description and a favicon.
+- **Loading:** the two critical fonts are preloaded; Lenis CSS is inlined; `app.js` now loads before the animation libraries.
+- **Hero text** is never hidden by its entrance animation.
+- **Readability and contrast:** the mono labels are at least 12 px, and the green side of the box uses `#007A3C` for AA contrast.
+
+### Removed
+- Unused CSS (`.welcome`, `.promise`, `.stack`) and unused strings.
+
 ### Changed
 - **New art direction, "La boîte et la notice"** (`design-system/MASTER.md`):
   - cool leaflet paper; the pharmacy-cross green as the only meaningful accent; a night-green chapter and a signal-red chapter;

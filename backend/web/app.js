@@ -12,8 +12,7 @@ const T = {
     disclaimerText: "Sahti est votre premier pas vers le mieux-être, pas un remplacement de votre médecin. Quand Sahti dit « consultez un médecin », faites-le.",
     disclaimer: "J'ai compris.",
     create: "Créer mon compte", haveAccount: "J'ai déjà un compte", login: "Se connecter", loginTitle: "Connexion",
-    noAccount: "Créer un compte", logout: "Déconnexion", home: "Accueil",
-    profilesTitle: "Pour qui ?", addSelf: "Créer mon profil", addChild: "Ajouter un enfant",
+    noAccount: "Créer un compte", logout: "Déconnexion", home: "Accueil", addSelf: "Créer mon profil", addChild: "Ajouter un enfant",
     feelSick: "Je me sens malade", history: "Historique", edit: "Modifier", years: "ans", months: "mois",
     under2: "Moins de 2 ans : Sahti vous orientera vers un médecin.",
     expired: "Une consultation commencée le {d} n'a pas été terminée en 24 heures. Elle a été fermée. Vous pouvez en commencer une nouvelle.",
@@ -36,21 +35,20 @@ const T = {
     send: "Envoyer", skip: "Passer — posez-moi des questions",
     importantQ: "Question importante", question: "Question", undo: "Revenir à la question précédente",
     confirmTitle: "Avons-nous bien compris ?", confirmHelp: "Décochez ce qui est faux. Seules les réponses cochées seront utilisées.",
-    confirm: "Confirmer", fallback: "Passons par quelques questions.",
-    resultTitle: "Résultat", probable: "Cause probable", confidence: "Confiance", why: "Pourquoi",
+    confirm: "Confirmer", fallback: "Passons par quelques questions.", probable: "Cause probable", confidence: "Confiance", why: "Pourquoi",
     remedies: "Remèdes naturels (à essayer d'abord)", medicines: "Médicaments sans ordonnance",
     excluded: "Non proposés pour ce profil", followUp: "Suivi",
     noSafeMed: "Aucun médicament sûr ne peut être proposé pour ce profil. Demandez conseil à un pharmacien.",
     unchecked: "Éléments non vérifiés du profil :", weightUsed: "Poids incertain : la dose est celle d'un poids plus faible (par sécurité).",
     stillLikely: "Causes encore possibles", understood: "J'ai compris", newConsult: "Retour à l'accueil",
-    dangerTitle: "Attention", dangerContinue: "Je continue", callSamu: "190 SAMU", callCivil: "198 Protection civile",
+    dangerTitle: "Attention", dangerContinue: "Je continue",
     historyTitle: "Historique", noHistory: "Aucune consultation pour l'instant.", open: "Ouvrir",
     statusIN_PROGRESS: "En cours", statusABANDONED: "Expirée", statusCOMPLETED: "Terminée", statusAWAITING_ACK: "À lire",
     rtILLNESS: "Résultat", rtUNCERTAIN: "Incertain", rtREFERRAL_AGE: "Médecin (âge)", rtREFERRAL_OUT_OF_SCOPE: "Médecin",
     rtREFERRAL_FAILURE: "Erreur — médecin", resume: "Reprendre",
     settings: "Réglages", deleteAccount: "Supprimer mon compte", deleteHelp: "Toutes vos données seront effacées. Entrez votre mot de passe pour confirmer.",
     language: "Langue", consentMissing: "Votre accord est nécessaire pour enregistrer des données de santé.", giveConsent: "Donner mon accord",
-    dataVersion: "Données", loading: "Chargement…", genericError: "Erreur technique. Réessayez.",
+    dataVersion: "Données", genericError: "Erreur technique. Réessayez.",
   },
   ar: {
     draft: "بيانات تجريبية (مسودة) — لا تُستعمل للعلاج الحقيقي",
@@ -61,8 +59,7 @@ const T = {
     disclaimerText: "صحتي خطوتك الأولى نحو الشعور بالتحسن، وليس بديلًا عن طبيبك. عندما يقول صحتي «استشر طبيبًا»، افعل ذلك.",
     disclaimer: "فهمت.",
     create: "إنشاء حسابي", haveAccount: "لدي حساب بالفعل", login: "تسجيل الدخول", loginTitle: "تسجيل الدخول",
-    noAccount: "إنشاء حساب", logout: "خروج", home: "الرئيسية",
-    profilesTitle: "لمن؟", addSelf: "إنشاء ملفي", addChild: "إضافة طفل",
+    noAccount: "إنشاء حساب", logout: "خروج", home: "الرئيسية", addSelf: "إنشاء ملفي", addChild: "إضافة طفل",
     feelSick: "أشعر بالمرض", history: "السجل", edit: "تعديل", years: "سنة", months: "شهر",
     under2: "أقل من سنتين: سيوجهك صحتي إلى الطبيب.",
     expired: "استشارة بدأت في {d} لم تكتمل خلال 24 ساعة، فأُغلقت. يمكنك بدء استشارة جديدة.",
@@ -85,54 +82,43 @@ const T = {
     send: "إرسال", skip: "تخطَّ — اطرح عليّ أسئلة",
     importantQ: "سؤال مهم", question: "سؤال", undo: "العودة إلى السؤال السابق",
     confirmTitle: "هل فهمنا جيدًا؟", confirmHelp: "أزل العلامة عمّا هو خطأ. لن تُستعمل إلا الإجابات المؤشَّر عليها.",
-    confirm: "تأكيد", fallback: "لنمرّ ببعض الأسئلة.",
-    resultTitle: "النتيجة", probable: "السبب المحتمل", confidence: "الثقة", why: "لماذا",
+    confirm: "تأكيد", fallback: "لنمرّ ببعض الأسئلة.", probable: "السبب المحتمل", confidence: "الثقة", why: "لماذا",
     remedies: "علاجات طبيعية (جرّبها أولًا)", medicines: "أدوية بدون وصفة",
     excluded: "غير مقترحة لهذا الملف", followUp: "المتابعة",
     noSafeMed: "لا يمكن اقتراح دواء آمن لهذا الملف. اطلب نصيحة صيدلي.",
     unchecked: "عناصر في الملف لم يتم التحقق منها:", weightUsed: "الوزن غير مؤكد: الجرعة هي جرعة وزن أقل (للسلامة).",
     stillLikely: "أسباب ما زالت محتملة", understood: "فهمت", newConsult: "العودة إلى الرئيسية",
-    dangerTitle: "تنبيه", dangerContinue: "أواصل", callSamu: "190 الإسعاف", callCivil: "198 الحماية المدنية",
+    dangerTitle: "تنبيه", dangerContinue: "أواصل",
     historyTitle: "السجل", noHistory: "لا توجد استشارات بعد.", open: "فتح",
     statusIN_PROGRESS: "جارية", statusABANDONED: "منتهية الصلاحية", statusCOMPLETED: "مكتملة", statusAWAITING_ACK: "للقراءة",
     rtILLNESS: "نتيجة", rtUNCERTAIN: "غير مؤكدة", rtREFERRAL_AGE: "طبيب (العمر)", rtREFERRAL_OUT_OF_SCOPE: "طبيب",
     rtREFERRAL_FAILURE: "خطأ — طبيب", resume: "متابعة",
     settings: "الإعدادات", deleteAccount: "حذف حسابي", deleteHelp: "ستُمحى كل بياناتك. أدخل كلمة المرور للتأكيد.",
     language: "اللغة", consentMissing: "موافقتك ضرورية لحفظ البيانات الصحية.", giveConsent: "أعطي موافقتي",
-    dataVersion: "البيانات", loading: "جارٍ التحميل…", genericError: "خطأ تقني. حاول مرة أخرى.",
+    dataVersion: "البيانات", genericError: "خطأ تقني. حاول مرة أخرى.",
   },
 };
 
 // Extra strings for the redesigned screens.
 Object.assign(T.fr, {
-  welcomeTitle: "Vous êtes malade ? Commençons par les bonnes questions.",
-  welcomeLead: "Sahti vous aide, vous et vos enfants, avec les petits maux du quotidien : remèdes naturels d'abord, puis médicaments sans ordonnance avec la dose exacte.",
-  promise1: "Chaque médicament est vérifié contre vos allergies, maladies et traitements.",
-  promise2: "En cas de signe de danger, Sahti vous le dit tout de suite.",
-  promise3: "Vos données de santé sont chiffrées.",
   homeTitle: "Qui ne se sent pas bien ?", homeLead: "Choisissez la personne concernée.",
   you: "Vous", child: "Enfant",
-  questionOf: "Question {n}", describeShort: "Avec vos mots", answered: "{n} réponses",
+  questionOf: "Question {n}", describeShort: "Avec vos mots",
   morning: "Matin", midday: "Midi", evening: "Soir", night: "Nuit",
   perDay: "{n} fois par jour", afterMeal: "après le repas", beforeMeal: "avant le repas", withMeal: "pendant le repas",
   confidenceCap: "Niveau de confiance de Sahti", notOffered: "Non proposés pour ce profil",
   emergencyTitle: "Situation dangereuse", urgentTitle: "Consultez un médecin",
-  samu: "SAMU", civil: "Protection civile", sending: "Envoi…",
+  samu: "SAMU", civil: "Protection civile",
 });
 Object.assign(T.ar, {
-  welcomeTitle: "تشعر بالمرض؟ لنبدأ بالأسئلة الصحيحة.",
-  welcomeLead: "يساعدك صحتي أنت وأطفالك في الأمراض البسيطة اليومية: العلاجات الطبيعية أولًا، ثم أدوية بدون وصفة بالجرعة الدقيقة.",
-  promise1: "يُفحص كل دواء مقابل حساسيتك وأمراضك وأدويتك.",
-  promise2: "عند وجود علامة خطر، يخبرك صحتي فورًا.",
-  promise3: "بياناتك الصحية مشفّرة.",
   homeTitle: "من لا يشعر بخير؟", homeLead: "اختر الشخص المعني.",
   you: "أنت", child: "طفل",
-  questionOf: "السؤال {n}", describeShort: "بكلماتك", answered: "{n} إجابات",
+  questionOf: "السؤال {n}", describeShort: "بكلماتك",
   morning: "صباحًا", midday: "ظهرًا", evening: "مساءً", night: "ليلًا",
   perDay: "{n} مرات في اليوم", afterMeal: "بعد الأكل", beforeMeal: "قبل الأكل", withMeal: "مع الأكل",
   confidenceCap: "درجة ثقة صحتي", notOffered: "غير مقترحة لهذا الملف",
   emergencyTitle: "وضع خطير", urgentTitle: "استشر طبيبًا",
-  samu: "الإسعاف", civil: "الحماية المدنية", sending: "جارٍ الإرسال…",
+  samu: "الإسعاف", civil: "الحماية المدنية",
 });
 
 // ------------------------------------------------------------------ state and helpers
@@ -198,17 +184,122 @@ async function api(method, path, body) {
   return data;
 }
 
-/* Every screen change goes through render(): content swap, focus to main (screen readers),
-   and one short cross-fade so the change is visible but never blocks input. */
+/* ------------------------------------------------------------------ navigation and transitions (pass 3)
+   Every screen change goes through render(). It swaps the content synchronously (so event binding stays simple),
+   moves focus to <main> for screen readers, and then plays a transition with a "ghost" copy of the old screen in
+   #transition-layer, a portal outside <main>:
+   - initial load and browser back/forward: no transition; back/forward restores the scroll position;
+   - a click whose element has a twin on the next screen (data-flip-id): GSAP Flip morphs it into the new hero;
+   - other navigations: desktop wipe (ghost clipped away upward, 520 ms), mobile short fade (220 ms);
+   - consultation steps: a short forward slide;
+   - reduced motion: instant swap.
+   The new screen is interactive immediately; the ghost has pointer-events: none. */
+const NAV = { kind: "initial", flip: null, popScroll: 0, applying: false };
+const DESKTOP = () => window.matchMedia("(min-width: 768px)").matches;
+
+function currentPath() { return (location.hash || "#/").slice(1) || "/"; }
+
+/* Record the screen in the history (hash routes, so hard refresh and deep links work with the server serving "/"). */
+function setPath(path, { replace = false } = {}) {
+  if (NAV.kind === "pop" || NAV.applying) return;
+  if (currentPath() === path) return;
+  const state = Object.assign({}, history.state, { scroll: window.scrollY });
+  history.replaceState(state, "", location.hash || "#/");
+  const method = replace || NAV.kind === "initial" ? "replaceState" : "pushState";
+  history[method]({ path, scroll: 0 }, "", "#" + path);
+}
+
+/* Call before navigating from a click: the clicked element will morph into its twin on the next screen. */
+function flipFrom(el) {
+  if (!el || !window.Flip || reduceMotion()) return;
+  NAV.flip = { id: el.dataset.flipId, state: Flip.getState(el) };
+}
+
 function render(html, opts = {}) {
+  const kind = NAV.kind;
+  NAV.kind = "nav";
+  const layer = document.getElementById("transition-layer");
+  const wasLanding = $app.classList.contains("landing");
+  const canAnimate = anim() && kind === "nav" && !opts.landing && !wasLanding && $app.childElementCount > 0;
+  let ghost = null;
+  if (canAnimate) {
+    ghost = $app.cloneNode(true);
+    ghost.removeAttribute("id");
+    ghost.querySelectorAll("[id]").forEach((n) => n.removeAttribute("id"));
+    ghost.setAttribute("aria-hidden", "true");
+    const r = $app.getBoundingClientRect();
+    ghost.style.cssText = `position:absolute;left:${r.left}px;top:${r.top}px;width:${r.width}px;margin:0`;
+    const sheet = document.createElement("div");   // full-width sheet so the wipe covers the whole viewport
+    sheet.className = "ghost-sheet";
+    sheet.appendChild(ghost);
+    layer.replaceChildren(sheet);
+    ghost = sheet;
+  }
   teardownLanding();
   $app.classList.toggle("wide", !!opts.wide);
   $app.classList.toggle("landing", !!opts.landing);
   $app.innerHTML = html;
   $app.focus({ preventScroll: true });
-  window.scrollTo(0, 0);
-  if (anim() && !opts.landing) gsap.fromTo($app, { autoAlpha: 0, y: 8 }, { autoAlpha: 1, y: 0, duration: 0.28, ease: "power2.out", clearProps: "transform,opacity,visibility" });
+  const y = kind === "pop" ? NAV.popScroll : 0;
+  if (window.scrollY !== y) window.scrollTo(0, y);
+  if (!canAnimate) { layer.replaceChildren(); NAV.flip = null; return; }
+
+  const flip = NAV.flip;
+  NAV.flip = null;
+  const twin = flip && $app.querySelector(`[data-flip-id="${flip.id}"]`);
+  gsap.killTweensOf([$app, layer]);
+  const done = () => layer.replaceChildren();
+  if (twin) {   // shared element: the clicked card becomes the next screen's hero
+    const g = ghost.querySelector(`[data-flip-id="${flip.id}"]`); if (g) g.style.visibility = "hidden";
+    ghost.style.background = "transparent";
+    gsap.to(ghost, { opacity: 0, duration: 0.25, ease: "power2.out", onComplete: done });
+    Flip.from(flip.state, { targets: twin, duration: 0.75, ease: "power4.inOut", absolute: false, scale: true, zIndex: 30 });
+    gsap.from([...$app.children].filter((c) => !c.contains(twin)), { opacity: 0, y: 16, duration: 0.6, ease: "expo.out", delay: 0.25, stagger: 0.05, clearProps: "opacity,transform" });
+  } else if (opts.kind === "step") {   // inside a consultation: the next card slides in, the old one leaves
+    const dir = S.lang === "ar" ? -1 : 1;
+    ghost.style.background = "transparent";
+    gsap.to(ghost, { x: -40 * dir, opacity: 0, duration: 0.4, ease: "power2.in", onComplete: done });
+    gsap.from($app, { x: 40 * dir, opacity: 0, duration: 0.6, ease: "expo.out", delay: 0.12, clearProps: "opacity,transform" });
+  } else if (DESKTOP()) {   // desktop: the old screen is wiped away upward over the new one
+    gsap.fromTo(ghost, { clipPath: "inset(0 0 0% 0)" }, { clipPath: "inset(0 0 100% 0)", duration: 0.52, ease: "power4.inOut", onComplete: done });
+    gsap.from($app, { y: 32, opacity: 0, duration: 0.7, ease: "expo.out", delay: 0.18, clearProps: "opacity,transform" });
+  } else {   // mobile: a short fade, no full-screen wipe
+    gsap.to(ghost, { opacity: 0, duration: 0.2, ease: "power2.out", onComplete: done });
+    gsap.from($app, { opacity: 0, y: 10, duration: 0.3, ease: "power2.out", clearProps: "opacity,transform" });
+  }
 }
+
+/* Resolve a path to a screen (deep links, hard refresh, back/forward). */
+async function applyPath(path) {
+  const [, a, b, c] = path.split("/");
+  NAV.applying = true;
+  try {
+    if (!S.token) return a === "login" ? login() : signup();
+    if (!S.me) await loadMe();
+    if (a === "settings") return settings();
+    if (a === "profile") return b === "new" ? profileEditor(null, c === "CHILD" ? "CHILD" : "SELF") : profileEditor(b);
+    if (a === "history" && b) return historyList(b);
+    if (a === "result" && b) return resultScreen(b);
+    if (a === "start" && b) {
+      const all = await api("GET", "/profiles");
+      const p = all.items.find((x) => x.profileId === b);
+      return p ? beforeWeStart(p) : home();
+    }
+    if (a === "consult" && b) {
+      const s = await api("GET", "/consultations/" + b);
+      if (s.status === "IN_PROGRESS") { S.seenDanger = (s.step.dangerNotice && s.step.dangerNotice.signCodes) || []; return next(b, s.step); }
+      if (s.status === "ABANDONED") return home();
+      return resultScreen(b);
+    }
+    return home();
+  } finally { NAV.applying = false; }
+}
+
+window.addEventListener("popstate", (e) => {
+  NAV.kind = "pop";
+  NAV.popScroll = (e.state && e.state.scroll) || 0;
+  applyPath(currentPath()).catch(() => home());
+});
 
 function showError(el, err) {
   const box = typeof el === "string" ? document.querySelector(el) : el;
@@ -293,7 +384,7 @@ Object.assign(T.fr, {
   heroL1: "Le bon remède.", heroL2: "La bonne dose.", heroL3: "Pour vous.",
   heroLead: "Décrivez ce que vous ressentez, en français ou en arabe. Sahti pose les bonnes questions, puis vous donne la notice qui correspond à votre profil : remèdes naturels d'abord, médicaments sans ordonnance à la dose exacte ensuite.",
   heroCta: "Créer mon compte", heroLogin: "Se connecter", openNotice: "Ouvrir la notice",
-  readNotice: "Lisez attentivement cette notice", stamp: "PHARMACIE DE POCHE · صيدلية في جيبك · ",
+  readNotice: "Lisez attentivement cette notice", stamp: "PHARMACIE DE POCHE · صيدلية في جيبك · SAHTI · ",
   noticeTitle: "Une notice écrite pour vous",
   leaf1T: "Dites-le avec vos mots", leaf1D: "Sahti comprend, puis vous demande de confirmer. Rien n'est utilisé sans votre accord.",
   leaf2T: "Quelques questions", leaf2D: "Une à la fois. Les questions de sécurité passent toujours en premier.",
@@ -311,7 +402,7 @@ Object.assign(T.ar, {
   heroL1: "العلاج المناسب.", heroL2: "الجرعة الصحيحة.", heroL3: "لك أنت.",
   heroLead: "صف ما تشعر به بالفرنسية أو بالعربية. يطرح صحتي الأسئلة الصحيحة، ثم يعطيك النشرة المناسبة لملفك: العلاجات الطبيعية أولًا، ثم أدوية بدون وصفة بالجرعة الدقيقة.",
   heroCta: "إنشاء حسابي", heroLogin: "تسجيل الدخول", openNotice: "افتح النشرة",
-  readNotice: "اقرأ هذه النشرة بعناية", stamp: "PHARMACIE DE POCHE · صيدلية في جيبك · ",
+  readNotice: "اقرأ هذه النشرة بعناية", stamp: "PHARMACIE DE POCHE · صيدلية في جيبك · SAHTI · ",
   noticeTitle: "نشرة مكتوبة لك",
   leaf1T: "قلها بكلماتك", leaf1D: "يفهم صحتي، ثم يطلب منك التأكيد. لا يُستعمل شيء دون موافقتك.",
   leaf2T: "بعض الأسئلة", leaf2D: "سؤال واحد في كل مرة. أسئلة السلامة تأتي دائمًا أولًا.",
@@ -342,7 +433,7 @@ const ar = () => S.lang === "ar";
 function boxHtml(cls = "") {
   return `<div class="box3d ${cls}" aria-hidden="true">
     <div class="face front"><div class="box-cross"></div><div class="box-name">Sahti<small>صحتي</small></div>
-      <div><div class="mono" style="font-size:.66rem">${esc(ar() ? "نشرة شخصية · FR / AR" : "Notice personnelle · FR / AR")}</div>
+      <div><div class="mono" style="font-size:.75rem">${esc(ar() ? "نشرة شخصية · FR / AR" : "Notice personnelle · FR / AR")}</div>
       <div class="box-meta"><span>LOT 2026·11</span><span>${esc(ar() ? "تجريبي" : "DÉMO")}</span></div></div></div>
     <div class="face back"></div>
     <div class="face side right"><span class="side-label">${esc(ar() ? "بيانات تجريبية" : "Données de démonstration")}</span></div>
@@ -356,7 +447,7 @@ function boxHtml(cls = "") {
 function stampHtml() {
   return `<div class="stamp" aria-hidden="true"><svg viewBox="0 0 140 140">
     <defs><path id="ring" d="M70,70 m-56,0 a56,56 0 1,1 112,0 a56,56 0 1,1 -112,0"/></defs>
-    <g class="ring"><text><textPath href="#ring">${esc(t("stamp") + t("stamp"))}</textPath></text></g>
+    <g class="ring"><text><textPath href="#ring">${esc(t("stamp"))}</textPath></text></g>
     <rect x="58" y="44" width="24" height="52" fill="#00A651"/><rect x="44" y="58" width="52" height="24" fill="#00A651"/></svg></div>`;
 }
 
@@ -386,6 +477,7 @@ function doseShowcase() {
 
 function landing(formHtml, bindForm, isLogin) {
   S.route = isLogin ? "login" : "signup";
+  setPath(isLogin ? "/login" : "/signup", { replace: true });
   render(`
   <section class="chapter hero2" aria-labelledby="hero-title">
     <div class="wrap hero2-grid">
@@ -447,9 +539,20 @@ function landing(formHtml, bindForm, isLogin) {
   startLandingMotion();
 }
 
+/* app.js runs before the animation libraries (so the first screen paints early); motion starts once they are in. */
+function whenMotionReady(fn) {
+  if (window.gsap) return fn();
+  document.addEventListener("DOMContentLoaded", fn, { once: true });
+}
+
 function startLandingMotion() {
+  whenMotionReady(runLandingMotion);
+}
+
+function runLandingMotion() {
+  document.documentElement.classList.remove("motion-pending");
   const g = window.gsap;
-  if (!g) return;
+  if (!g || !$app.classList.contains("landing")) return;
   g.registerPlugin(window.ScrollTrigger, window.SplitText);
   L.mm = g.matchMedia();
   L.mm.add({ reduce: "(prefers-reduced-motion: reduce)", desktop: "(min-width: 768px) and (prefers-reduced-motion: no-preference)", mobile: "(max-width: 767px) and (prefers-reduced-motion: no-preference)" }, (ctx) => {
@@ -469,8 +572,8 @@ function startLandingMotion() {
     // Chapter 1 — the box arrives, the headline is printed line by line.
     const intro = g.timeline({ defaults: { ease: "expo.out" } });
     intro.from(".hero-box", { y: 80, rotateY: -80, rotateX: 10, opacity: 0, duration: 1.4 }, 0)
-      .from(".hero2 h1 .ln", { yPercent: 105, opacity: 0, duration: 0.9, stagger: 0.08, clipPath: "inset(0 0 100% 0)" }, 0.15)
-      .from(".hero2 .lede, .hero2 .cta", { y: 20, opacity: 0, duration: 0.7, stagger: 0.07 }, 0.55)
+      .from(".hero2 h1 .ln", { yPercent: 18, duration: 0.9, stagger: 0.08 }, 0.1)
+      .from(".hero2 .lede, .hero2 .cta", { y: 20, duration: 0.7, stagger: 0.07 }, 0.3)
       .from(".stamp", { scale: 0.6, rotate: -90, opacity: 0, duration: 1 }, 0.4);
     // Idle: the box turns a little and follows the pointer; the stamp turns with scroll.
     const box = $app.querySelector(".hero-box");
@@ -602,8 +705,7 @@ function mainNav() { nav([[t("home"), "home", "home"], [t("settings"), "settings
 
 // ------------------------------------------------------------------ SCR-04 home
 async function home() {
-  S.route = "home"; mainNav(); hideDanger(); S.seenDanger = [];
-  render(`<p class="muted">${esc(t("loading"))}</p>`);
+  S.route = "home"; setPath("/"); mainNav(); hideDanger(); S.seenDanger = [];
   let data;
   try { data = await api("GET", "/profiles"); } catch (ex) { render(`<p class="error">${esc(ex.message)}</p>`); return; }
   const expired = data.items.flatMap((p) => p.expiredConsultations.map((e) =>
@@ -613,7 +715,7 @@ async function home() {
   const age = (p) => p.ageYears >= 2 ? `<span class="num">${p.ageYears}</span> ${esc(t("years"))}` : `<span class="num">${p.ageMonths}</span> ${esc(t("months"))}`;
   const cards = data.items.map((p) => `<article class="person">
       <div class="avatar" aria-hidden="true">${esc((p.fullName || "?").trim().charAt(0).toUpperCase())}</div>
-      <h3>${esc(p.fullName)}</h3>
+      <h3 data-flip-id="person-${p.profileId}">${esc(p.fullName)}</h3>
       <div class="meta">${esc(t(p.relation === "SELF" ? "you" : "child"))} · ${age(p)}${p.eligible ? "" : ` · ${esc(t("under2"))}`}</div>
       <div class="actions"><button class="btn" data-start="${p.profileId}">${esc(t("feelSick"))}</button>
       <button class="btn secondary" data-history="${p.profileId}">${esc(t("history"))}</button>
@@ -625,7 +727,7 @@ async function home() {
     <button class="btn secondary" id="add-child">${esc(t("addChild"))}</button></div>`);
   const byId = Object.fromEntries(data.items.map((p) => [p.profileId, p]));
   document.querySelectorAll("[data-start]").forEach((b) => b.onclick = () => beforeWeStart(byId[b.dataset.start]));
-  document.querySelectorAll("[data-history]").forEach((b) => b.onclick = () => historyList(byId[b.dataset.history]));
+  document.querySelectorAll("[data-history]").forEach((b) => b.onclick = () => { flipFrom(b.closest(".person").querySelector("[data-flip-id]")); historyList(byId[b.dataset.history]); });
   document.querySelectorAll("[data-edit]").forEach((b) => b.onclick = () => profileEditor(b.dataset.edit));
   const addSelf = document.getElementById("add-self"); if (addSelf) addSelf.onclick = () => profileEditor(null, "SELF");
   document.getElementById("add-child").onclick = () => profileEditor(null, "CHILD");
@@ -637,7 +739,7 @@ async function home() {
 const LISTS = [["allergies", "ALLERGY"], ["conditions", "CONDITION"], ["medications", "MEDICATION"]];
 
 async function profileEditor(profileId, relation) {
-  S.route = "profile"; mainNav();
+  S.route = "profile"; setPath(profileId ? "/profile/" + profileId : "/profile/new/" + relation); mainNav();
   let p = { relation, sex: "", smokingStatus: "NEVER", alcoholUse: "NONE", allergies: [], conditions: [], medications: [] };
   if (profileId) p = await api("GET", "/profiles/" + profileId);
   relation = p.relation;
@@ -721,7 +823,8 @@ async function profileEditor(profileId, relation) {
 
 // ------------------------------------------------------------------ SCR-15 before we start
 async function beforeWeStart(p) {
-  S.route = "consult"; mainNav();
+  S.route = "consult"; setPath("/start/" + p.profileId); mainNav();
+  const stepOpts = { kind: "step" };
   const extra = {};
   const steps = [];
   if (p.needsPregnancyCheck) steps.push("pregnancy");
@@ -730,7 +833,7 @@ async function beforeWeStart(p) {
   const go = async () => {
     try {
       const out = await api("POST", "/consultations", { profileId: p.profileId, ...extra });
-      S.seenDanger = []; S.count = 0;
+      S.seenDanger = [];
       if (out.step.type === "RESULT") return resultScreen(out.consultationId);
       describe(out.consultationId, out.step);
     } catch (ex) { render(`<p class="error">${esc(ex.message)}</p>`); }
@@ -741,13 +844,13 @@ async function beforeWeStart(p) {
     if (!step) return go();
     if (step === "pregnancy") {
       render(`${head}<p class="question">${esc(t("pregnantNow"))}</p>
-        <div class="answers">${["NO", "YES", "NOT_SURE"].map((v) => `<button class="answer" data-v="${v}"><span class="dot"></span>${esc(t(v === "NOT_SURE" ? "notSure" : v.toLowerCase()))}</button>`).join("")}</div>`);
+        <div class="answers">${["NO", "YES", "NOT_SURE"].map((v) => `<button class="answer" data-v="${v}"><span class="dot"></span>${esc(t(v === "NOT_SURE" ? "notSure" : v.toLowerCase()))}</button>`).join("")}</div>`, stepOpts);
       document.querySelectorAll("[data-v]").forEach((b) => b.onclick = () => { extra.pregnancyReconfirmed = b.dataset.v; next(); });
     } else if (step === "weight") {
       render(`${head}<p class="question"><label for="w">${esc(t("childWeightNow"))}</label></p>
         <div class="number-entry"><input id="w" type="number" inputmode="decimal" step="0.1" lang="en" class="num"><span class="muted">kg</span></div>
         <p class="question" style="font-size:1.25rem;margin-top:var(--s6)">${esc(t("sureWeight"))}</p><p class="hint">${esc(t("sureWeightHelp"))}</p>
-        <div class="answers"><button class="answer" data-sure="yes"><span class="dot"></span>${esc(t("yes"))}</button><button class="answer" data-sure="no"><span class="dot"></span>${esc(t("no"))}</button></div>`);
+        <div class="answers"><button class="answer" data-sure="yes"><span class="dot"></span>${esc(t("yes"))}</button><button class="answer" data-sure="no"><span class="dot"></span>${esc(t("no"))}</button></div>`, stepOpts);
       document.querySelectorAll("[data-sure]").forEach((b) => b.onclick = () => {
         const w = document.getElementById("w").value;
         if (w !== "") extra.weightKg = Number(w);
@@ -756,7 +859,7 @@ async function beforeWeStart(p) {
       });
     } else {
       render(`${head}<p class="question">${esc(t("newMeds"))}</p>
-        <div class="answers"><button class="answer" id="no"><span class="dot"></span>${esc(t("no"))}</button><button class="answer" id="yes"><span class="dot"></span>${esc(t("yes"))} — ${esc(t("updateProfile"))}</button></div>`);
+        <div class="answers"><button class="answer" id="no"><span class="dot"></span>${esc(t("no"))}</button><button class="answer" id="yes"><span class="dot"></span>${esc(t("yes"))} — ${esc(t("updateProfile"))}</button></div>`, stepOpts);
       document.getElementById("no").onclick = next;
       document.getElementById("yes").onclick = () => profileEditor(p.profileId);
     }
@@ -765,13 +868,16 @@ async function beforeWeStart(p) {
 }
 
 // ------------------------------------------------------------------ SCR-13 describe
+function consultPath(cid) { setPath("/consult/" + cid, { replace: /^\/(consult|start)\//.test(currentPath()) }); }
+
 function describe(cid, firstStep) {
+  consultPath(cid);
   render(`<span class="tag">${esc(t("describeShort"))}</span><h1 style="margin-top:var(--s4)">${esc(t("describeTitle"))}</h1>
     <p class="lead">${esc(t("describeHelp"))}</p>
     <div class="describe-box"><label for="txt" class="label" hidden>${esc(t("describeTitle"))}</label>
     <textarea id="txt" maxlength="1000" autocomplete="off" spellcheck="false" aria-describedby="hint"></textarea></div>
     <p class="hint" id="hint">${icon("info")} ${esc(t("describeHint"))}</p><p class="error" id="err" role="alert"></p>
-    <div class="actions"><button class="btn lg" id="send">${esc(t("send"))}</button><button class="btn secondary lg" id="skip">${esc(t("skip"))}</button></div>`);
+    <div class="actions"><button class="btn lg" id="send">${esc(t("send"))}</button><button class="btn secondary lg" id="skip">${esc(t("skip"))}</button></div>`, { kind: "step" });
   document.getElementById("skip").onclick = () => question(cid, firstStep);
   const send = document.getElementById("send");
   send.onclick = () => {
@@ -791,10 +897,11 @@ function describe(cid, firstStep) {
 
 // ------------------------------------------------------------------ SCR-14 confirm converted
 async function confirmConverted(cid, step) {
+  consultPath(cid);
   await showDanger(step.dangerNotice);
   render(`<span class="tag">${esc(t("describeShort"))}</span><h1 style="margin-top:var(--s4)">${esc(t("confirmTitle"))}</h1><p class="lead">${esc(t("confirmHelp"))}</p>
     <div class="panel"><ul class="converted">${step.converted.map((c) => `<li><label class="check"><input type="checkbox" checked value="${esc(c.questionCode)}"> <span>${esc(c.label)}</span></label></li>`).join("")}</ul></div>
-    <p class="error" id="err"></p><button class="btn block lg" id="ok">${esc(t("confirm"))}</button>`);
+    <p class="error" id="err"></p><button class="btn block lg" id="ok">${esc(t("confirm"))}</button>`, { kind: "step" });
   const ok = document.getElementById("ok");
   ok.onclick = () => busy(ok, async () => {
     const items = [...document.querySelectorAll(".converted input[type=checkbox]")].map((c) => ({ questionCode: c.value, confirmed: c.checked }));
@@ -813,7 +920,7 @@ function next(cid, step) {
 
 // ------------------------------------------------------------------ SCR-06 question
 async function question(cid, step) {
-  S.route = "consult"; mainNav();
+  S.route = "consult"; consultPath(cid); mainNav();
   await showDanger(step.dangerNotice);
   const q = step.question;
   const important = q.important;
@@ -826,7 +933,7 @@ async function question(cid, step) {
   render(`${important ? `<span class="tag important">${icon("alert")} ${esc(t("importantQ"))}</span>`
       : `<div class="progress"><span>${esc(t("questionOf", { n: "§" })).replace("§", `<span class="num">${n}</span>`)}</span><div class="track" aria-hidden="true"><div class="fill" style="--p:${pct}%"></div></div></div>`}
     <p class="question qtext" id="qtext">${esc(q.text)}</p>${answers}<p class="error" id="err" role="alert"></p>
-    ${step.canUndo ? `<div class="undo"><button class="btn quiet" id="undo">${icon("back")} ${esc(t("undo"))}</button></div>` : ""}`);
+    ${step.canUndo ? `<div class="undo"><button class="btn quiet" id="undo">${icon("back")} ${esc(t("undo"))}</button></div>` : ""}`, { kind: "step" });
   const send = (value, btn) => busy(btn, async () => {
     try {
       const out = await api("POST", `/consultations/${cid}/answers`, { questionCode: q.code, value });
@@ -859,7 +966,7 @@ function doseLabel(m) {
 }
 
 async function resultScreen(cid) {
-  S.route = "result"; mainNav();
+  S.route = "result"; setPath("/result/" + cid, { replace: /^\/(consult|start)\//.test(currentPath()) }); mainNav();
   let r;
   try { r = await api("GET", `/consultations/${cid}/result`); } catch (ex) { render(`<p class="error">${esc(ex.message)}</p>`); return; }
   if (r.dangerNotice) showDanger({ ...r.dangerNotice, newSigns: [] }); else hideDanger();
@@ -869,11 +976,11 @@ async function resultScreen(cid) {
   const headline = isResult ? (r.resultType === "UNCERTAIN" ? r.stillLikely.map((s) => s.label).join(" · ") : r.illness.label) : "";
   render(`${dangerHtml(r.dangerNotice)}
     ${r.prescriptionMessage ? `<div class="alert urgent" style="margin-top:var(--s4)">${icon("info")}<div>${esc(r.prescriptionMessage)}</div></div>` : ""}
-    ${!isResult ? `<div class="result-head" style="margin-top:var(--s4)"><p class="kicker">${esc(r.profileName)}</p><p class="illness">${esc(t("rt" + r.resultType))}</p>
+    ${!isResult ? `<div class="result-head" style="margin-top:var(--s4)"><p class="kicker">${esc(r.profileName)}</p><p class="illness" data-flip-id="cons-${cid}">${esc(t("rt" + r.resultType))}</p>
        <div class="alert urgent">${icon("alert")}<div>${esc(r.message)}</div></div></div>` : `
     <section class="result-head" style="margin-top:var(--s4)" aria-labelledby="ill">
       <p class="kicker">${esc(t(r.resultType === "UNCERTAIN" ? "stillLikely" : "probable"))} · ${esc(r.profileName)}</p>
-      <h1 class="illness" id="ill">${esc(headline)}</h1>
+      <h1 class="illness" id="ill" data-flip-id="cons-${cid}">${esc(headline)}</h1>
       <div class="meter"><div class="track" aria-hidden="true"><div class="fill" style="width:${r.confidence}%"></div></div>
         <span class="value num">${r.confidence}%</span><span class="cap">${esc(t("confidenceCap"))}</span></div>
       ${r.message ? `<div class="note info" style="margin:var(--s4) 0 0">${icon("info")}<span>${esc(r.message)}</span></div>` : ""}
@@ -903,17 +1010,22 @@ async function resultScreen(cid) {
 
 // ------------------------------------------------------------------ SCR-09 history
 async function historyList(p) {
-  S.route = "history"; mainNav(); hideDanger();
+  if (typeof p === "string") {   // deep link: only the id is known
+    const all = await api("GET", "/profiles");
+    p = all.items.find((x) => x.profileId === p);
+    if (!p) return home();
+  }
+  S.route = "history"; setPath("/history/" + p.profileId); mainNav(); hideDanger();
   const data = await api("GET", `/profiles/${p.profileId}/consultations`);
   const rows = data.items.map((c) => `<li>
       ${c.dangerLevel !== "NONE" ? `<span class="tag important" title="${esc(t("dangerTitle"))}">${icon("alert")}</span>` : ""}
-      <div class="what"><b>${esc(c.illness || t("rt" + c.resultType) || t("status" + c.status))}</b><div class="when"><span class="num">${esc(fmtDate(c.startedAt))}</span> · ${esc(t("status" + c.status))}</div></div>
+      <div class="what"><b data-flip-id="cons-${c.consultationId}">${esc(c.illness || t("rt" + c.resultType) || t("status" + c.status))}</b><div class="when"><span class="num">${esc(fmtDate(c.startedAt))}</span> · ${esc(t("status" + c.status))}</div></div>
       ${c.status === "COMPLETED" || c.status === "AWAITING_ACK" ? `<button class="btn secondary" data-open="${c.consultationId}">${esc(t("open"))}</button>` : ""}
       ${c.status === "IN_PROGRESS" ? `<button class="btn" data-resume="${c.consultationId}">${esc(t("resume"))}</button>` : ""}</li>`).join("");
-  render(`<h1>${esc(t("historyTitle"))}</h1><p class="lead">${esc(p.fullName)}</p>
+  render(`<h1>${esc(t("historyTitle"))}</h1><p class="lead history-who" data-flip-id="person-${p.profileId}">${esc(p.fullName)}</p>
     <div class="panel">${rows ? `<ul class="history">${rows}</ul>` : `<p class="muted">${esc(t("noHistory"))}</p>`}</div>
     <div class="actions"><button class="btn secondary" id="back">${icon("back")} ${esc(t("back"))}</button></div>`);
-  document.querySelectorAll("[data-open]").forEach((b) => b.onclick = () => resultScreen(b.dataset.open));
+  document.querySelectorAll("[data-open]").forEach((b) => b.onclick = () => { flipFrom(b.closest("li").querySelector("[data-flip-id]")); resultScreen(b.dataset.open); });
   document.querySelectorAll("[data-resume]").forEach((b) => b.onclick = async () => {
     const c = await api("GET", "/consultations/" + b.dataset.resume);
     S.seenDanger = (c.step.dangerNotice && c.step.dangerNotice.signCodes) || [];
@@ -924,7 +1036,7 @@ async function historyList(p) {
 
 // ------------------------------------------------------------------ SCR-11 settings
 function settings() {
-  S.route = "settings"; mainNav(); hideDanger();
+  S.route = "settings"; setPath("/settings"); mainNav(); hideDanger();
   render(`<h1>${esc(t("settings"))}</h1>
     <div class="panel"><span class="label">${esc(t("email"))}</span><p style="margin:0">${esc(S.me && S.me.email)}</p>
       <span class="label" style="margin-top:var(--s4)">${esc(t("language"))}</span>${langSwitch().replace('class="lang-switch"', 'class="lang-switch" style="border:0;margin-top:0;padding-top:0"')}</div>
@@ -937,12 +1049,94 @@ function settings() {
   };
 }
 
+
+// ------------------------------------------------------------------ pass 4: cursor and magnetic buttons
+/* One cursor element, fine pointers only, transform-only with a 0.15 lerp driven by gsap.ticker (no layout reads per
+   frame). It grows over interactive elements and steps aside over text fields so the native caret and selection stay.
+   Magnetic pull (max 16 px) on primary and large buttons; never on touch, reduced motion, disabled or placeholder links. */
+function initPointerCraft() {
+  const fine = window.matchMedia("(pointer: fine)").matches;
+  if (!fine || reduceMotion() || !window.gsap) return;
+  const dot = document.createElement("div");
+  dot.className = "cursor";
+  dot.setAttribute("aria-hidden", "true");
+  document.body.appendChild(dot);
+  document.documentElement.classList.add("has-cursor");
+  const pos = { x: innerWidth / 2, y: innerHeight / 2 }, target = { x: pos.x, y: pos.y };
+  let shown = false;
+  window.addEventListener("pointermove", (e) => {
+    target.x = e.clientX; target.y = e.clientY;
+    if (!shown) { shown = true; pos.x = target.x; pos.y = target.y; dot.classList.add("on"); }
+  }, { passive: true });
+  document.addEventListener("pointerleave", () => { shown = false; dot.classList.remove("on"); });
+  gsap.ticker.add(() => {
+    pos.x += (target.x - pos.x) * 0.15;
+    pos.y += (target.y - pos.y) * 0.15;
+    dot.style.transform = `translate3d(${pos.x}px, ${pos.y}px, 0)`;
+  });
+  const INTERACTIVE = "a[href], button:not(:disabled), [role=button], label.chip, label.check, .seg label, select";
+  const TEXT = "input:not([type=checkbox]):not([type=radio]), textarea, [contenteditable]";
+  document.addEventListener("pointerover", (e) => {
+    const el = e.target;
+    dot.classList.toggle("text", !!el.closest(TEXT));
+    dot.classList.toggle("link", !el.closest(TEXT) && !!el.closest(INTERACTIVE));
+    dot.classList.toggle("danger", !!el.closest(".signal, .btn.danger, .tel"));
+  });
+
+  // magnetic pull: delegated, so it works for every screen without re-binding
+  const MAG = ".btn.lg:not(:disabled):not([aria-busy=true]), .btn:not(.secondary):not(.quiet):not(:disabled), .numbers a";
+  let active = null, mx = null, my = null;
+  const release = () => {
+    if (!active) return;
+    gsap.to(active, { x: 0, y: 0, duration: 0.5, ease: "power3.out" });   // spring back
+    active = null;
+  };
+  document.addEventListener("pointermove", (e) => {
+    const el = e.target.closest && e.target.closest(MAG);
+    if (el !== active) { release(); if (el) { active = el; mx = gsap.quickTo(el, "x", { duration: 0.35, ease: "power3.out" }); my = gsap.quickTo(el, "y", { duration: 0.35, ease: "power3.out" }); } }
+    if (!active) return;
+    const r = active.getBoundingClientRect();   // one read per pointer event, not per frame
+    const dx = (e.clientX - (r.left + r.width / 2)) / (r.width / 2);
+    const dy = (e.clientY - (r.top + r.height / 2)) / (r.height / 2);
+    mx(Math.max(-1, Math.min(1, dx)) * 16);
+    my(Math.max(-1, Math.min(1, dy)) * 10);
+  }, { passive: true });
+  document.addEventListener("pointerdown", () => { if (active) gsap.to(active, { x: 0, y: 0, duration: 0.15 }); });
+}
+
+/* Dev-only frame meter: open /?fps=1 to see the frame rate, the longest frame and frames over 20 ms while you scroll. */
+function initFrameMeter() {
+  if (!new URLSearchParams(location.search).has("fps")) return;
+  const box = document.createElement("div");
+  box.className = "fps-meter";
+  box.setAttribute("aria-hidden", "true");
+  document.body.appendChild(box);
+  let last = performance.now(), frames = 0, worst = 0, slow = 0, t0 = last;
+  const tick = (now) => {
+    const dt = now - last; last = now; frames++;
+    if (dt > worst) worst = dt;
+    if (dt > 20) slow++;
+    if (now - t0 >= 1000) {
+      box.textContent = `${Math.round(frames * 1000 / (now - t0))} fps · max ${worst.toFixed(1)} ms · >20 ms: ${slow}`;
+      frames = 0; t0 = now; worst = 0;
+    }
+    requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+}
+
 const ROUTES = { home, settings, logout, login, signup };
 
 // ------------------------------------------------------------------ start
 (async function boot() {
   setLang(S.lang);
+  history.scrollRestoration = "manual";
+  initFrameMeter();
+  whenMotionReady(() => {
+    if (window.gsap) gsap.registerPlugin(...[window.Flip, window.ScrollTrigger, window.SplitText].filter(Boolean));
+    initPointerCraft();
+  });
   document.getElementById("draft-banner").hidden = false; // until /health confirms VALIDATED data
-  if (!S.token) return signup();
-  try { await loadMe(); home(); } catch (e) { signup(); }
+  NAV.kind = "initial";
+  try { await applyPath(currentPath()); } catch (e) { NAV.kind = "initial"; signup(); }
 })();

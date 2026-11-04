@@ -83,6 +83,18 @@ Mono labels carry real metadata: `LOT 2026-11`, `ÉTAPE 1/3`, `3× / JOUR`, `MAX
 - **Reduced motion:** opacity-only fades, no pin, no parallax, no rotation loop, and no Lenis.
 - **Breakpoints:** below 768 px, the pinned scene unpins into a vertical sequence.
 
+### Screen transitions (app)
+
+| Navigation | Effect | Duration |
+|---|---|---|
+| Card to detail (profile → history, history row → result) | GSAP Flip: the clicked element becomes the next hero | 750 ms; the rest fades in after 250 ms |
+| Other screens, ≥ 768 px | The old screen is wiped upward over the new one | wipe 520 ms, new screen 700 ms |
+| Other screens, < 768 px | Short fade | 220–300 ms |
+| Consultation steps | Forward slide (mirrored in Arabic) | out 400 ms, in 600 ms |
+| First load, back/forward, reduced motion | None (back/forward restores the scroll position) | 0 |
+
+The new screen is interactive at once: the outgoing copy lives in `#transition-layer` with `pointer-events: none`.
+
 ## 7. Effects budget
 
 - **Per viewport:** at most **one** moving focal element, plus one micro-detail (the stamp rotation).
