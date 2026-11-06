@@ -21,7 +21,7 @@ Everything below just adds Claude-specific working notes.
 ```bash
 # install deps:   python -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt
 #                 (Windows: .venv\Scripts\activate)
-# run the app:    uvicorn app.main:app --reload --app-dir backend   →  http://127.0.0.1:8000/api/v1/health
+# run the app:    uvicorn app.main:app --reload --app-dir backend --port 8001   →  http://127.0.0.1:8001/api/v1/health
 # run tests:      pytest
 # lint/format:    not set up yet (ruff planned)
 ```

@@ -54,8 +54,8 @@ cd sahti
 python -m venv .venv
 .\.venv\Scripts\python -m pip install -r requirements.txt
 
-# 3. Run the app, then open http://127.0.0.1:8000/ in your browser
-.\.venv\Scripts\python -m uvicorn app.main:app --app-dir backend
+# 3. Run the app, then open http://127.0.0.1:8001/ in your browser
+.\.venv\Scripts\python -m uvicorn app.main:app --app-dir backend --port 8001
 
 # 4. Run the tests (in a second terminal, inside the sahti folder)
 .\.venv\Scripts\python -m pytest
@@ -70,7 +70,7 @@ git clone https://github.com/AbubakerChemingui/sahti.git
 cd sahti
 python3 -m venv .venv
 .venv/bin/python -m pip install -r requirements.txt
-.venv/bin/python -m uvicorn app.main:app --app-dir backend     # then open http://127.0.0.1:8000/
+.venv/bin/python -m uvicorn app.main:app --app-dir backend --port 8001     # then open http://127.0.0.1:8001/
 .venv/bin/python -m pytest                                     # in a second terminal
 ```
 
@@ -79,13 +79,13 @@ python3 -m venv .venv
 - **Settings:** copy `.env.example` to `.env` and change the values (`copy .env.example .env` on Windows). Your `.env` is never committed.
 - **Live reload while coding:** add `--reload` to the uvicorn command.
 - **Git hooks for contributors:** run `./scripts/setup.sh` from Git Bash.
-- **API health check:** http://127.0.0.1:8000/api/v1/health
+- **API health check:** http://127.0.0.1:8001/api/v1/health
 - **Optional production build** (needs Node.js): `python scripts/build_web.py`, then start the server with `SAHTI_WEB_DIST=1`. Without that variable, the un-built client is served as usual.
-- **Frame meter for performance checks:** open http://127.0.0.1:8000/?fps=1
+- **Frame meter for performance checks:** open http://127.0.0.1:8001/?fps=1
 
 ### Try it (2 minutes)
 
-1. Open http://127.0.0.1:8000/ and create an account. Any email works, because nothing is sent.
+1. Open http://127.0.0.1:8001/ and create an account. Any email works, because nothing is sent.
 2. Create your profile, then click **I feel sick**.
 3. Type, for example, *« J'ai mal à la gorge et de la fièvre depuis 2 jours, je ne tousse pas »*. Confirm what the app understood, then answer the questions. The result is a sore throat with a "may need a prescription" message.
 4. To see a danger notice, answer **Yes** to "Do you have difficulty breathing right now?".

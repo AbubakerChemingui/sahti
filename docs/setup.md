@@ -32,9 +32,9 @@ pip install -r requirements.txt
 # 5. Database: nothing to do yet (SQLite file sahti.db will be created by the app)
 
 # 6. Run the API
-uvicorn app.main:app --reload --app-dir backend
-# open http://127.0.0.1:8000/api/v1/health  →  {"status":"ok",...}
-# API docs: http://127.0.0.1:8000/docs
+uvicorn app.main:app --reload --app-dir backend --port 8001
+# open http://127.0.0.1:8001/api/v1/health  →  {"status":"ok",...}
+# API docs: http://127.0.0.1:8001/docs
 
 # 7. Run tests
 pytest
