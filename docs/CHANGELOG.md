@@ -7,6 +7,7 @@ Categories: **Added**, **Changed**, **Fixed**, **Removed**.
 ## [Unreleased]
 
 ### Fixed
+- **Run port:** the documented run command now passes `--port 8001` and every local URL points to `http://127.0.0.1:8001/`. Port 8000 is often already taken on Windows, which stopped the README steps with `[Errno 10048]`.
 - **Layout shift on slow first loads:** the display font (Archivo) now uses `font-display: optional`. The hero no longer reflows when it arrives late: CLS was 0.116 and is now 0.012, measured on mobile with Lighthouse DevTools throttling.
 
 ### Added

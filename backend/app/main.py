@@ -1,6 +1,6 @@
 """FastAPI application: Sahti MVP API (SRS §9) and the web client.
 
-Run locally:  uvicorn app.main:app --reload --app-dir backend   →  http://127.0.0.1:8000/
+Run locally:  uvicorn app.main:app --reload --app-dir backend --port 8001   →  http://127.0.0.1:8001/
 """
 from __future__ import annotations
 
